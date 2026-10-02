@@ -1,0 +1,392 @@
+/* ============================================================
+   FRAUD LAB — FINAL PREMIUM VISUAL OVERRIDES
+   v7.12
+   Purpose:
+   - fix unreadable text
+   - remove white / washed-out panels
+   - increase internal spacing
+   - improve accessibility
+   - enforce premium dark look
+   ============================================================ */
+
+:root {
+  --fl-premium-bg-1: #0d2538;
+  --fl-premium-bg-2: #14324a;
+  --fl-premium-bg-3: #0a1d2c;
+
+  --fl-premium-text: #f8fbfd;
+  --fl-premium-soft: #d9e4ec;
+  --fl-premium-muted: #b7c7d4;
+
+  --fl-premium-border: rgba(214, 228, 237, .18);
+  --fl-premium-border-strong: rgba(214, 228, 237, .30);
+
+  --fl-premium-shadow:
+    0 22px 50px rgba(0, 0, 0, .24);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------
+   MAIN SCREEN TEXT SAFETY
+   ------------------------------------------------------------ */
+
+#screen,
+#screen * {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+#screen h1,
+#screen h2,
+#screen h3,
+#screen h4,
+#screen h5,
+#screen h6 {
+  color: var(--fl-premium-text) !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.12 !important;
+  margin-top: 0 !important;
+  text-wrap: balance;
+}
+
+#screen p,
+#screen li,
+#screen span,
+#screen label,
+#screen small {
+  color: var(--fl-premium-soft) !important;
+  line-height: 1.55 !important;
+}
+
+#screen p:last-child,
+#screen li:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ------------------------------------------------------------
+   INTRO / RESULT / GENERIC CONTENT CARDS
+   This fixes the white washed-out panels from screenshots.
+   ------------------------------------------------------------ */
+
+#screen .intro-card,
+#screen .result-card,
+#screen .fatal-card,
+#screen .feedback,
+#screen .safe-action,
+#screen .scenario-card,
+#screen .content-card,
+#screen .text-card,
+#screen .question-panel,
+#screen .copy-panel,
+#screen .content-panel,
+#screen .right-panel,
+#screen .left-panel,
+#screen .call-copy,
+#screen .scenario-copy,
+#screen .scenario-panel,
+#screen .call-panel,
+#screen .call-content,
+#screen .call-dialog,
+#screen .call-transcript,
+#screen .speech-bubble,
+#screen .message-card,
+#screen .browser-card,
+#screen .fake-site,
+#screen .poster-card {
+  background:
+    linear-gradient(
+      145deg,
+      var(--fl-premium-bg-2),
+      var(--fl-premium-bg-1)
+    ) !important;
+
+  color: var(--fl-premium-text) !important;
+
+  border: 1px solid var(--fl-premium-border) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--fl-premium-shadow) !important;
+}
+
+/* ------------------------------------------------------------
+   SPACING FIX
+   Text was glued to edges in the screenshots.
+   ------------------------------------------------------------ */
+
+#screen .intro-card,
+#screen .result-card,
+#screen .fatal-card,
+#screen .feedback,
+#screen .safe-action,
+#screen .scenario-card,
+#screen .content-card,
+#screen .text-card,
+#screen .question-panel,
+#screen .copy-panel,
+#screen .content-panel,
+#screen .right-panel,
+#screen .left-panel,
+#screen .call-copy,
+#screen .scenario-copy,
+#screen .scenario-panel,
+#screen .call-panel,
+#screen .call-content,
+#screen .call-dialog,
+#screen .call-transcript,
+#screen .browser-card,
+#screen .fake-site,
+#screen .poster-card {
+  padding: clamp(24px, 2.2vw, 38px) !important;
+}
+
+/* ------------------------------------------------------------
+   CALL SCREEN SPECIFIC FIXES
+   ------------------------------------------------------------ */
+
+#screen .phone-shell,
+#screen .phone-frame,
+#screen .phone-panel,
+#screen .phone-screen,
+#screen .incoming-call,
+#screen .caller-panel {
+  background: #05131d !important;
+  color: var(--fl-premium-text) !important;
+  border: 1px solid #29465b !important;
+  border-radius: 30px !important;
+}
+
+#screen .caller-name {
+  color: var(--fl-premium-text) !important;
+  font-size: clamp(1.55rem, 2.2vw, 2.35rem) !important;
+  line-height: 1.08 !important;
+  margin-bottom: 10px !important;
+}
+
+#screen .caller-number,
+#screen .caller-role,
+#screen .call-subtitle {
+  color: var(--fl-premium-muted) !important;
+  font-size: clamp(1rem, 1.15vw, 1.14rem) !important;
+}
+
+/* ------------------------------------------------------------
+   CALL CONTENT TYPOGRAPHY
+   Fixes giant and unreadable titles seen in screenshots.
+   ------------------------------------------------------------ */
+
+#screen .call-copy h1,
+#screen .call-copy h2,
+#screen .scenario-copy h1,
+#screen .scenario-copy h2,
+#screen .scenario-panel h1,
+#screen .scenario-panel h2,
+#screen .content-panel h1,
+#screen .content-panel h2,
+#screen .right-panel h1,
+#screen .right-panel h2,
+#screen .question-panel h1,
+#screen .question-panel h2 {
+  font-size: clamp(1.9rem, 2.6vw, 3.15rem) !important;
+  max-width: 15ch !important;
+  margin-bottom: 18px !important;
+}
+
+#screen .call-copy h3,
+#screen .scenario-copy h3,
+#screen .scenario-panel h3,
+#screen .content-panel h3,
+#screen .right-panel h3,
+#screen .question-panel h3 {
+  font-size: clamp(1rem, 1.2vw, 1.18rem) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: var(--fl-premium-muted) !important;
+  margin-bottom: 14px !important;
+}
+
+#screen .call-copy p,
+#screen .scenario-copy p,
+#screen .scenario-panel p,
+#screen .content-panel p,
+#screen .right-panel p,
+#screen .question-panel p,
+#screen .feedback p,
+#screen .safe-action p {
+  font-size: clamp(1.02rem, 1.22vw, 1.28rem) !important;
+  max-width: 62ch !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* ------------------------------------------------------------
+   BUBBLE / SCRIPT / QUOTE FIX
+   Prevent white speech bubble issue.
+   ------------------------------------------------------------ */
+
+#screen .speech-bubble,
+#screen .dialog-bubble,
+#screen .quote-box,
+#screen .message-box,
+#screen .script-box,
+#screen .call-script,
+#screen .transcript-box {
+  background: #10293d !important;
+  color: var(--fl-premium-text) !important;
+  border: 1px solid var(--fl-premium-border-strong) !important;
+  border-radius: 20px !important;
+  padding: 22px 24px !important;
+}
+
+#screen .speech-bubble p,
+#screen .dialog-bubble p,
+#screen .quote-box p,
+#screen .message-box p,
+#screen .script-box p,
+#screen .call-script p,
+#screen .transcript-box p {
+  color: var(--fl-premium-text) !important;
+}
+
+/* ------------------------------------------------------------
+   BUTTONS
+   ------------------------------------------------------------ */
+
+.choice-grid {
+  gap: 14px !important;
+}
+
+.choice-btn {
+  min-height: 78px !important;
+  padding: 18px 22px !important;
+  border-radius: 16px !important;
+  background: #14324a !important;
+  color: var(--fl-premium-text) !important;
+  border: 1px solid var(--fl-premium-border) !important;
+  font-size: clamp(1.04rem, 1.18vw, 1.18rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.34 !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+
+.choice-btn:hover:not(:disabled) {
+  background: #1a3b56 !important;
+  border-color: var(--fl-premium-border-strong) !important;
+}
+
+.primary-btn {
+  min-height: 60px !important;
+  padding: 15px 26px !important;
+  border-radius: 14px !important;
+  font-size: 1.04rem !important;
+  font-weight: 850 !important;
+}
+
+.secondary-btn {
+  min-height: 58px !important;
+  padding: 14px 22px !important;
+  border-radius: 14px !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 4px solid #f3b844 !important;
+  outline-offset: 4px !important;
+}
+
+/* ------------------------------------------------------------
+   INTRO SCREEN HERO
+   ------------------------------------------------------------ */
+
+#screen .intro-card h1 {
+  font-size: clamp(2rem, 3vw, 3.45rem) !important;
+  max-width: 16ch !important;
+  margin-bottom: 16px !important;
+}
+
+#screen .intro-card p {
+  font-size: clamp(1.05rem, 1.22vw, 1.25rem) !important;
+  max-width: 58ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ------------------------------------------------------------
+   QR / WEB FORMS
+   ------------------------------------------------------------ */
+
+#screen .address-bar,
+#screen .fake-input,
+#screen input,
+#screen textarea,
+#screen select {
+  background: #081722 !important;
+  color: var(--fl-premium-text) !important;
+  border: 1px solid #496579 !important;
+}
+
+#screen .fake-site h2,
+#screen .fake-site h3,
+#screen .poster-card h2 {
+  color: var(--fl-premium-text) !important;
+}
+
+#screen .fake-site p,
+#screen .poster-card p {
+  color: var(--fl-premium-soft) !important;
+}
+
+/* ------------------------------------------------------------
+   ASSISTED MODE / OLDER AUDIENCE
+   ------------------------------------------------------------ */
+
+body.assisted #screen h1 {
+  font-size: clamp(2.2rem, 3.4vw, 3.8rem) !important;
+}
+
+body.assisted .choice-btn {
+  min-height: 88px !important;
+  font-size: 1.16rem !important;
+}
+
+body.assisted #screen p,
+body.assisted #screen li {
+  font-size: 1.18rem !important;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------ */
+
+@media (max-width: 1100px) {
+  #screen .call-copy h1,
+  #screen .call-copy h2,
+  #screen .scenario-copy h1,
+  #screen .scenario-copy h2,
+  #screen .scenario-panel h1,
+  #screen .scenario-panel h2,
+  #screen .content-panel h1,
+  #screen .content-panel h2,
+  #screen .right-panel h1,
+  #screen .right-panel h2,
+  #screen .question-panel h1,
+  #screen .question-panel h2 {
+    max-width: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

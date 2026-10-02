@@ -1,0 +1,163 @@
+/*
+ FRAUD LAB — Mobile Responsive Overrides
+ Home only · Phase 1
+
+ Loaded after exhibition-tv.css so mobile browsers can scroll normally
+ while the desktop/exhibition layout remains unchanged.
+*/
+
+@media (max-width: 768px) {
+  html.home-page,
+  body.home-page {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body.home-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  body.home-page .home-shell {
+    width: min(100% - 24px, 1400px);
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: max(28px, env(safe-area-inset-top)) 0 max(28px, env(safe-area-inset-bottom));
+    display: block;
+    overflow: visible;
+  }
+
+  body.home-page .hero {
+    max-width: 100%;
+    margin-bottom: 28px;
+  }
+
+  body.home-page .hero h1 {
+    font-size: clamp(2.35rem, 11vw, 4.2rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  body.home-page .hero-copy {
+    display: block !important;
+    max-width: 100%;
+    margin: 20px 0;
+    font-size: clamp(1rem, 3.8vw, 1.2rem);
+    line-height: 1.55;
+  }
+
+  body.home-page .safety-message {
+    display: flex !important;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 14px;
+    font-size: .82rem;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  body.home-page .stations {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: 16px;
+  }
+
+  body.home-page .station-card,
+  body.home-page .station-card.featured {
+    grid-column: auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 22px;
+    align-items: flex-start;
+  }
+
+  body.home-page .station-card.featured {
+    text-align: center;
+  }
+
+  body.home-page .station-content {
+    min-width: 0;
+  }
+
+  body.home-page .station-card h2 {
+    margin: 10px 0;
+    font-size: clamp(1.55rem, 6vw, 2.15rem);
+    overflow-wrap: anywhere;
+  }
+
+  body.home-page .station-card p {
+    margin: 8px 0 0;
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  body.home-page .station-footer,
+  body.home-page .station-card.featured .station-footer {
+    display: flex !important;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 14px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  body.home-page .home-footer {
+    display: block !important;
+    margin-top: 24px;
+    padding: 18px 2px;
+  }
+
+  body.home-page .home-footer p {
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  body.home-page .home-shell {
+    width: calc(100% - 20px);
+    padding-top: max(22px, env(safe-area-inset-top));
+  }
+
+  body.home-page .brand-kicker {
+    margin-bottom: 10px;
+    font-size: .82rem;
+  }
+
+  body.home-page .hero h1 {
+    font-size: clamp(2.15rem, 11.5vw, 3.2rem);
+    letter-spacing: -.035em;
+  }
+
+  body.home-page .hero-copy {
+    margin: 16px 0;
+  }
+
+  body.home-page .station-number {
+    display: none;
+  }
+
+  body.home-page .station-card,
+  body.home-page .station-card.featured {
+    padding: 20px;
+  }
+
+  body.home-page .station-footer,
+  body.home-page .station-card.featured .station-footer {
+    font-size: .9rem;
+  }
+}

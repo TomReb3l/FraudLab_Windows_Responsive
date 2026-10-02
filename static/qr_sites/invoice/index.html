@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invoice Portal</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#edf2f7;
+font-family:Arial,Helvetica,sans-serif;
+color:#17324a;
+}
+.page{
+max-width:390px;
+margin:auto;
+min-height:100vh;
+background:#fff;
+}
+.browser{
+background:#f4f7fb;
+padding:12px;
+border-bottom:1px solid #d9e4ee;
+}
+.dot{
+display:inline-block;width:8px;height:8px;border-radius:50%;
+background:#9db1c2;margin-right:5px;
+}
+.url{
+margin-top:10px;
+background:white;
+border:1px solid #ccd8e4;
+border-radius:12px;
+padding:12px;
+font-size:14px;
+}
+.header{
+background:#164b82;
+color:white;
+padding:18px;
+border-bottom:5px solid #f5c400;
+}
+.header small{
+font-weight:800;
+letter-spacing:.1em;
+}
+h1{margin:8px 0 0;font-size:28px}
+.content{padding:14px}
+.card{
+border:1px solid #d8e2ec;
+border-radius:18px;
+padding:16px;
+box-shadow:0 10px 25px #0001;
+}
+.tag{
+display:inline-block;
+background:#fff3bf;
+color:#765800;
+padding:8px 12px;
+border-radius:20px;
+font-weight:900;
+font-size:12px;
+}
+.title{
+font-size:26px;
+font-weight:900;
+margin:15px 0;
+}
+p{
+font-size:16px;
+line-height:1.5;
+}
+.invoice{
+background:#f6f9fc;
+border:1px solid #dbe5ee;
+border-radius:14px;
+padding:14px;
+}
+.row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px dashed #d4e0ea;
+font-size:14px;
+}
+.row:last-child{border:0}
+label{
+display:block;
+margin:15px 0 8px;
+font-weight:800;
+}
+input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid #cbd8e5;
+font-size:17px;
+}
+.btn{
+width:100%;
+margin-top:16px;
+padding:16px;
+border:0;
+border-radius:14px;
+background:#176dcc;
+color:white;
+font-weight:900;
+font-size:18px;
+}
+.edu{
+margin-top:16px;
+background:#594300;
+color:#ffd966;
+border-radius:12px;
+padding:14px;
+text-align:center;
+font-weight:900;
+line-height:1.5;
+font-size:13px;
+}
+.final{
+display:none;
+margin-top:16px;
+background:#fff5f5;
+border:1px solid #efbcbc;
+border-radius:18px;
+padding:16px;
+}
+.final h2{
+text-align:center;
+color:#991b1b;
+font-size:30px;
+}
+.box{
+background:white;
+border:1px solid #dbe5ee;
+border-radius:14px;
+padding:14px;
+margin-top:14px;
+}
+li{
+margin:8px 0;
+line-height:1.4;
+}
+.footer{
+text-align:center;
+font-weight:900;
+font-size:20px;
+margin-top:15px;
+}
+
+
+/* === FRAUDLAB MOBILE PREMIUM REVEAL PATCH === */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(7,24,45,.78);
+    padding:10px;
+    z-index:9999;
+}
+
+.reveal{
+    width:100%;
+    max-width:430px;
+    max-height:92dvh;
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+
+.reveal-body{
+    padding:18px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.reveal-title{
+    font-size:28px;
+    line-height:1.12;
+}
+
+.info-box{
+    padding:14px;
+    margin:10px 0;
+}
+
+.info-box li{
+    font-size:15px;
+    line-height:1.4;
+}
+
+.rule{
+    font-size:22px;
+    margin:14px 0;
+}
+
+@media(max-width:380px){
+    .reveal-title{
+        font-size:24px;
+    }
+
+    .rule{
+        font-size:20px;
+    }
+}
+
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="browser">
+<span class="dot"></span><span class="dot"></span><span class="dot"></span>
+<div class="url">invoice-pay.example/payment</div>
+</div>
+
+<div class="header">
+<small>INVOICE PORTAL</small>
+<h1>Ηλεκτρονικό Τιμολόγιο</h1>
+</div>
+
+<div class="content">
+
+<div id="main" class="card">
+
+<div class="tag">ΝΕΟ ΤΙΜΟΛΟΓΙΟ</div>
+
+<div class="title">Πληρωμή Τιμολογίου</div>
+
+<p>
+Δημιουργήθηκε νέο ηλεκτρονικό τιμολόγιο.
+Ελέγξτε τα στοιχεία και ολοκληρώστε την πληρωμή.
+</p>
+
+<div class="invoice">
+<div class="row"><b>Αριθμός</b><span>INV-483921</span></div>
+<div class="row"><b>Ποσό</b><span>86,40 €</span></div>
+<div class="row"><b>Κατάσταση</b><span>Απαιτείται πληρωμή</span></div>
+</div>
+
+<label>Αριθμός τιμολογίου</label>
+<input placeholder="INV-......">
+
+<label>Στοιχεία πληρωμής</label>
+<input placeholder="•••• •••• •••• ••••">
+
+<button class="btn" onclick="showFinal()">ΠΛΗΡΩΜΗ ΤΩΡΑ</button>
+
+<div class="edu">
+ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>
+ΔΕΝ ΚΑΤΑΧΩΡΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ
+</div>
+
+</div>
+
+<div id="final" class="final">
+
+<h2>☹️<br>ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+
+<p>
+Αυτή ήταν μια εκπαιδευτική προσομοίωση.
+Οι απατεώνες χρησιμοποιούν ψεύτικες σελίδες πληρωμών
+για να αποκτήσουν στοιχεία ή χρήματα.
+</p>
+
+<div class="box">
+<b>Τι προσπάθησαν να εκμεταλλευτούν οι απατεώνες</b>
+<ul>
+<li>Την ανάγκη για γρήγορη εξόφληση.</li>
+<li>Τον φόβο για εκκρεμή οφειλή.</li>
+<li>Την εμφάνιση επίσημης σελίδας πληρωμής.</li>
+<li>Την πίεση για άμεση ενέργεια.</li>
+</ul>
+</div>
+
+<div class="box">
+<b>Πώς προστατεύεσαι</b>
+<ul>
+<li>Έλεγξε την προέλευση του τιμολογίου.</li>
+<li>Μην πληρώνεις από απρόσμενους QR συνδέσμους.</li>
+<li>Επιβεβαίωσε την εταιρεία από επίσημο κανάλι.</li>
+</ul>
+</div>
+
+<div class="edu">
+ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>
+ΔΕΝ ΚΑΤΑΧΩΡΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ
+</div>
+
+<div class="footer">
+ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+function showFinal(){
+document.getElementById("main").style.display="none";
+document.getElementById("final").style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>

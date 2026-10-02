@@ -1,0 +1,448 @@
+/* ============================================================
+   FRAUD LAB — STATION 1 / CALL PREMIUM LAYER
+   v7.13
+
+   Goal:
+   - premium dark identity
+   - high readability
+   - strong spacing
+   - large-age accessibility
+   - stable dynamic layout for call.js content
+   ============================================================ */
+
+:root {
+  --call-bg-1: #071523;
+  --call-bg-2: #0d2234;
+  --call-bg-3: #14314a;
+  --call-panel: #133149;
+  --call-panel-2: #183955;
+  --call-phone: #05131e;
+
+  --call-text: #f7fafc;
+  --call-soft: #dbe6ee;
+  --call-muted: #aebfcb;
+
+  --call-border: rgba(214, 227, 236, .18);
+  --call-border-strong: rgba(214, 227, 236, .28);
+
+  --call-shadow:
+    0 22px 55px rgba(0, 0, 0, .24);
+
+  --call-radius-xl: 30px;
+  --call-radius-lg: 24px;
+  --call-radius-md: 18px;
+}
+
+body.call-page-premium #screen,
+body.call-page-premium #screen * {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   GLOBAL CALL ROOT
+   ============================================================ */
+
+body.call-page-premium #screen {
+  color: var(--call-text) !important;
+}
+
+body.call-page-premium #screen h1,
+body.call-page-premium #screen h2,
+body.call-page-premium #screen h3,
+body.call-page-premium #screen h4,
+body.call-page-premium #screen h5,
+body.call-page-premium #screen h6 {
+  color: var(--call-text) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.02em !important;
+  margin-top: 0 !important;
+  text-wrap: balance;
+}
+
+body.call-page-premium #screen p,
+body.call-page-premium #screen li,
+body.call-page-premium #screen span,
+body.call-page-premium #screen small,
+body.call-page-premium #screen label {
+  color: var(--call-soft) !important;
+  line-height: 1.55 !important;
+}
+
+body.call-page-premium #screen ul {
+  padding-left: 1.2rem !important;
+}
+
+body.call-page-premium #screen ul li {
+  margin-bottom: .55rem !important;
+}
+
+/* ============================================================
+   INTRO MODE
+   ============================================================ */
+
+body.call-page-premium #screen[data-call-mode="intro"] {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 18px 34px;
+}
+
+body.call-page-premium #screen[data-call-mode="intro"] > :first-child,
+body.call-page-premium #screen[data-call-mode="intro"] .intro-card {
+  max-width: 1120px !important;
+  margin: 28px auto 0 !important;
+  padding: clamp(40px, 4vw, 60px) clamp(34px, 4vw, 64px) !important;
+  text-align: center !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--call-bg-3),
+      var(--call-bg-2)
+    ) !important;
+
+  border: 1px solid var(--call-border) !important;
+  border-radius: var(--call-radius-xl) !important;
+  box-shadow: var(--call-shadow) !important;
+}
+
+body.call-page-premium #screen[data-call-mode="intro"] h1 {
+  font-size: clamp(2.1rem, 3.2vw, 3.6rem) !important;
+  margin-bottom: 16px !important;
+  max-width: 15ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+body.call-page-premium #screen[data-call-mode="intro"] h2,
+body.call-page-premium #screen[data-call-mode="intro"] h3 {
+  font-size: clamp(1rem, 1.25vw, 1.18rem) !important;
+  text-transform: uppercase !important;
+  letter-spacing: .09em !important;
+  color: var(--call-muted) !important;
+  margin-bottom: 16px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="intro"] p {
+  font-size: clamp(1.06rem, 1.22vw, 1.24rem) !important;
+  max-width: 58ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 30px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="intro"] .primary-btn,
+body.call-page-premium #screen[data-call-mode="intro"] button {
+  min-height: 62px !important;
+  padding: 16px 30px !important;
+  border-radius: 16px !important;
+}
+
+/* ============================================================
+   DECISION MODE — MAIN CALL EXPERIENCE
+   ============================================================ */
+
+body.call-page-premium #screen[data-call-mode="decision"] {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 18px 34px;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] > :first-child {
+  max-width: 1120px !important;
+  margin: 28px auto 0 !important;
+  padding: 28px !important;
+
+  display: grid !important;
+  grid-template-columns: minmax(320px, 430px) minmax(0, 1fr) !important;
+  gap: 28px !important;
+  align-items: stretch !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--call-bg-3),
+      var(--call-bg-2)
+    ) !important;
+
+  border: 1px solid var(--call-border) !important;
+  border-radius: 32px !important;
+  box-shadow: var(--call-shadow) !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] > :first-child > :first-child {
+  min-width: 0 !important;
+  min-height: 580px !important;
+
+  padding: 34px 26px !important;
+
+  background: var(--call-phone) !important;
+  border: 1px solid #28475d !important;
+  border-radius: 30px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03) !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] > :first-child > :last-child {
+  min-width: 0 !important;
+  min-height: 580px !important;
+
+  padding: 30px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--call-panel),
+      var(--call-panel-2)
+    ) !important;
+
+  border: 1px solid var(--call-border) !important;
+  border-radius: 28px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] .caller-name {
+  color: var(--call-text) !important;
+  font-size: clamp(1.55rem, 2.2vw, 2.35rem) !important;
+  line-height: 1.08 !important;
+  text-align: center !important;
+  margin-bottom: 10px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] .caller-number,
+body.call-page-premium #screen[data-call-mode="decision"] .caller-role,
+body.call-page-premium #screen[data-call-mode="decision"] .call-subtitle {
+  color: var(--call-muted) !important;
+  font-size: clamp(1rem, 1.12vw, 1.12rem) !important;
+  text-align: center !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] h1,
+body.call-page-premium #screen[data-call-mode="decision"] h2 {
+  font-size: clamp(2rem, 2.8vw, 3.2rem) !important;
+  margin-bottom: 16px !important;
+  max-width: 14ch !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] h3,
+body.call-page-premium #screen[data-call-mode="decision"] h4 {
+  font-size: clamp(1rem, 1.15vw, 1.14rem) !important;
+  text-transform: uppercase !important;
+  letter-spacing: .07em !important;
+  color: var(--call-muted) !important;
+  margin-bottom: 12px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] p {
+  font-size: clamp(1.05rem, 1.18vw, 1.22rem) !important;
+  max-width: 62ch !important;
+  overflow-wrap: anywhere !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] .speech-bubble,
+body.call-page-premium #screen[data-call-mode="decision"] .dialog-bubble,
+body.call-page-premium #screen[data-call-mode="decision"] .message-box,
+body.call-page-premium #screen[data-call-mode="decision"] .script-box,
+body.call-page-premium #screen[data-call-mode="decision"] .call-script,
+body.call-page-premium #screen[data-call-mode="decision"] .transcript-box {
+  background: #10293d !important;
+  color: var(--call-text) !important;
+  border: 1px solid var(--call-border-strong) !important;
+  border-radius: 18px !important;
+  padding: 20px 22px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="decision"] .speech-bubble p,
+body.call-page-premium #screen[data-call-mode="decision"] .dialog-bubble p,
+body.call-page-premium #screen[data-call-mode="decision"] .message-box p,
+body.call-page-premium #screen[data-call-mode="decision"] .script-box p,
+body.call-page-premium #screen[data-call-mode="decision"] .call-script p,
+body.call-page-premium #screen[data-call-mode="decision"] .transcript-box p {
+  color: var(--call-text) !important;
+}
+
+/* If transcript block is plain div without specific class */
+body.call-page-premium #screen[data-call-mode="decision"] > :first-child > :last-child > div:not(.choice-grid):not(.choice-btn) {
+  border-radius: 18px;
+}
+
+/* ============================================================
+   CHOICES
+   ============================================================ */
+
+body.call-page-premium #screen .choice-grid {
+  display: grid !important;
+  gap: 14px !important;
+  margin-top: 6px !important;
+}
+
+body.call-page-premium #screen .choice-btn {
+  width: 100% !important;
+  min-height: 78px !important;
+  padding: 18px 22px !important;
+
+  border-radius: 16px !important;
+  border: 1px solid var(--call-border) !important;
+
+  background: #12314a !important;
+  color: var(--call-text) !important;
+
+  font-size: clamp(1.04rem, 1.16vw, 1.18rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.34 !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+
+body.call-page-premium #screen .choice-btn:hover:not(:disabled) {
+  background: #1a3d59 !important;
+  border-color: var(--call-border-strong) !important;
+}
+
+body.call-page-premium #screen .primary-btn {
+  background: #f3b844 !important;
+  color: #101820 !important;
+  font-weight: 850 !important;
+}
+
+body.call-page-premium #screen .secondary-btn {
+  background: #10283a !important;
+  color: var(--call-text) !important;
+  border: 2px solid #6d8598 !important;
+}
+
+body.call-page-premium #screen button:focus-visible,
+body.call-page-premium #screen a:focus-visible {
+  outline: 4px solid #f3b844 !important;
+  outline-offset: 4px !important;
+}
+
+/* ============================================================
+   RESULT MODE
+   ============================================================ */
+
+body.call-page-premium #screen[data-call-mode="result"] {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 18px 34px;
+}
+
+body.call-page-premium #screen[data-call-mode="result"] > :first-child,
+body.call-page-premium #screen[data-call-mode="result"] .result-card,
+body.call-page-premium #screen[data-call-mode="result"] .feedback,
+body.call-page-premium #screen[data-call-mode="result"] .safe-action,
+body.call-page-premium #screen[data-call-mode="result"] [class*="result"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="feedback"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="action"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="summary"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="lesson"] {
+  background:
+    linear-gradient(
+      145deg,
+      var(--call-bg-3),
+      var(--call-bg-2)
+    ) !important;
+
+  color: var(--call-text) !important;
+
+  border: 1px solid var(--call-border) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--call-shadow) !important;
+}
+
+body.call-page-premium #screen[data-call-mode="result"] .result-card,
+body.call-page-premium #screen[data-call-mode="result"] .feedback,
+body.call-page-premium #screen[data-call-mode="result"] .safe-action,
+body.call-page-premium #screen[data-call-mode="result"] [class*="feedback"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="action"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="summary"],
+body.call-page-premium #screen[data-call-mode="result"] [class*="lesson"] {
+  padding: 26px 28px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="result"] h1,
+body.call-page-premium #screen[data-call-mode="result"] h2 {
+  font-size: clamp(1.8rem, 2.5vw, 3rem) !important;
+  margin-bottom: 16px !important;
+}
+
+body.call-page-premium #screen[data-call-mode="result"] h3,
+body.call-page-premium #screen[data-call-mode="result"] h4 {
+  font-size: clamp(1rem, 1.15vw, 1.14rem) !important;
+  color: var(--call-muted) !important;
+  text-transform: uppercase !important;
+  letter-spacing: .07em !important;
+}
+
+body.call-page-premium #screen[data-call-mode="result"] p,
+body.call-page-premium #screen[data-call-mode="result"] li {
+  font-size: clamp(1.03rem, 1.14vw, 1.18rem) !important;
+}
+
+/* The 3 learning cards at bottom */
+body.call-page-premium #screen[data-call-mode="result"] > :first-child .choice-grid + div,
+body.call-page-premium #screen[data-call-mode="result"] > :first-child .summary-grid,
+body.call-page-premium #screen[data-call-mode="result"] > :first-child .lesson-grid {
+  display: grid;
+  gap: 18px;
+}
+
+/* ============================================================
+   MOBILE / NARROW WIDTH
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  body.call-page-premium #screen[data-call-mode="decision"] > :first-child {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.call-page-premium #screen[data-call-mode="decision"] > :first-child > :first-child,
+  body.call-page-premium #screen[data-call-mode="decision"] > :first-child > :last-child {
+    min-height: auto !important;
+  }
+
+  body.call-page-premium #screen[data-call-mode="decision"] h1,
+  body.call-page-premium #screen[data-call-mode="decision"] h2 {
+    max-width: none !important;
+  }
+}
+
+/* ============================================================
+   ASSISTED MODE
+   ============================================================ */
+
+body.assisted.call-page-premium #screen h1 {
+  font-size: clamp(2.25rem, 3.5vw, 3.8rem) !important;
+}
+
+body.assisted.call-page-premium #screen p,
+body.assisted.call-page-premium #screen li {
+  font-size: 1.18rem !important;
+}
+
+body.assisted.call-page-premium #screen .choice-btn {
+  min-height: 88px !important;
+  font-size: 1.16rem !important;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

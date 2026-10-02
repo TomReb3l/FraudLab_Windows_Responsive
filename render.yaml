@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: fraudlab-exhibition
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r requirements-exhibition.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: FRAUDLAB_MODE
+        value: exhibition
+      - key: ENABLE_AI
+        value: "false"
+      - key: OFFLINE_MODE
+        value: "true"
+      - key: DEBUG_MODE
+        value: "false"

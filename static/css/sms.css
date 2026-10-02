@@ -1,0 +1,1257 @@
+:root {
+  --sms-bg: #071624;
+  --sms-panel: #0d2237;
+  --sms-panel-light: #122d48;
+  --sms-text: #f5f7fa;
+  --sms-muted: #aab8c5;
+  --sms-border: rgba(255,255,255,.11);
+  --sms-accent: #f4b942;
+  --sms-safe: #45c78a;
+  --sms-risk: #ef6a6a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      #173855 0,
+      transparent 35%
+    ),
+    var(--sms-bg);
+
+  color: var(--sms-text);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+.sms-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sms-topbar {
+  min-height: 90px;
+
+  padding:
+    max(20px, env(safe-area-inset-top))
+    4vw
+    18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  border-bottom:
+    1px solid var(--sms-border);
+}
+
+.brand-kicker {
+  color: var(--sms-accent);
+  font-weight: 900;
+  letter-spacing: .2em;
+  font-size: .82rem;
+}
+
+.station-name {
+  margin-top: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.sms-screen {
+  width: min(1450px, 94vw);
+  margin: auto;
+  padding: 42px 0;
+}
+
+.intro-card,
+.result-card,
+.fatal-card {
+  width: min(950px, 100%);
+  margin: 0 auto;
+
+  padding: clamp(30px, 5vw, 70px);
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--sms-panel-light),
+      var(--sms-panel)
+    );
+
+  border:
+    1px solid var(--sms-border);
+
+  border-radius: 28px;
+}
+
+.intro-kicker,
+.result-kicker {
+  color: var(--sms-accent);
+  font-weight: 900;
+  letter-spacing: .12em;
+  font-size: .88rem;
+}
+
+.intro-card h1,
+.result-card h1 {
+  margin: 16px 0 20px;
+
+  font-size:
+    clamp(2.2rem, 5vw, 4.6rem);
+
+  line-height: 1.03;
+  letter-spacing: -.035em;
+}
+
+.intro-card p,
+.result-copy {
+  max-width: 820px;
+  color: var(--sms-muted);
+  line-height: 1.65;
+  font-size: 1.2rem;
+}
+
+.privacy-note {
+  margin: 28px 0;
+
+  padding: 16px 20px;
+
+  border:
+    1px solid var(--sms-border);
+
+  border-radius: 14px;
+
+  color: var(--sms-muted);
+}
+
+.primary-btn,
+.secondary-btn,
+.choice-btn {
+  border: 0;
+  cursor: pointer;
+}
+
+.primary-btn {
+  padding: 17px 26px;
+  min-height: 58px;
+
+  border-radius: 14px;
+
+  background: var(--sms-accent);
+  color: #131313;
+
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.secondary-btn {
+  min-height: 48px;
+
+  padding: 11px 17px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(255,255,255,.06);
+
+  border:
+    1px solid var(--sms-border);
+
+  color: var(--sms-text);
+
+  font-weight: 700;
+}
+
+.challenge-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.18fr)
+    minmax(330px, .82fr);
+
+  gap: clamp(30px, 5vw, 80px);
+
+  align-items: start;
+}
+
+.challenge-info {
+  padding: 12px 0;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  color: var(--sms-muted);
+
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+
+  padding-bottom: 18px;
+
+  border-bottom:
+    1px solid var(--sms-border);
+}
+
+.category {
+  margin-top: 28px;
+
+  color: var(--sms-accent);
+
+  font-size: .9rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.challenge-info h1 {
+  margin: 10px 0;
+
+  font-size:
+    clamp(2.4rem, 4vw, 4rem);
+
+  line-height: 1;
+}
+
+.question-copy {
+  color: var(--sms-muted);
+  line-height: 1.55;
+  font-size: 1.08rem;
+}
+
+.choice-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.choice-btn {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  padding: 18px 20px;
+
+  text-align: left;
+
+  border-radius: 15px;
+
+  border:
+    1px solid var(--sms-border);
+
+  background:
+    rgba(255,255,255,.055);
+
+  color: var(--sms-text);
+
+  font-weight: 800;
+
+  line-height: 1.35;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    background .15s ease;
+}
+
+.choice-btn:hover,
+.choice-btn:focus-visible {
+  transform: translateX(3px);
+
+  border-color:
+    rgba(244,185,66,.75);
+
+  background:
+    rgba(244,185,66,.08);
+
+  outline: none;
+}
+
+.choice-btn:disabled {
+  cursor: default;
+  opacity: .55;
+}
+
+.choice-btn.selected-safe {
+  opacity: 1;
+
+  border-color:
+    var(--sms-safe);
+
+  background:
+    rgba(69,199,138,.12);
+}
+
+.choice-btn.selected-risk {
+  opacity: 1;
+
+  border-color:
+    var(--sms-risk);
+
+  background:
+    rgba(239,106,106,.12);
+}
+
+.choice-number {
+  flex: 0 0 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.08);
+
+  color: var(--sms-accent);
+}
+
+.phone-preview {
+  display: flex;
+  justify-content: center;
+}
+
+.phone-device {
+  width: min(390px, 100%);
+
+  min-height: 660px;
+
+  padding: 12px;
+
+  background: #05090d;
+
+  border:
+    5px solid #26313a;
+
+  border-radius: 42px;
+
+  box-shadow:
+    0 28px 80px
+    rgba(0,0,0,.42);
+
+  overflow: hidden;
+}
+
+.phone-status {
+  padding: 8px 18px 13px;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: #dce3e9;
+
+  font-size: .78rem;
+}
+
+.messages-header {
+  min-height: 74px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 14px;
+
+  background: #111820;
+
+  border-radius: 20px 20px 4px 4px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #344758;
+
+  font-weight: 900;
+}
+
+.messages-header strong {
+  display: block;
+}
+
+.messages-header small {
+  color: #93a3b0;
+}
+
+.message-area {
+  min-height: 480px;
+
+  padding: 28px 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101820,
+      #0c1319
+    );
+}
+
+.sms-bubble {
+  width: 91%;
+
+  padding: 16px;
+
+  border-radius:
+    18px 18px 18px 5px;
+
+  background: #26333e;
+
+  color: white;
+
+  line-height: 1.48;
+}
+
+.sms-bubble p {
+  margin: 0;
+}
+
+.sms-bubble time {
+  display: block;
+
+  text-align: right;
+
+  color: #a6b1ba;
+
+  margin-top: 10px;
+
+  font-size: .75rem;
+}
+
+.fake-link {
+  margin-top: 14px;
+
+  padding: 10px 11px;
+
+  border-radius: 9px;
+
+  background:
+    rgba(79,157,255,.11);
+
+  color: #77b5ff;
+
+  overflow-wrap: anywhere;
+
+  font-weight: 700;
+}
+
+.simulation-note {
+  margin-top: 7px;
+
+  color: #94a5b2;
+
+  font-size: .72rem;
+}
+
+.phone-warning {
+  padding: 12px;
+
+  background: #111820;
+
+  color: #8fa0ae;
+
+  text-align: center;
+
+  font-size: .7rem;
+
+  letter-spacing: .09em;
+
+  border-radius: 4px 4px 20px 20px;
+}
+
+.feedback-panel {
+  margin-top: 28px;
+
+  padding: 24px;
+
+  border:
+    1px solid var(--sms-border);
+
+  border-radius: 18px;
+
+  background:
+    rgba(0,0,0,.16);
+}
+
+.feedback-result {
+  font-weight: 900;
+  letter-spacing: .07em;
+  font-size: .85rem;
+}
+
+.feedback-result.safe {
+  color: var(--sms-safe);
+}
+
+.feedback-result.risk {
+  color: var(--sms-risk);
+}
+
+.feedback-copy {
+  line-height: 1.6;
+  font-size: 1.08rem;
+}
+
+.flag-box {
+  margin-top: 20px;
+
+  padding-top: 18px;
+
+  border-top:
+    1px solid var(--sms-border);
+}
+
+.flag-box h2 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.flag-box ul {
+  padding-left: 20px;
+  color: var(--sms-muted);
+  line-height: 1.6;
+}
+
+.safe-action {
+  margin: 20px 0;
+
+  padding: 16px;
+
+  border-left:
+    4px solid var(--sms-accent);
+
+  background:
+    rgba(244,185,66,.07);
+}
+
+.safe-action p {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.final-score {
+  font-size:
+    clamp(4.5rem, 12vw, 9rem);
+
+  line-height: .9;
+
+  font-weight: 950;
+
+  color: var(--sms-accent);
+
+  margin: 30px 0;
+}
+
+.final-score span {
+  font-size: .25em;
+  color: var(--sms-muted);
+}
+
+.lesson-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0,1fr));
+
+  gap: 15px;
+
+  margin-top: 36px;
+}
+
+.lesson-grid section {
+  padding: 22px;
+
+  border:
+    1px solid var(--sms-border);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255,255,255,.035);
+}
+
+.lesson-grid section > div {
+  color: var(--sms-accent);
+  font-weight: 900;
+}
+
+.lesson-grid h2 {
+  margin: 8px 0;
+}
+
+.lesson-grid p {
+  color: var(--sms-muted);
+  line-height: 1.5;
+}
+
+.result-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+
+  margin-top: 30px;
+}
+
+.safety-strip {
+  margin-top: auto;
+
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  border-top:
+    1px solid var(--sms-border);
+
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.safety-strip .arrow {
+  color: var(--sms-accent);
+}
+
+.timeout-modal {
+  position: fixed;
+  inset: 0;
+
+  z-index: 100;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(0,0,0,.78);
+}
+
+.timeout-modal[hidden] {
+  display: none;
+}
+
+.timeout-card {
+  width: min(520px, 100%);
+
+  padding: 32px;
+
+  border:
+    1px solid var(--sms-border);
+
+  border-radius: 20px;
+
+  background: var(--sms-panel);
+}
+
+body.assisted {
+  font-size: 118%;
+}
+
+body.assisted .choice-btn {
+  min-height: 82px;
+}
+
+@media (max-width: 900px) {
+  .challenge-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .phone-preview {
+    order: -1;
+  }
+
+  .phone-device {
+    min-height: auto;
+  }
+
+  .message-area {
+    min-height: 300px;
+  }
+
+  .lesson-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .sms-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .top-actions {
+    width: 100%;
+  }
+
+  .secondary-btn {
+    flex: 1;
+  }
+
+  .sms-screen {
+    padding-top: 24px;
+  }
+
+  .safety-strip {
+    gap: 6px;
+    font-size: .78rem;
+  }
+}
+
+
+/* Phase 2.1 SMS Premium Feedback v5 */
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.sms-app {
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.sms-screen {
+  flex: 1;
+  min-height: 0;
+  width: min(1520px, 96vw);
+  margin: 0 auto;
+  padding: 18px 0 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
+.challenge-layout,
+.feedback-view,
+.result-card,
+.intro-card,
+.fatal-card {
+  width: 100%;
+}
+
+.feedback-view,
+.result-card,
+.intro-card,
+.fatal-card {
+  height: 100%;
+}
+
+.premium-view {
+  display: flex;
+}
+
+.feedback-shell {
+  width: 100%;
+  height: 100%;
+  padding: clamp(24px, 2.4vw, 34px);
+  background: linear-gradient(145deg, var(--sms-panel-light), var(--sms-panel));
+  border: 1px solid var(--sms-border);
+  border-radius: 30px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 18px;
+  overflow: hidden;
+}
+
+.premium-headline-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-kicker,
+.section-title-small,
+.panel-label {
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.section-kicker {
+  color: var(--sms-accent);
+  font-size: .95rem;
+}
+
+.section-title-small {
+  font-size: clamp(1.2rem, 2.1vw, 2.1rem);
+}
+
+.premium-card {
+  border: 1px solid var(--sms-border);
+  border-radius: 24px;
+  background: rgba(255,255,255,.035);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+.feedback-summary-card {
+  padding: 22px 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.feedback-summary-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.05);
+  color: var(--sms-muted);
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+
+.score-chip span {
+  color: var(--sms-accent);
+}
+
+.feedback-result {
+  margin-top: 12px;
+  display: inline-flex;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: .92rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.feedback-result.safe {
+  color: #9ff0c4;
+  background: rgba(69,199,138,.16);
+  border: 1px solid rgba(69,199,138,.34);
+}
+
+.feedback-result.risk {
+  color: #ffb2b2;
+  background: rgba(239,106,106,.16);
+  border: 1px solid rgba(239,106,106,.34);
+}
+
+.summary-copy,
+.safe-copy,
+.feedback-flags-list {
+  margin: 0;
+  color: var(--sms-text);
+  line-height: 1.55;
+  font-size: clamp(1.02rem, 1.32vw, 1.28rem);
+}
+
+.feedback-card-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.detail-card {
+  min-height: 0;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedback-flags-list {
+  padding-left: 24px;
+  color: var(--sms-muted);
+  display: grid;
+  gap: 10px;
+}
+
+.safe-card {
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.feedback-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.next-message-btn {
+  min-width: 330px;
+  min-height: 64px;
+  border-radius: 16px;
+}
+
+
+/* Phase 2.1 SMS Premium Fix v5.1 */
+
+.sms-topbar {
+  min-height: 84px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: 14px;
+}
+
+.safety-strip {
+  min-height: 48px;
+  margin-top: 0;
+  flex: 0 0 auto;
+}
+
+.sms-screen {
+  align-items: stretch;
+}
+
+.intro-card {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(36px, 4vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.intro-card h1 {
+  margin: 6px 0 10px;
+  max-width: 760px;
+}
+
+.intro-card p,
+.result-copy {
+  max-width: 920px;
+}
+
+.intro-card p {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.privacy-note {
+  width: min(100%, 920px);
+  margin: 0;
+  text-align: center;
+}
+
+.intro-card .primary-btn {
+  align-self: center;
+  min-width: 240px;
+}
+
+.feedback-shell {
+  gap: 16px;
+}
+
+.feedback-summary-card {
+  min-height: 0;
+}
+
+.feedback-summary-top {
+  align-items: flex-start;
+}
+
+.feedback-copy.summary-copy {
+  max-width: none;
+}
+
+.feedback-card-grid {
+  align-items: stretch;
+}
+
+.detail-card {
+  justify-content: flex-start;
+}
+
+.safe-card {
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.safe-card .panel-label,
+.safe-card .safe-copy {
+  text-align: left;
+}
+
+.feedback-actions-row {
+  padding-top: 2px;
+}
+
+.result-card {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(24px, 2.6vw, 34px);
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 16px;
+  align-content: start;
+  overflow: hidden;
+}
+
+.result-kicker {
+  margin: 0;
+}
+
+.result-card h1 {
+  margin: 0;
+  max-width: 760px;
+  font-size: clamp(2.1rem, 4.4vw, 4.3rem);
+  line-height: 1.05;
+}
+
+.final-score {
+  margin: 2px 0 0;
+  font-size: clamp(4.2rem, 7.2vw, 6.8rem);
+  line-height: .88;
+}
+
+.result-copy {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 1.08rem;
+}
+
+.lesson-grid {
+  min-height: 0;
+  margin-top: 0;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.lesson-grid section {
+  padding: 18px 20px;
+  min-height: 0;
+}
+
+.lesson-grid h2 {
+  margin: 6px 0 10px;
+  font-size: clamp(1.7rem, 2vw, 2.2rem);
+  line-height: 1.05;
+}
+
+.lesson-grid p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.result-actions {
+  margin-top: 0;
+  justify-content: center;
+}
+
+@media (max-height: 930px) {
+  .sms-screen {
+    padding: 12px 0 10px;
+  }
+
+  .intro-card,
+  .result-card,
+  .fatal-card {
+    padding: 24px;
+  }
+
+  .intro-card h1 {
+    font-size: clamp(2rem, 4.4vw, 3.7rem);
+  }
+
+  .feedback-shell {
+    padding: 20px;
+    gap: 14px;
+  }
+
+  .feedback-summary-card,
+  .detail-card {
+    padding: 18px 20px;
+  }
+
+  .summary-copy,
+  .safe-copy,
+  .feedback-flags-list,
+  .result-copy,
+  .lesson-grid p,
+  .intro-card p {
+    font-size: .98rem;
+    line-height: 1.42;
+  }
+
+  .lesson-grid h2 {
+    font-size: clamp(1.55rem, 1.9vw, 2rem);
+  }
+
+  .lesson-grid section {
+    padding: 16px 18px;
+  }
+
+  .result-card {
+    gap: 12px;
+  }
+
+  .final-score {
+    font-size: clamp(3.8rem, 6.5vw, 6rem);
+  }
+}
+
+@media (max-width: 1100px) {
+  .feedback-card-grid,
+  .lesson-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-headline-row,
+  .feedback-summary-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feedback-actions-row,
+  .result-actions {
+    justify-content: stretch;
+  }
+
+  .next-message-btn,
+  .result-actions .primary-btn,
+  .result-actions .secondary-btn {
+    width: 100%;
+  }
+}
+
+/* SMS Phase 2.1 final button color consistency fix */
+
+.next-message-btn {
+    background: var(--sms-accent);
+    color: #131313;
+    font-weight: 900;
+    border: none;
+}
+
+.next-message-btn:hover,
+.next-message-btn:focus-visible {
+    background: var(--sms-accent);
+    color: #131313;
+}
+
+.next-message-btn {
+    background: var(--sms-accent);
+    color: #131313;
+    font-weight: 900;
+}
+n/* FINAL next message button color */nbutton.primary-btn.next-message-btn { background: var(--sms-accent) !important; color: #131313 !important; border-color: var(--sms-accent) !important; }
+n/* FINAL SMS BUTTON OVERRIDE */n.primary-btn.next-message-btn, button.primary-btn.next-message-btn, #feedback-container .next-message-btn { background:#f5b93b !important; color:#111111 !important; border:1px solid #f5b93b !important; opacity:1 !important; }
+
+/* SMS INTRO LAYOUT FIX V1 */
+
+.intro-card p {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+}
+
+.intro-card {
+    overflow: hidden;
+}
+
+
+/* SMS FINAL CARD LAYOUT FIX */
+
+.sms-final-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sms-final-card .victim-alert {
+  width: fit-content;
+  max-width: 100%;
+  font-size: 1.45rem;
+  padding: 14px 22px;
+  margin: 0 auto 8px auto;
+}
+
+.sms-final-card h1 {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  line-height: 1.05;
+  text-align: center;
+  align-self: center;
+  white-space: nowrap;
+}
+
+.sms-final-card .final-score {
+  margin: 0;
+}
+
+.sms-final-card .result-copy {
+  max-width: 1000px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.sms-final-card .lesson-grid {
+  margin-top: 8px;
+  gap: 14px;
+}
+
+.sms-final-card .lesson-grid section {
+  min-height: 130px;
+}
+
+.sms-final-card .result-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+

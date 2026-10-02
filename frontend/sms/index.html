@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#081a2c">
+
+  <title>FRAUD LAB — Μήνυμα στο Κινητό Challenge</title>
+
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/sms.css">
+  <link rel="stylesheet" href="/static/css/fraud-dark.css?v=7.11">
+  <link rel="stylesheet" href="/static/css/fraud-premium-fixes.css?v=7.12">
+</head>
+
+<body>
+
+<main class="sms-app">
+
+  <header class="sms-topbar">
+
+    <div>
+      <div class="brand-kicker">FRAUD LAB</div>
+      <div class="station-name">STATION 2 · ΜΗΝΥΜΑ ΣΤΟ ΚΙΝΗΤΟ CHALLENGE</div>
+    </div>
+
+    <div class="top-actions">
+      <button id="assistBtn" class="secondary-btn" type="button" aria-pressed="false">
+        ΒΟΗΘΟΥΜΕΝΗ ΛΕΙΤΟΥΡΓΙΑ
+      </button>
+
+      <button id="homeBtn" class="secondary-btn" type="button">
+        ΑΡΧΙΚΗ
+      </button>
+    </div>
+
+  </header>
+
+  <section id="screen" class="sms-screen" aria-live="polite"></section>
+
+  <footer class="safety-strip">
+    <span>ΣΤΑΜΑΤΑ</span>
+    <span class="arrow">→</span>
+    <span>ΕΛΕΓΞΕ</span>
+    <span class="arrow">→</span>
+    <span>ΕΠΙΒΕΒΑΙΩΣΕ</span>
+  </footer>
+
+</main>
+
+
+<div
+  class="timeout-modal"
+  id="timeoutModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="timeoutTitle"
+  hidden
+>
+  <div class="timeout-card">
+
+    <h2 id="timeoutTitle">Η εμπειρία θα επανεκκινήσει</h2>
+
+    <p>
+      Δεν εντοπίστηκε αλληλεπίδραση.
+      Αγγίξτε το κουμπί για να συνεχίσετε.
+    </p>
+
+    <button id="continueBtn" class="primary-btn" type="button">
+      ΣΥΝΕΧΙΖΩ
+    </button>
+
+  </div>
+</div>
+
+
+<script src="/static/js/sms.js?v=7.11" defer></script>
+
+</body>
+</html>

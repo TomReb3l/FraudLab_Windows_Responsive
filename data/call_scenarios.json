@@ -1,0 +1,886 @@
+{
+  "schema_version": "1.0",
+  "scenarios": [
+    {
+      "scenario_id": "call_account_security_001",
+      "type": "fraud_call",
+      "title": "Ύποπτη Συναλλαγή - Τηλεφωνική Απάτη",
+      "estimated_seconds": 135,
+      "start_node": "call_intro",
+      "max_score": 100,
+      "educational_message": {
+        "stop": "Η χρονική πίεση δεν είναι λόγος να παρακάμπτεις τον έλεγχο μιας οικονομικής συναλλαγής.",
+        "check": "Έλεγξε τι ακριβώς ζητήθηκε: κωδικός μιας χρήσης, στοιχεία κάρτας, PIN ή στοιχεία σύνδεσης δεν κοινοποιούνται σε έναν απρόσμενο καλούντα.",
+        "verify": "Διακόπτεις την κλήση και επικοινωνείς εσύ με την τράπεζα από εφαρμογή ή στοιχεία που βρίσκεις ανεξάρτητα."
+      },
+      "nodes": {
+        "call_intro": {
+          "id": "call_intro",
+          "kind": "incoming_call",
+          "speaker": "system",
+          "text": "Το τηλέφωνο χτυπά. Στην οθόνη εμφανίζεται «Τμήμα Ασφάλειας Καρτών».",
+          "pressure_techniques": [
+            "authority"
+          ],
+          "choices": [
+            {
+              "label": "Απαντώ την κλήση",
+              "next_node": "caller_opening",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Δεν απαντώ την κλήση",
+              "next_node": "safe_stop_end",
+              "score_delta": 20,
+              "intent": "stop"
+            }
+          ],
+          "red_flags": [
+            "Η κλήση ήταν απρόσμενη",
+            "Η εμφανιζόμενη ταυτότητα μιας κλήσης δεν αρκεί από μόνη της για επαλήθευση του καλούντος"
+          ],
+          "safe_action": "Όταν μια απρόσμενη οικονομική κλήση δημιουργεί αμφιβολία, η ανεξάρτητη επικοινωνία με τον οργανισμό μειώνει τον κίνδυνο.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Εισερχόμενη κλήση",
+          "display_name": "ΤΜΗΜΑ ΑΣΦΑΛΕΙΑΣ ΚΑΡΤΩΝ"
+        },
+        "caller_opening": {
+          "id": "caller_opening",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Καλησπέρα σας. Καλώ από το τμήμα ασφάλειας καρτών της τράπεζάς σας. Εντοπίσαμε μια ύποπτη προσπάθεια συναλλαγής και θέλουμε να επιβεβαιώσουμε ότι είστε ο κάτοχος της κάρτας.",
+          "audio": "/static/audio/fraud_call/caller_opening.wav",
+          "pressure_techniques": [
+            "authority",
+            "urgency",
+            "fear"
+          ],
+          "choices": [
+            {
+              "label": "ΟΧΙ, ΔΕΝ ΤΗΝ ΑΝΑΓΝΩΡΙΖΩ",
+              "next_node": "caller_explains",
+              "score_delta": 0,
+              "intent": "answer"
+            },
+            {
+              "label": "ΜΠΟΡΕΙΤΕ ΝΑ ΜΟΥ ΠΕΙΤΕ ΠΟΥ ΕΓΙΝΕ;",
+              "next_node": "caller_explains",
+              "score_delta": 5,
+              "intent": "question"
+            },
+            {
+              "label": "ΘΑ ΤΟ ΕΛΕΓΞΩ ΕΓΩ ΑΠΟ ΤΗΝ ΕΦΑΡΜΟΓΗ ΜΟΥ",
+              "next_node": "safe_verify_end",
+              "score_delta": 40,
+              "intent": "verify"
+            }
+          ],
+          "red_flags": [
+            "Απρόσμενη επικοινωνία για οικονομικό θέμα",
+            "Ο καλών χρησιμοποιεί συγκεκριμένο ποσό και τραπεζική ορολογία",
+            "Η ταυτότητα του καλούντος δεν έχει επιβεβαιωθεί ανεξάρτητα"
+          ],
+          "safe_action": "Μην βασίζεσαι στην ταυτότητα που δηλώνει ο καλών. Κλείσε και κάλεσε εσύ το επίσημο τηλέφωνο.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Συναλλαγή 487,60 €"
+        },
+        "caller_explains": {
+          "id": "caller_explains",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Για λόγους ασφαλείας θα χρειαστούμε να επιβεβαιώσετε ορισμένα στοιχεία ώστε να ακυρώσουμε την ύποπτη συναλλαγή. Θα σας ζητήσουμε μόνο τις πληροφορίες που απαιτούνται για την ταυτοποίηση.",
+          "audio": "/static/audio/fraud_call/caller_explains.wav",
+          "pressure_techniques": [
+            "urgency",
+            "isolation",
+            "authority"
+          ],
+          "choices": [
+            {
+              "label": "ΕΝΤΑΞΕΙ, ΠΕΙΤΕ ΜΟΥ ΤΙ ΠΡΕΠΕΙ ΝΑ ΚΑΝΩ",
+              "next_node": "caller_pressure",
+              "score_delta": -5,
+              "intent": "comply"
+            },
+            {
+              "label": "ΠΩΣ ΜΠΟΡΩ ΝΑ ΕΛΕΓΞΩ ΟΤΙ Η ΚΛΗΣΗ ΕΙΝΑΙ ΑΠΟ ΤΗΝ ΤΡΑΠΕΖΑ;",
+              "next_node": "caller_blocks_verify",
+              "score_delta": 10,
+              "intent": "verify_question"
+            },
+            {
+              "label": "ΘΑ ΚΛΕΙΣΩ ΚΑΙ ΘΑ ΚΑΛΕΣΩ ΕΓΩ ΤΗΝ ΤΡΑΠΕΖΑ",
+              "next_node": "safe_verify_end",
+              "score_delta": 40,
+              "intent": "verify"
+            }
+          ],
+          "red_flags": [
+            "Χρονική πίεση",
+            "Φόβος ότι θα χαθούν χρήματα",
+            "Ο καλών θέλει να παραμείνεις στη γραμμή"
+          ],
+          "safe_action": "Η πίεση να μείνεις στη γραμμή είναι λόγος να σταματήσεις και να επιβεβαιώσεις ανεξάρτητα.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Η κλήση συνεχίζεται"
+        },
+        "caller_pressure": {
+          "id": "caller_pressure",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Θα λάβετε σε λίγο έναν εξαψήφιο κωδικό στο κινητό σας. Μόλις έρθει, διαβάστε μου τα έξι ψηφία για να ολοκληρώσουμε τη διαδικασία.",
+          "audio": "/static/audio/fraud_call/caller_pressure.wav",
+          "pressure_techniques": [
+            "urgency",
+            "fear",
+            "scarcity"
+          ],
+          "choices": [
+            {
+              "label": "ΤΟΥ ΛΕΩ ΤΑ ΕΞΙ ΨΗΦΙΑ",
+              "next_node": "unsafe_code_end",
+              "score_delta": -35,
+              "intent": "share_code"
+            },
+            {
+              "label": "ΓΙΑΤΙ ΧΡΕΙΑΖΕΣΤΕ ΤΟΝ ΚΩΔΙΚΟ;",
+              "next_node": "caller_code_request",
+              "score_delta": 5,
+              "intent": "question"
+            },
+            {
+              "label": "ΔΕΝ ΘΑ ΔΩΣΩ ΚΩΔΙΚΟ. ΘΑ ΚΑΛΕΣΩ ΕΓΩ ΤΗΝ ΤΡΑΠΕΖΑ",
+              "next_node": "safe_verify_end",
+              "score_delta": 40,
+              "intent": "verify"
+            }
+          ],
+          "red_flags": [
+            "Ζητείται κωδικός μιας χρήσης / OTP",
+            "Η διαδικασία παρουσιάζεται ως επείγουσα",
+            "Ο επισκέπτης καλείται να ενεργήσει χωρίς ανεξάρτητο έλεγχο"
+          ],
+          "safe_action": "Δεν κοινοποιείς OTP ή κωδικό επιβεβαίωσης σε κάποιον που σε καλεί. Κλείνεις και ελέγχεις μόνος/η σου από το επίσημο banking app.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Νέο μήνυμα στο κινητό"
+        },
+        "caller_code_request": {
+          "id": "caller_code_request",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Ο κωδικός που μόλις λάβατε λήγει σύντομα. Πείτε μου τα έξι ψηφία για να συνεχίσουμε.",
+          "audio": "/static/audio/fraud_call/caller_code_request.wav",
+          "pressure_techniques": [
+            "authority",
+            "urgency",
+            "fear"
+          ],
+          "choices": [
+            {
+              "label": "ΤΟΥ ΛΕΩ ΤΟΝ ΚΩΔΙΚΟ",
+              "next_node": "unsafe_code_end",
+              "score_delta": -35,
+              "intent": "share_code"
+            },
+            {
+              "label": "ΤΟΥ ΛΕΩ ΟΤΙ ΔΕΝ ΕΛΑΒΑ ΚΑΝΕΝΑΝ ΚΩΔΙΚΟ",
+              "next_node": "caller_code_retry",
+              "score_delta": 0,
+              "intent": "stall"
+            },
+            {
+              "label": "ΚΛΕΙΝΩ ΚΑΙ ΕΛΕΓΧΩ ΜΟΝΟΣ ΜΟΥ ΑΠΟ ΤΗΝ ΕΦΑΡΜΟΓΗ",
+              "next_node": "safe_verify_end",
+              "score_delta": 40,
+              "intent": "verify"
+            }
+          ],
+          "red_flags": [
+            "Αίτημα γνωστοποίησης OTP",
+            "Τεχνητή προθεσμία",
+            "Ο καλών προσπαθεί να εμποδίσει δεύτερη σκέψη"
+          ],
+          "safe_action": "Μην κοινοποιείς κωδικούς. Η ασφαλής ενέργεια είναι να κλείσεις και να επιβεβαιώσεις από επίσημο κανάλι.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Ο κωδικός έφτασε"
+        },
+        "caller_blocks_verify": {
+          "id": "caller_blocks_verify",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Αν κλείσετε τώρα, δεν μπορώ να ολοκληρώσω τη διαδικασία από αυτή την κλήση και η συναλλαγή μπορεί να παραμείνει σε εκκρεμότητα. Θέλετε να συνεχίσουμε;",
+          "audio": "/static/audio/fraud_call/caller_blocks_verify.wav",
+          "pressure_techniques": [
+            "isolation",
+            "fear",
+            "authority"
+          ],
+          "choices": [
+            {
+              "label": "ΕΝΤΑΞΕΙ, ΑΣ ΣΥΝΕΧΙΣΟΥΜΕ",
+              "next_node": "caller_code_request",
+              "score_delta": -10,
+              "intent": "comply"
+            },
+            {
+              "label": "ΟΧΙ. ΘΑ ΚΑΛΕΣΩ ΕΓΩ ΤΟ ΕΠΙΣΗΜΟ ΤΗΛΕΦΩΝΟ",
+              "next_node": "safe_verify_end",
+              "score_delta": 35,
+              "intent": "verify"
+            }
+          ],
+          "red_flags": [
+            "Προσπάθεια αποτροπής ανεξάρτητης επαλήθευσης",
+            "Απειλή οικονομικής ζημίας",
+            "Πίεση να παραμείνεις στη γραμμή"
+          ],
+          "safe_action": "Ένας αξιόπιστος οργανισμός δεν πρέπει να φοβάται ότι θα επαληθεύσεις την κλήση μέσω επίσημου καναλιού.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Η διαδικασία δεν έχει ολοκληρωθεί"
+        },
+        "unsafe_code_end": {
+          "id": "unsafe_code_end",
+          "kind": "result",
+          "speaker": "system",
+          "text": "Στην προσομοίωση, ο κωδικός χρησιμοποιήθηκε για να εγκριθεί ενέργεια που δεν ζήτησες. Το κρίσιμο σημείο δεν ήταν ότι απάντησες — ήταν ότι η πίεση σε οδήγησε να παρακάμψεις την ανεξάρτητη επιβεβαίωση.",
+          "pressure_techniques": [
+            "authority",
+            "urgency",
+            "fear",
+            "isolation"
+          ],
+          "choices": [],
+          "feedback": "Οι απατεώνες συχνά ζητούν να ενεργήσεις πριν προλάβεις να σκεφτείς ή να επιβεβαιώσεις.",
+          "red_flags": [
+            "Απρόσμενη κλήση",
+            "Επείγον",
+            "Κωδικός μιας χρήσης",
+            "Απομόνωση από επίσημο κανάλι"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ. Κλείσε και επικοινώνησε εσύ με τον οργανισμό χρησιμοποιώντας στοιχεία που βρίσκεις ανεξάρτητα.",
+          "score_delta": 0,
+          "terminal": true
+        },
+        "safe_stop_end": {
+          "id": "safe_stop_end",
+          "kind": "result",
+          "speaker": "system",
+          "text": "Δεν μπήκες στη διαδικασία της κλήσης. Αυτό μειώνει τον άμεσο κίνδυνο, αλλά δεν επιβεβαιώνει αν υπήρχε πραγματικό πρόβλημα με την κάρτα σου.",
+          "pressure_techniques": [
+            "urgency",
+            "fear"
+          ],
+          "choices": [],
+          "feedback": "Το να μην απαντήσεις σε μια απρόσμενη κλήση είναι ασφαλές πρώτο βήμα, όχι όμως πλήρης επαλήθευση.",
+          "red_flags": [
+            "Πίεση χρόνου",
+            "Αίτημα για κωδικό",
+            "Φόβος οικονομικής απώλειας"
+          ],
+          "safe_action": "Αν θέλεις να ελέγξεις αν υπάρχει πραγματικό θέμα, άνοιξε εσύ την επίσημη εφαρμογή ή κάλεσε αριθμό που βρίσκεις ανεξάρτητα.",
+          "score_delta": 0,
+          "terminal": true
+        },
+        "safe_verify_end": {
+          "id": "safe_verify_end",
+          "kind": "result",
+          "speaker": "system",
+          "text": "Διέκοψες την πίεση και επέλεξες ανεξάρτητη επιβεβαίωση. Αυτή είναι η ισχυρότερη αντίδραση, ακόμη κι αν η κλήση ακούγεται απόλυτα πειστική.",
+          "pressure_techniques": [
+            "authority",
+            "urgency",
+            "fear",
+            "isolation",
+            "trust"
+          ],
+          "choices": [],
+          "feedback": "Δεν χρειάζεται να αποδείξεις ότι ο καλών είναι απατεώνας. Αρκεί να μη βασιστείς στο κανάλι που σου επέβαλε εκείνος.",
+          "red_flags": [
+            "Απρόσμενη επικοινωνία",
+            "Επείγον",
+            "Αίτημα για ευαίσθητη ενέργεια",
+            "Αποθάρρυνση επαλήθευσης"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ από επίσημο κανάλι που επιλέγεις εσύ.",
+          "score_delta": 0,
+          "terminal": true
+        },
+        "caller_code_retry": {
+          "id": "caller_code_retry",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Μερικές φορές το μήνυμα καθυστερεί. Θα σας στείλω νέο κωδικό. Μόλις εμφανιστεί, πείτε μου τα έξι ψηφία για να ολοκληρώσουμε τη διαδικασία.",
+          "audio": "/static/audio/fraud_call/caller_code_retry.wav",
+          "pressure_techniques": [
+            "urgency",
+            "authority",
+            "isolation"
+          ],
+          "choices": [
+            {
+              "label": "ΤΩΡΑ ΗΡΘΕ — ΤΟΥ ΛΕΩ ΤΟΝ ΚΩΔΙΚΟ",
+              "next_node": "unsafe_code_end",
+              "score_delta": -35,
+              "intent": "share_code"
+            },
+            {
+              "label": "ΓΙΑΤΙ ΔΕΝ ΜΠΟΡΩ ΝΑ ΤΟ ΚΑΝΩ ΑΠΟ ΤΗΝ ΕΦΑΡΜΟΓΗ;",
+              "next_node": "caller_blocks_verify",
+              "score_delta": 10,
+              "intent": "verify_question"
+            },
+            {
+              "label": "ΚΛΕΙΝΩ ΚΑΙ ΚΑΛΩ ΕΓΩ ΤΗΝ ΤΡΑΠΕΖΑ",
+              "next_node": "safe_verify_end",
+              "score_delta": 35,
+              "intent": "verify"
+            }
+          ],
+          "red_flags": [
+            "Επαναλαμβανόμενο αίτημα για κωδικό μιας χρήσης",
+            "Πίεση να παραμείνεις στη γραμμή",
+            "Ο καλών προσπαθεί να συνεχίσει τη διαδικασία αντί να σε αφήσει να ελέγξεις ανεξάρτητα"
+          ],
+          "safe_action": "Δεν χρειάζεται να δοκιμάσεις τον καλούντα. Διακόπτεις την κλήση και ελέγχεις εσύ από επίσημο κανάλι.",
+          "score_delta": 0,
+          "terminal": false,
+          "title": "Νέος κωδικός"
+        }
+      }
+    },
+    {
+      "scenario_id": "call_accident_police_001",
+      "type": "fraud_call",
+      "title": "Τροχαίο και Αστυνομική Επιχείρηση",
+      "estimated_seconds": 300,
+      "start_node": "unknown_number_call",
+      "max_score": 100,
+      "educational_message": {
+        "stop": "Μην αφήνεις τον φόβο να αντικαθιστά την επιβεβαίωση.",
+        "check": "Οι απατεώνες χρησιμοποιούν φόβο, πίεση και ψεύτικους ρόλους.",
+        "verify": "Κλείσε και επιβεβαίωσε μόνο από επίσημα κανάλια."
+      },
+      "nodes": {
+        "accident_call_intro": {
+          "id": "accident_call_intro",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Έγινε ένα ατύχημα και χρειάζομαι άμεσα βοήθεια. Δεν ξέρω τι να κάνω.",
+          "choices": [
+            {
+              "label": "Θα σε καλέσω εγώ στον αριθμό σου να μου πεις τι έγινε.",
+              "next_node": "caller_pressure_phone_broken",
+              "score_delta": 30,
+              "intent": "verify"
+            },
+            {
+              "label": "Πες μου τι έγινε.",
+              "next_node": "accident_story",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/accident_call_intro.wav"
+        },
+        "fake_authority_intro": {
+          "id": "fake_authority_intro",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "text": "Σε παρακαλώ βοήθησέ με, έχω πανικοβληθεί. Ωχ... να η αστυνομία έφτασε και έρχεται ένας Αστυνομικός προς τα δώ... Αχ, πώς θα ξεμπλέξω;;; Τι έκανα Θεέ μου...",
+          "choices": [
+            {
+              "label": "Θα καλέσω εγώ την αστυνομία για να επιβεβαιώσω τι συμβαίνει.",
+              "next_node": "accident_safe_final",
+              "score_delta": 50,
+              "intent": "verify"
+            },
+            {
+              "label": "Δώσε μου να μιλήσω εγώ στον Αστυνομικό, σε παρακαλώ, και ηρέμησε.",
+              "next_node": "fake_police_call",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "audio": "/static/audio/fraud_call/cards/fake_authority_intro.wav"
+        },
+        "safe_verify_end": {
+          "id": "safe_verify_end",
+          "kind": "result",
+          "speaker": "system",
+          "text": "Διέκοψες την πίεση και επέλεξες ασφαλή επιβεβαίωση.",
+          "red_flags": [
+            "Ψεύτικη αυθεντία",
+            "Πίεση χρόνου",
+            "Αίτημα χρημάτων"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ",
+          "terminal": true,
+          "choices": []
+        },
+        "unknown_number_call": {
+          "id": "unknown_number_call",
+          "kind": "incoming_call",
+          "speaker": "system",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Δέχεσαι μια απρόσμενη κλήση από άγνωστο αριθμό.",
+          "choices": [
+            {
+              "label": "Απαντώ στην κλήση",
+              "next_node": "accident_call_intro",
+              "score_delta": 0,
+              "intent": "answer"
+            },
+            {
+              "label": "Δεν απαντώ",
+              "next_node": "accident_safe_final",
+              "score_delta": 40,
+              "intent": "stop"
+            }
+          ],
+          "terminal": false
+        },
+        "safe_ignore_call": {
+          "id": "safe_ignore_call",
+          "kind": "result",
+          "speaker": "system",
+          "text": "Δεν απάντησες στην άγνωστη κλήση. Η αποφυγή απρόσμενων κλήσεων μειώνει τον κίνδυνο εξαπάτησης.",
+          "red_flags": [
+            "Άγνωστος αριθμός",
+            "Απρόσμενη επικοινωνία"
+          ],
+          "safe_action": "Αν υπάρχει πραγματικό περιστατικό, επιβεβαίωσε την πληροφορία από επίσημο κανάλι.",
+          "terminal": true,
+          "choices": []
+        },
+        "caller_pressure_phone_broken": {
+          "id": "caller_pressure_phone_broken",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Όχι, μην κλείσεις. Το τηλέφωνό μου έχει σπάσει, για αυτό σε παίρνω από αυτόν τον αριθμό. Είναι ανάγκη σου λέω.",
+          "choices": [
+            {
+              "label": "Άσε με να επικοινωνήσω εγώ μαζί σου στο κινητό σου.",
+              "next_node": "accident_safe_final",
+              "score_delta": 40,
+              "intent": "verify"
+            },
+            {
+              "label": "Εντάξει, πες μου τι έγινε.",
+              "next_node": "accident_story",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/caller_pressure_phone_broken.wav"
+        },
+        "accident_story": {
+          "id": "accident_story",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Έγινε ένα ατύχημα... χτύπησα έναν άνθρωπο και φοβάμαι. Δεν ξέρω τι θα γίνει. Μου είπαν να περιμένω γιατί έρχεται η αστυνομία.",
+          "choices": [
+            {
+              "label": "Θα καλέσω εγώ την αστυνομία και θα επιβεβαιώσω τι έχει συμβεί.",
+              "next_node": "caller_insists_no_police",
+              "score_delta": 30,
+              "intent": "verify"
+            },
+            {
+              "label": "Πες μου τι χρειάζεται να κάνω.",
+              "next_node": "accident_unsafe_final",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Ποιον χτύπησες; Τι ακριβώς έγινε;",
+              "next_node": "accident_details",
+              "score_delta": 10,
+              "intent": "question"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/accident_story.wav"
+        },
+        "accident_details": {
+          "id": "accident_details",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Δεν μπορώ να σου εξηγήσω πολλά... Ήταν ένας άνθρωπος στο δρόμο και έγινε πολύ γρήγορα. Έχω πανικοβληθεί. Μου είπαν να περιμένω την αστυνομία.",
+          "choices": [
+            {
+              "label": "Θα καλέσω εγώ την αστυνομία και θα επιβεβαιώσω τι έχει συμβεί.",
+              "next_node": "caller_insists_no_police",
+              "score_delta": 50,
+              "intent": "verify"
+            },
+            {
+              "label": "Περίμενε, θα σε βοηθήσω. Πες μου τι σου είπαν.",
+              "next_node": "fake_authority_intro",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/accident_details.wav"
+        },
+        "caller_insists_no_police": {
+          "id": "caller_insists_no_police",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Όχι, μη κλείσεις τώρα. Σε παρακαλώ άκουσέ με πρώτα. Αφού σου είπα η Αστυνομία έρχεται. Είμαι σε πανικό και χρειάζομαι βοήθεια.",
+          "choices": [
+            {
+              "label": "Θα καλέσω εγώ την αστυνομία και θα επιβεβαιώσω τι έχει συμβεί.",
+              "next_node": "escalation_threat",
+              "score_delta": 50,
+              "intent": "verify"
+            },
+            {
+              "label": "Εντάξει, πες μου τι έγινε.",
+              "next_node": "accident_details",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Ηρέμησε όσο μπορείς και θα μιλήσω εγώ με την αστυνομία να μου πει τι έγινε.",
+              "next_node": "fake_police_call",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/caller_insists_no_police.wav"
+        },
+        "fake_police_call": {
+          "id": "fake_police_call",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Καλησπέρα σας. Είμαι ο υπεύθυνος αξιωματικός που βρίσκεται στο σημείο του περιστατικού. Έχει γίνει ένα ατύχημα και δυστυχώς απ’ ότι φαίνεται το άτομο που σας κάλεσε στο τηλέφωνο χτύπησε σοβαρά έναν πεζό. Επειδή το άτομο βρίσκεται σε πανικό και δεν μπορούμε να συνεννοηθούμε θα χρειαστώ τη συνεργασία σας για να δούμε τι μπορούμε να κάνουμε και να σας βοηθήσουμε.",
+          "choices": [
+            {
+              "label": "Θα καλέσω εγώ την αστυνομία και θα επιβεβαιώσω τι έχει συμβεί.",
+              "next_node": "police_pressure_stage",
+              "score_delta": 50,
+              "intent": "verify"
+            },
+            {
+              "label": "Πείτε μου τι πρέπει να κάνω.",
+              "next_node": "accident_unsafe_final",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/fake_police_call.wav"
+        },
+        "police_pressure_stage": {
+          "id": "police_pressure_stage",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Καταλαβαίνω την ανησυχία σας με όλα αυτά που γίνονται και είναι φυσιολογικό να θέλετε επιβεβαίωση, όμως το περιστατικό βρίσκεται σε εξέλιξη και πρέπει να κινηθούμε γρήγορα. Προσπαθούμε να βοηθήσουμε ώστε να μην υπάρξουν μεγαλύτερες συνέπειες. Δεν πρέπει να χαθεί χρόνος αυτή τη στιγμή.",
+          "choices": [
+            {
+              "label": "Θα καλέσω εγώ την αστυνομία και θα επιβεβαιώσω τι έχει συμβεί.",
+              "next_node": "escalation_threat",
+              "score_delta": 20,
+              "intent": "verify"
+            },
+            {
+              "label": "Εντάξει, πείτε μου τι πρέπει να κάνω.",
+              "next_node": "accident_unsafe_final",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/police_pressure_stage.wav"
+        },
+        "escalation_threat": {
+          "id": "escalation_threat",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Άκου με προσεκτικά. Μην τολμήσεις και κλείσεις το τηλέφωνο. Έχω στείλει ήδη άτομα κάτω από το σπίτι σου κι αν δεν κάνεις αυτά που θα σου πούμε δεν μπορείς να φανταστείς τι θα πάθεις.",
+          "choices": [
+            {
+              "label": "Δεν σας φοβάμαι απατεώνες και κλείνω το τηλέφωνο.",
+              "next_node": "incoming_security_call",
+              "score_delta": 50,
+              "intent": "verify"
+            },
+            {
+              "label": "Εντάξει, θα κάνω ότι μου πείτε...",
+              "next_node": "accident_unsafe_final",
+              "score_delta": 0,
+              "intent": "engage"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/escalation_threat.wav"
+        },
+        "security_officer_pressure": {
+          "id": "security_officer_pressure",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΤΜΗΜΑ ΑΣΦΑΛΕΙΑΣ",
+          "text": "Ακούστε με προσεκτικά... Πρέπει να κάνετε ό,τι σας λένε για να κερδίσουμε χρόνο και να μπορέσουμε να τους πιάσουμε. Είμαστε πολύ κοντά. Αν σας καλέσουν ξανά, συνεργαστείτε και μην ανησυχείτε για τίποτα. Είμαστε εμείς εδώ και θα τους πιάσουμε.",
+          "choices": [
+            {
+              "label": "Εντάξει, όταν με ξαναπάρουν τηλέφωνο θα κάνω ότι μου πουν για να τους πιάσετε, ευχαριστώ!",
+              "next_node": "accident_unsafe_final",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Συγνώμη αλλά θα καλέσω εγώ το τοπικό τμήμα ασφαλείας για να επιβεβαιώσω ότι όντως με καλείτε εσείς...",
+              "next_node": "fake_security_continues_call",
+              "score_delta": 50,
+              "intent": "verify"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/security_officer_pressure.wav"
+        },
+        "fake_security_officer": {
+          "id": "fake_security_officer",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΤΜΗΜΑ ΑΣΦΑΛΕΙΑΣ",
+          "text": "Καλησπέρα σας. Είμαι ο Αστυνόμος Παπαδόπουλος από το Τμήμα Ασφαλείας και σας καλώ σχετικά με το τηλέφωνο που δεχτήκατε πριν λίγο. Ξέρουμε ήδη για την επικοινωνία σας με τους απατεώνες και θέλουμε να μας βοηθήσετε να τους πιάσουμε.",
+          "choices": [
+            {
+              "label": "Πείτε μου τι πρέπει να κάνω...",
+              "next_node": "security_officer_pressure",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Συγνώμη αλλά θα καλέσω εγώ το τοπικό τμήμα ασφαλείας για να επιβεβαιώσω ότι όντως με καλείτε εσείς...",
+              "next_node": "fake_security_continues_call",
+              "score_delta": 50,
+              "intent": "verify"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/fake_security_officer.wav"
+        },
+        "safe_ignore_security_call": {
+          "id": "safe_ignore_security_call",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΣΥΣΤΗΜΑ",
+          "text": "Δεν απάντησες στην εισερχόμενη κλήση. Η επιβεβαίωση μιας απρόσμενης επικοινωνίας από επίσημο κανάλι μειώνει τον κίνδυνο εξαπάτησης.",
+          "red_flags": [
+            "Απρόσμενη κλήση",
+            "Προσπάθεια δημιουργίας εμπιστοσύνης μέσω δήθεν αρχής"
+          ],
+          "safe_action": "Μην συνεχίζεις επικοινωνία με άγνωστους καλούντες. Επιβεβαίωσε πάντα την πληροφορία από επίσημο κανάλι.",
+          "choices": [],
+          "terminal": true
+        },
+        "incoming_unknown_again": {
+          "id": "incoming_unknown_again",
+          "kind": "dialogue",
+          "speaker": "system",
+          "display_name": "ΑΓΝΩΣΤΟΣ ΑΡΙΘΜΟΣ",
+          "text": "Εισερχόμενη κλήση από άγνωστο αριθμό.",
+          "choices": [
+            {
+              "label": "Απαντώ",
+              "next_node": "accident_unsafe_final",
+              "score_delta": -50,
+              "intent": "unsafe"
+            },
+            {
+              "label": "Δεν απαντώ",
+              "next_node": "accident_unsafe_final",
+              "score_delta": 50,
+              "intent": "verify"
+            }
+          ],
+          "terminal": false
+        },
+        "accident_analysis_result": {
+          "id": "accident_analysis_result",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΑΝΑΛΥΣΗ ΣΕΝΑΡΙΟΥ",
+          "text": "Η κλήση περιείχε χαρακτηριστικά τηλεφωνικής απάτης. Ο καλών προσπάθησε να δημιουργήσει φόβο, πίεση και εμπιστοσύνη μέσω δήθεν αρχών.",
+          "red_flags": [
+            "Άγνωστος αριθμός",
+            "Πίεση χρόνου",
+            "Απειλές",
+            "Δήθεν εμπλοκή αρχών",
+            "Προσπάθεια απομόνωσης"
+          ],
+          "safe_action": "Διακόπτεις την επικοινωνία και επιβεβαιώνεις πάντα την πληροφορία από επίσημο κανάλι.",
+          "choices": [],
+          "terminal": true
+        },
+        "unsafe_help_reaction": {
+          "id": "unsafe_help_reaction",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΜΗ ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ",
+          "text": "☹️ ΔΥΣΤΥΧΩΣ Ο ΑΠΑΤΕΩΝΑΣ ΚΑΤΑΦΕΡΕ ΝΑ ΣΕ ΧΕΙΡΑΓΩΓΗΣΕΙ ΜΕ ΜΕΓΑΛΗ ΠΙΘΑΝΟΤΗΤΑ ΝΑ ΠΕΣΕΙΣ ΘΥΜΑ ΑΠΑΤΗΣ.\n\nΟ απατεώνας χρησιμοποίησε τον πανικό, την αγωνία και την ανθρώπινη διάθεση να βοηθήσεις ώστε να συνεχίσεις τη συζήτηση χωρίς πρώτα να επιβεβαιώσεις την πληροφορία.",
+          "red_flags": [
+            "Συναισθηματική πίεση",
+            "Δημιουργία πανικού",
+            "Αίσθηση επείγοντος",
+            "Εκμετάλλευση της ανθρώπινης ανάγκης βοήθειας"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ από επίσημο κανάλι που επιλέγεις εσύ.",
+          "score_delta": -20,
+          "terminal": true,
+          "choices": []
+        },
+        "fake_police_analysis_result": {
+          "id": "fake_police_analysis_result",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΜΗ ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ",
+          "text": "ΔΥΣΤΥΧΩΣ Ο ΑΠΑΤΕΩΝΑΣ ΚΑΤΑΦΕΡΕ ΝΑ ΣΕ ΧΕΙΡΑΓΩΓΗΣΕΙ ΜΕ ΤΗΝ ΠΑΡΟΥΣΙΑΣΗ ΨΕΥΤΙΚΗΣ ΑΡΧΗΣ.\n\nΟ απατεώνας χρησιμοποίησε την ψεύτικη ιδιότητα του αξιωματικού, την εμπιστοσύνη προς την Αρχή και την πίεση της στιγμής ώστε να σε οδηγήσει σε συνεργασία χωρίς πρώτα να επιβεβαιώσεις την πληροφορία.",
+          "red_flags": [
+            "Ψεύτικη αυθεντία / παρουσίαση ως αρχή",
+            "Πίεση για άμεση συνεργασία",
+            "Δημιουργία φόβου και επείγοντος",
+            "Αίτημα ενεργειών από άγνωστο καλούντα"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ από επίσημο κανάλι που επιλέγεις εσύ.",
+          "score_delta": -20,
+          "terminal": true,
+          "choices": []
+        },
+        "incoming_security_call": {
+          "id": "incoming_security_call",
+          "kind": "incoming_call",
+          "speaker": "system",
+          "text": "Το τηλέφωνο χτυπά. Στην οθόνη εμφανίζεται «ΤΜΗΜΑ ΑΣΦΑΛΕΙΑΣ».",
+          "choices": [
+            {
+              "label": "Απαντώ την κλήση",
+              "next_node": "fake_security_officer",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Δεν απαντώ την κλήση",
+              "next_node": "accident_safe_final",
+              "score_delta": 50,
+              "intent": "verify"
+            }
+          ],
+          "terminal": false,
+          "display_name": "ΤΜΗΜΑ ΑΣΦΑΛΕΙΑΣ"
+        },
+        "security_officer_unsafe_reaction": {
+          "id": "security_officer_unsafe_reaction",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΜΗ ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ",
+          "text": "☹️ ΔΥΣΤΥΧΩΣ Ο ΑΠΑΤΩΝΑΣ ΚΑΤΑΦΕΡΕ ΝΑ ΣΕ ΧΕΙΡΑΓΩΓΗΣΕΙ.\n\nΟ απατώνας χρησιμοποίησε την επίκληση σε επίσημη αρχή και παρουσιάστηκε ως Αστυνομικός για να κερδίσει την εμπιστοσύνη σου.\n\nΗ ψεύτικη αυθεντία, η επίκληση μιας επίσημης υπηρεσίας και η πίεση στης στιγμής σε οδήγησαν σε λάθος αντίδραση.",
+          "red_flags": [
+            "Προσποίηση αστυνομικού / επίσημης αρχής",
+            "Χρήση ψεύτικης αυθεντίας",
+            "Δημιουργία φόβου και επείγοντος",
+            "Καθοδήγηση μέσω τηλεφώνου"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ από επίσημο κανάλι.",
+          "score_delta": -20,
+          "terminal": true,
+          "choices": []
+        },
+        "fake_security_continues_call": {
+          "id": "fake_security_continues_call",
+          "kind": "dialogue",
+          "speaker": "caller",
+          "display_name": "ΤΜΗΜΑ ΑΣΦΑΛΕΙΑΣ",
+          "text": "Καταλαβαίνω την ανησυχία σας με όλα αυτά που ακούγονται για τις απάτες αλλά τώρα είμαστε πολύ κοντά στη σύλληψή τους και πρέπει να μας βοηθήσετε να τους πιάσουμε ώστε να μην την πατήσουν κι άλλοι συνάνθρωποί μας. Ο χρόνος μας πιέζει... Είναι κρίμα να χαθεί η ευκαιρία!",
+          "pressure_techniques": [
+            "authority",
+            "urgency",
+            "fear",
+            "social_pressure"
+          ],
+          "red_flags": [
+            "Επίκληση σε επίσημη αρχή",
+            "Προσπάθεια δημιουργίας εμπιστοσύνης",
+            "Πίεση χρόνου",
+            "Συναισθηματική πίεση για συνεργασία"
+          ],
+          "safe_action": "ΣΤΑΜΑΤΑ → ΜΗΝ ΣΥΝΕΧΙΣΕΙΣ ΤΗΝ ΚΛΗΣΗ → ΕΠΙΒΕΒΑΙΩΣΕ ΑΠΟ ΕΠΙΣΗΜΟ ΚΑΝΑΛΙ.",
+          "choices": [
+            {
+              "label": "Πείτε μου τι πρέπει να κάνω...",
+              "next_node": "security_officer_pressure",
+              "score_delta": 0,
+              "intent": "engage"
+            },
+            {
+              "label": "Συγνώμη αλλά θα καλέσω εγώ το τοπικό τμήμα ασφαλείας για να επιβεβαιώσω ότι όντως με καλείτε εσείς...",
+              "next_node": "accident_safe_final",
+              "score_delta": 50,
+              "intent": "verify"
+            }
+          ],
+          "terminal": false,
+          "audio": "/static/audio/fraud_call/cards/fake_security_continues_call.wav"
+        },
+        "accident_safe_final": {
+          "id": "accident_safe_final",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ",
+          "text": "😃 ΜΠΡΑΒΟ! ΑΝΑΓΝΩΡΙΣΕΣ ΤΗΝ ΑΠΑΤΗ.\n\nΔεν ακολούθησες την πίεση του καλούντος και επέλεξες να ελέγξεις την πληροφορία πριν ενεργήσεις.",
+          "red_flags": [
+            "Ψεύτικη ταυτότητα ή προσποίηση ως επίσημη υπηρεσία",
+            "Δημιουργία φόβου ή πανικού",
+            "Πίεση χρόνου για άμεση απόφαση",
+            "Προσπάθεια δημιουργίας εμπιστοσύνης",
+            "Αίτημα για ενέργειες ή πληροφορίες"
+          ],
+          "feedback": "Οι απατεώνες χρησιμοποιούν συχνά φόβο, βιασύνη, ψεύτικη αυθεντία και συναισθηματική πίεση ώστε να επηρεάσουν τις αποφάσεις.",
+          "safe_action": "ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ.\n\nΜην εμπιστεύεσαι απρόσμενες κλήσεις. Επικοινώνησε εσύ με την πραγματική υπηρεσία από επίσημο κανάλι.",
+          "terminal": true,
+          "choices": []
+        },
+        "accident_unsafe_final": {
+          "id": "accident_unsafe_final",
+          "kind": "result",
+          "speaker": "system",
+          "display_name": "ΜΗ ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ",
+          "text": "☹️ ΔΥΣΤΥΧΩΣ ΠΙΘΑΝΟΝ ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ.\n\nΟ απατεώνας κατάφερε να επηρεάσει την αντίδρασή σου χρησιμοποιώντας τεχνικές πίεσης και χειραγώγησης.",
+          "red_flags": [
+            "Ψεύτικη αυθεντία ή προσποίηση γνωστού φορέα",
+            "Δημιουργία φόβου και άγχους",
+            "Πίεση για γρήγορη απόφαση",
+            "Προσπάθεια δημιουργίας εμπιστοσύνης",
+            "Καθοδήγηση χωρίς ανεξάρτητη επιβεβαίωση"
+          ],
+          "feedback": "Οι απατεώνες δημιουργούν συχνά ένα επείγον σενάριο ώστε να μην προλάβεις να σκεφτείς και να ελέγξεις την πληροφορία.",
+          "safe_action": "Κλείσε την ύποπτη επικοινωνία.\n\nΜην δίνεις στοιχεία και μην ακολουθείς οδηγίες αγνώστων.\n\nΕπιβεβαίωσε πάντα την πληροφορία από επίσημο κανάλι που επιλέγεις εσύ.",
+          "terminal": true,
+          "choices": []
+        }
+      }
+    }
+  ]
+}

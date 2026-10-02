@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>gov Traffic Services | Ηλεκτρονική Πληρωμή Προστίμου</title>
+  <style>
+    :root{
+      --navy:#07213f;
+      --navy-2:#0c2c53;
+      --blue:#1d4ed8;
+      --blue-2:#2563eb;
+      --light:#f4f7fb;
+      --white:#ffffff;
+      --text:#142133;
+      --muted:#566579;
+      --line:#d7e1ef;
+      --danger:#b91c1c;
+      --danger-2:#ef4444;
+      --warning:#8a6a00;
+      --warning-bg:#fff7d6;
+      --success:#15803d;
+      --overlay:rgba(7, 24, 45, .72);
+      --shadow:0 18px 42px rgba(9,30,66,.16);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:linear-gradient(180deg,#06172c 0%, #0a2342 100%);
+      color:var(--text);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      min-height:100dvh;
+    }
+
+    .phone{
+      width:100%;
+      max-width:430px;
+      min-height:100dvh;
+      margin:0 auto;
+      background:var(--light);
+      position:relative;
+      box-shadow:0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    .gov-topbar{
+      background:linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+      color:#fff;
+      padding:16px 18px 18px;
+      border-bottom:4px solid #f4c542;
+    }
+
+    .gov-strip{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .gov-badge{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      border:2px solid rgba(255,255,255,.45);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      background:rgba(255,255,255,.08);
+      flex:0 0 auto;
+    }
+
+    .gov-kicker{
+      font-size:12px;
+      opacity:.86;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:4px;
+    }
+
+    .gov-title{
+      font-size:18px;
+      line-height:1.2;
+      font-weight:800;
+      margin:0;
+    }
+
+    .gov-url{
+      margin-top:12px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:14px;
+      padding:11px 13px;
+      font-size:14px;
+      word-break:break-all;
+      color:#e8eef8;
+    }
+
+    .content{
+      padding:16px;
+    }
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero{
+      padding:18px 16px 14px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
+    }
+
+    .hero-label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:#eef4ff;
+      color:#163b76;
+      font-size:12px;
+      font-weight:800;
+      padding:7px 10px;
+      border-radius:999px;
+      margin-bottom:12px;
+      letter-spacing:.02em;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      font-size:26px;
+      line-height:1.15;
+      color:#0f2140;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.45;
+    }
+
+    .section{
+      padding:16px;
+    }
+
+    .alert{
+      background:#fff4f4;
+      border:1px solid #ffd5d5;
+      color:#8d1d1d;
+      border-radius:16px;
+      padding:14px;
+      font-weight:700;
+      line-height:1.4;
+      margin-bottom:16px;
+    }
+
+    .label{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      color:#21344d;
+      margin:0 0 8px;
+    }
+
+    .input-wrap{ position:relative; }
+
+    input{
+      width:100%;
+      min-height:54px;
+      border-radius:16px;
+      border:1px solid #cdd9ea;
+      background:#fff;
+      padding:0 14px;
+      font-size:18px;
+      color:var(--text);
+      outline:none;
+    }
+
+    input:focus{
+      border-color:#7fb1ff;
+      box-shadow:0 0 0 4px rgba(37,99,235,.14);
+    }
+
+    .hint{
+      font-size:13px;
+      color:#66758c;
+      margin-top:8px;
+      line-height:1.45;
+    }
+
+    .button{
+      width:100%;
+      min-height:56px;
+      border:0;
+      border-radius:16px;
+      font-size:18px;
+      font-weight:900;
+      cursor:pointer;
+      padding:14px 16px;
+      transition:transform .05s ease, opacity .2s ease;
+    }
+
+    .button:active{ transform:scale(.99); }
+
+    .button.primary{
+      background:linear-gradient(180deg,var(--blue-2),var(--blue));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(37,99,235,.24);
+      margin-top:14px;
+    }
+
+    .button.danger{
+      background:linear-gradient(180deg,#ef4444,#d61f1f);
+      color:#fff;
+      box-shadow:0 10px 24px rgba(214,31,31,.2);
+      margin-top:14px;
+    }
+
+    .button.secondary{
+      background:#e8eef7;
+      color:#10233f;
+    }
+
+    .result-card{
+      display:none;
+      margin-top:16px;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid #f8c9c9;
+      background:linear-gradient(180deg,#fff8f8 0%, #ffffff 100%);
+    }
+
+    .result-head{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .result-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:#fee2e2;
+      color:#991b1b;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      flex:0 0 auto;
+    }
+
+    .result-headline{
+      font-size:20px;
+      font-weight:900;
+      color:#8f1d1d;
+      line-height:1.15;
+      margin:0 0 4px;
+    }
+
+    .amount{
+      font-size:34px;
+      font-weight:900;
+      color:#b91c1c;
+      margin:8px 0;
+    }
+
+    .mini{ font-size:14px; color:var(--muted); line-height:1.45; }
+
+    .note{
+      background:var(--warning-bg);
+      color:var(--warning);
+      border:1px solid #f1e0a3;
+      border-radius:14px;
+      padding:12px 13px;
+      font-size:13px;
+      line-height:1.45;
+      font-weight:800;
+      margin-top:14px;
+    
+text-align:center;
+line-height:1.5;
+}
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      background:var(--overlay);
+      padding:14px;
+      z-index:9999;
+    }
+
+    .overlay.show{ display:flex; }
+
+    .reveal{
+      width:100%;
+      max-width:430px;
+      background:#fff;
+      border-radius:28px 28px 18px 18px;
+      overflow:hidden;
+      box-shadow:0 24px 60px rgba(0,0,0,.35);
+      animation:slideUp .2s ease-out;
+    }
+
+    @keyframes slideUp{
+      from{ transform:translateY(12px); opacity:.0; }
+      to{ transform:translateY(0); opacity:1; }
+    }
+
+    .reveal-top{
+      background:linear-gradient(180deg,#7f1d1d 0%, #991b1b 100%);
+      color:#fff;
+      padding:22px 18px 20px;
+      text-align:center;
+    }
+
+    .reveal-top .emoji{
+      font-size:34px;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .reveal-kicker{
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.04em;
+      opacity:.95;
+    }
+
+    .reveal-title{
+      margin:8px 0 0;
+      font-size:32px;
+      line-height:1.06;
+      font-weight:900;
+    }
+
+    .reveal-body{
+      padding:18px;
+      background:#f8fafc;
+    }
+
+    .reveal-body p{
+      margin:0 0 14px;
+      font-size:16px;
+      line-height:1.55;
+      color:#1b2a41;
+    }
+
+    .info-box{
+      background:#fff;
+      border:1px solid #e1e8f2;
+      border-radius:18px;
+      padding:15px;
+      margin:12px 0;
+    }
+
+    .info-box h3{
+      margin:0 0 10px;
+      font-size:18px;
+      line-height:1.25;
+      color:#0f2140;
+    }
+
+    .info-box ul{
+      margin:0;
+      padding-left:20px;
+    }
+
+    .info-box li{
+      margin:8px 0;
+      font-size:15px;
+      line-height:1.45;
+      color:#22324b;
+    }
+
+    .rule{
+      text-align:center;
+      font-size:24px;
+      font-weight:900;
+      color:#8a3b00;
+      line-height:1.2;
+      margin:16px 0 8px;
+    }
+
+    .actions{
+      display:grid;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    @media (max-width:380px){
+      .gov-title{font-size:17px}
+      .hero h1{font-size:24px}
+      .amount{font-size:31px}
+      .reveal-title{font-size:28px}
+      .rule{font-size:21px}
+      .button{font-size:17px}
+    }
+  
+
+/* === FRAUDLAB MOBILE PREMIUM REVEAL PATCH === */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(7,24,45,.78);
+    padding:10px;
+    z-index:9999;
+}
+
+.reveal{
+    width:100%;
+    max-width:430px;
+    max-height:92dvh;
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+
+.reveal-body{
+    padding:18px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.reveal-title{
+    font-size:28px;
+    line-height:1.12;
+}
+
+.info-box{
+    padding:14px;
+    margin:10px 0;
+}
+
+.info-box li{
+    font-size:15px;
+    line-height:1.4;
+}
+
+.rule{
+    font-size:22px;
+    margin:14px 0;
+}
+
+@media(max-width:380px){
+    .reveal-title{
+        font-size:24px;
+    }
+
+    .rule{
+        font-size:20px;
+    }
+}
+
+
+</style>
+</head>
+<body>
+  <main class="phone">
+    <header class="gov-topbar">
+      <div class="gov-strip">
+        <div class="gov-badge">🏛️</div>
+        <div>
+          <div class="gov-kicker">gov traffic services</div>
+          <h2 class="gov-title">Ηλεκτρονική Υπηρεσία Ελέγχου και Πληρωμής Προστίμων</h2>
+        </div>
+      </div>
+      <div class="gov-url">traffic-payment.example/fine</div>
+    </header>
+
+    <section class="content">
+      <article class="card">
+        <div class="hero">
+          <div class="hero-label">ΨΗΦΙΑΚΗ ΥΠΗΡΕΣΙΑ ΟΧΗΜΑΤΩΝ</div>
+          <h1>Ηλεκτρονική Πληρωμή Προστίμου</h1>
+          <p>Έλεγχος πιθανής οφειλής οχήματος και συνέχιση διαδικασίας πληρωμής.</p>
+        </div>
+
+        <div class="section">
+          <div class="alert">Απαιτείται άμεση ενέργεια για την τακτοποίηση υποτιθέμενης οφειλής.</div>
+
+          <label class="label" for="plate">Αριθμός κυκλοφορίας</label>
+          <div class="input-wrap">
+            <input id="plate" type="text" placeholder="π.χ. ΧΧΧ-1234" maxlength="12" autocomplete="off">
+          </div>
+          <div class="hint">Συμπληρώστε τον αριθμό κυκλοφορίας για αναζήτηση παράβασης.</div>
+
+          <button id="searchBtn" class="button primary" type="button">ΑΝΑΖΗΤΗΣΗ ΟΦΕΙΛΗΣ</button>
+
+          <div id="resultCard" class="result-card">
+            <div class="result-head">
+              <div class="result-icon">!</div>
+              <div>
+                <div class="result-headline">Βρέθηκε οφειλή οχήματος</div>
+                <div class="mini">Εμφανίστηκε υποτιθέμενη παράβαση προς άμεση εξόφληση.</div>
+              </div>
+            </div>
+
+            <div class="amount">30,00 €</div>
+            <div class="mini"><b>Παράβαση:</b> Παράνομη στάθμευση</div>
+            <div class="mini"><b>Όχημα:</b> <span id="platePreview">---</span></div>
+            <div class="mini"><b>Κατάσταση:</b> Απαιτείται άμεση πληρωμή</div>
+
+            <button id="payBtn" class="button danger" type="button">ΠΛΗΡΩΜΗ ΤΩΡΑ</button>
+          </div>
+
+          <div class="note">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>ΔΕΝ ΚΑΤΑΧΩΡΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ</div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div id="fraudOverlay" class="overlay" aria-hidden="true">
+    <div class="reveal">
+      <div class="reveal-top">
+        <span class="emoji">☹️</span>
+        <div class="reveal-kicker">ΜΗ ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ</div>
+        <h2 class="reveal-title">ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+      </div>
+
+      <div class="reveal-body">
+        <p>Αυτή ήταν μια εκπαιδευτική προσομοίωση. Η σελίδα σχεδιάστηκε ώστε να μοιάζει πιο έγκυρη και «επίσημη», για να δείξει πόσο εύκολα ένας απατηλός σύνδεσμος μπορεί να παραπλανήσει τον επισκέπτη.</p>
+
+        <div class="info-box">
+          <h3>Τι προσπαθούν να εκμεταλλευτούν οι απατεώνες</h3>
+          <ul>
+            <li>Τον φόβο για πρόστιμο, ποινή ή επιβάρυνση</li>
+            <li>Την πίεση για άμεση πληρωμή χωρίς έλεγχο</li>
+            <li>Μια ψεύτικη εικόνα επίσημης κρατικής υπηρεσίας</li>
+            <li>Την ανάγκη για γρήγορη λύση από το κινητό</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>Πώς προστατεύεσαι</h3>
+          <ul>
+            <li>Έλεγξε προσεκτικά τη διεύθυνση της σελίδας</li>
+            <li>Μην πληρώνεις από QR που ήρθε απρόσμενα</li>
+            <li>Επιβεβαίωσε κάθε οφειλή από επίσημο κανάλι που ανοίγεις εσύ</li>
+          </ul>
+        </div>
+
+        <div class="rule">ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ</div>
+
+        <div class="actions">
+          <button id="retryBtn" class="button primary" type="button">ΔΟΚΙΜΑΣΕ ΞΑΝΑ</button>
+          <button id="closeBtn" class="button secondary" type="button">ΚΛΕΙΣΙΜΟ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const plateInput = document.getElementById('plate');
+    const searchBtn = document.getElementById('searchBtn');
+    const resultCard = document.getElementById('resultCard');
+    const platePreview = document.getElementById('platePreview');
+    const payBtn = document.getElementById('payBtn');
+    const fraudOverlay = document.getElementById('fraudOverlay');
+    const retryBtn = document.getElementById('retryBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    searchBtn.addEventListener('click', () => {
+      const plate = (plateInput.value || '').trim() || 'ΧΧΧ-1234';
+      platePreview.textContent = plate.toUpperCase();
+      resultCard.style.display = 'block';
+      resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    payBtn.addEventListener('click', () => {
+      fraudOverlay.classList.add('show');
+      fraudOverlay.setAttribute('aria-hidden', 'false');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    retryBtn.addEventListener('click', () => window.location.reload());
+
+    closeBtn.addEventListener('click', () => {
+      fraudOverlay.classList.remove('show');
+      fraudOverlay.setAttribute('aria-hidden', 'true');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+/* FRAUD LAB QR - SCENARIO ONLY FIX v1
+   Do not affect intro / feedback / result pages
+*/
+
+/* Scenario page: reduce vertical footprint only */
+.challenge-layout .choice-area {
+    margin-top: 8px;
+}
+
+.challenge-layout .choice-area h1 {
+    font-size: 1.85rem;
+    margin: 0 0 8px;
+}
+
+.challenge-layout .choice-grid {
+    gap: 8px;
+}
+
+.challenge-layout .choice-btn {
+    min-height: 50px;
+    padding: 8px 14px;
+}
+
+/* Reduce poster height only inside scenario */
+.challenge-layout .poster-card {
+    padding: 18px;
+    margin-top: 14px;
+}
+
+.challenge-layout .poster-card h2 {
+    font-size: 1.45rem;
+}
+
+.challenge-layout .poster-card p {
+    font-size: .95rem;
+}
+
+.challenge-layout .qr-placeholder {
+    width: 125px;
+    height: 135px;
+    margin-top: 12px;
+}
+
+.challenge-layout .qr-grid {
+    width: 95px;
+    height: 95px;
+}
+
+/* Keep the three answers visible above footer */
+.challenge-layout {
+    align-items: start;
+}

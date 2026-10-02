@@ -1,0 +1,147 @@
+/*
+ FRAUD LAB
+ Exhibition Display Optimization v3.0
+ Phase 2 - Windows Exhibition Mode
+
+ Purpose:
+ - 1920x1080 kiosk displays
+ - 27" monitors
+ - 65" exhibition screens
+ - no vertical scrolling
+ - all stations visible
+ - touch friendly targets
+*/
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.home-shell {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    min-height: 100vh;
+    margin: 0;
+    padding: clamp(20px, 3vh, 42px) clamp(24px, 4vw, 72px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.hero {
+    max-width: 100%;
+    margin-bottom: clamp(14px, 2vh, 28px);
+}
+
+.brand-kicker {
+    font-size: clamp(.8rem, 1vw, 1.1rem);
+}
+
+.hero h1 {
+    font-size: clamp(2.4rem, 5vw, 5rem);
+    line-height: .95;
+}
+
+.hero-copy {
+    max-width: 1100px;
+    margin: 12px 0;
+    font-size: clamp(1rem, 1.4vw, 1.35rem);
+    line-height: 1.35;
+}
+
+.safety-message {
+    padding: 10px 18px;
+    font-size: clamp(.8rem, 1vw, 1rem);
+}
+
+.stations {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: clamp(14px, 1.8vw, 28px);
+}
+
+.station-card {
+    min-height: 0;
+    height: 100%;
+    padding: clamp(18px, 2vw, 32px);
+    border-radius: 22px;
+    display: flex;
+    overflow: hidden;
+}
+
+.station-number {
+    font-size: clamp(3rem, 6vw, 6rem);
+    margin-right: 18px;
+}
+
+.station-content {
+    min-width: 0;
+}
+
+.station-content h2 {
+    margin: 8px 0;
+    font-size: clamp(1.5rem, 2.5vw, 2.8rem);
+}
+
+.station-content p {
+    font-size: clamp(.9rem, 1.2vw, 1.25rem);
+    line-height: 1.4;
+    margin: 8px 0;
+}
+
+.station-footer {
+    padding-top: 12px;
+}
+
+@media (max-height: 850px) {
+
+    .home-shell {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
+    .hero-copy,
+    .safety-message {
+        display: none;
+    }
+
+    .hero {
+        margin-bottom: 12px;
+    }
+
+    .station-card {
+        padding: 16px;
+    }
+
+    .station-content p {
+        max-height: 48px;
+        overflow: hidden;
+    }
+
+    .station-footer {
+        display: none;
+    }
+}
+
+@media (min-width: 2500px) {
+
+    .station-card {
+        padding: 42px;
+    }
+
+    .station-content h2 {
+        font-size: 3.2rem;
+    }
+
+    .station-content p {
+        font-size: 1.5rem;
+    }
+}

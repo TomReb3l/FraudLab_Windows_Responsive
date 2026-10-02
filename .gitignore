@@ -1,0 +1,60 @@
+
+# --- Fraud Lab local/runtime files ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+
+# Local secrets / configuration
+.env
+.env.*
+!.env.example
+
+# Local backups / logs / temporary files
+_backups/
+*.log
+*.tmp
+*.temp
+
+# Local AI models - downloaded separately on each machine
+models/
+*.gguf
+*.onnx
+ggml-*.bin
+
+# Playwright / local tooling
+playwright-report/
+test-results/
+
+# Legacy/local backup artifacts
+_backup*/
+*.before_*.json
+*.before_*.js
+*.current
+
+# FraudLab local backup folders
+backup_*/
+*_temp/
+
+# Patch and manual backup files
+*.zip
+*_backup.*
+*backup*.txt
+
+# FraudLab audio processing temporary files
+static/audio/fraud_call_mastered/
+static/audio/fraud_call_backup_before_mastering/
+*.backup_before_*
+
+# QR Station local consolidation backups
+archive/qr_css_backups/
+
+# FraudLab generated backup files
+*.backup*
+*.backup-*
+*.backup-before-*
+
+# Scenario development workspace
+data/scenario_dev/

@@ -1,0 +1,27 @@
+{
+  "call_accident_police_001": {
+    "default_scene": "accident_scene",
+    "scenes": {
+      "accident_scene": {
+        "audio": "/static/audio/fraud_call/ambient/accident_scene.wav"
+      },
+      "police_office_scene": {
+        "audio": "/static/audio/fraud_call/ambient/police_office_scene.wav"
+      }
+    },
+    "nodes": {
+      "accident_call_intro": "accident_scene",
+      "caller_pressure_phone_broken": "accident_scene",
+      "accident_story": "accident_scene",
+      "accident_details": "accident_scene",
+      "caller_insists_no_police": "accident_scene",
+      "fake_authority_intro": "accident_scene",
+      "fake_police_call": "accident_scene",
+      "police_pressure_stage": "accident_scene",
+      "escalation_threat": "accident_scene",
+      "fake_security_officer": "police_office_scene",
+      "fake_security_continues_call": "police_office_scene",
+      "security_officer_pressure": "police_office_scene"
+    }
+  }
+}

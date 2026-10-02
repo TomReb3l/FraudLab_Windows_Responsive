@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f2742">
+  <title>FRAUD LAB — Fraud Call Booth</title>
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/call.css?v=8.0">
+</head>
+<body class="call-page">
+  <main class="app-shell" id="app" aria-live="polite">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-kicker">FRAUD LAB</div>
+        <div class="brand-title">Πώς θα αντιδρούσες;</div>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-button" id="assistBtn" type="button" aria-pressed="false">ΒΟΗΘΟΥΜΕΝΗ ΛΕΙΤΟΥΡΓΙΑ</button>
+        <button class="ghost-button" id="homeBtn" type="button">ΑΡΧΙΚΗ</button>
+      </div>
+    </header>
+
+    <section class="screen" id="screen"></section>
+
+    <footer class="footer-strip" aria-label="Κεντρικό μήνυμα ασφαλείας">
+      <span>ΣΤΑΜΑΤΑ</span><span class="arrow">→</span><span>ΕΛΕΓΞΕ</span><span class="arrow">→</span><span>ΕΠΙΒΕΒΑΙΩΣΕ</span>
+    </footer>
+  </main>
+
+  <div class="timeout-modal" id="timeoutModal" role="dialog" aria-modal="true" aria-labelledby="timeoutTitle" hidden>
+    <div class="timeout-card">
+      <h2 id="timeoutTitle">Η εμπειρία θα επανεκκινήσει</h2>
+      <p>Δεν εντοπίστηκε αλληλεπίδραση. Αγγίξτε το κουμπί για να συνεχίσετε.</p>
+      <button class="primary-button" id="continueBtn" type="button">ΣΥΝΕΧΙΖΩ</button>
+    </div>
+  </div>
+
+  <audio id="audioPlayer" preload="auto"></audio>
+  <script src="/static/js/call.js?v=8.5" defer></script>
+</body>
+</html>

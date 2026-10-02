@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071624">
+  <title>FRAUD LAB — Station 4</title>
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/ai.css?v=0.3">
+</head>
+<body class="ai-page">
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="brand-kicker">FRAUD LAB</div>
+        <div class="brand-title">STATION 4 · LIVE CONVERSATION</div>
+      </div>
+      <div class="top-actions">
+        <button id="assistBtn" class="ghost-button" type="button" aria-pressed="false">ASSISTED MODE</button>
+        <button id="homeBtn" class="ghost-button" type="button">ΑΡΧΙΚΗ</button>
+      </div>
+    </header>
+
+    <main id="screen" class="screen ai-screen" data-ai-mode="intro" tabindex="-1" aria-live="polite"></main>
+
+    <footer class="ai-footer" aria-label="Εκπαιδευτικό πλαίσιο">
+      <strong>ΣΤΑΜΑΤΑ</strong><span>→</span><strong>ΕΛΕΓΞΕ</strong><span>→</span><strong>ΕΠΙΒΕΒΑΙΩΣΕ</strong>
+    </footer>
+  </div>
+
+  <div id="timeoutModal" class="timeout-modal" hidden>
+    <div class="timeout-card" role="alertdialog" aria-modal="true" aria-labelledby="timeoutTitle">
+      <h2 id="timeoutTitle">Η εμπειρία θα επανεκκινήσει</h2>
+      <p>Δεν υπήρξε δραστηριότητα. Άγγιξε την οθόνη ή πάτησε ένα πλήκτρο για να συνεχίσεις.</p>
+    </div>
+  </div>
+
+  <script src="/static/js/ai.js?v=0.3" defer></script>
+</body>
+</html>

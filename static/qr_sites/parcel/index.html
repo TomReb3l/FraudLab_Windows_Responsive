@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ELTA Parcel - Επιβεβαίωση Παράδοσης</title>
+  <style>
+    :root {
+      --bg: #eef3f8;
+      --page: #f7f9fc;
+      --card: #ffffff;
+      --text: #12324a;
+      --muted: #567087;
+      --border: #d7e2ec;
+      --blue: #0053a0;
+      --blue-deep: #0e3f73;
+      --yellow: #f5c400;
+      --yellow-soft: #fff3bf;
+      --danger: #d83b3b;
+      --danger-soft: #fff0f0;
+      --success: #0f67c8;
+      --brown: #5a4300;
+      --shadow: 0 10px 28px rgba(10, 35, 66, 0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #edf2f7 0%, #f8fafc 100%);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 390px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--page);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+    }
+
+    .browser-bar {
+      background: #eef3f8;
+      padding: 10px 12px;
+      border-bottom: 1px solid #dde7f0;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .browser-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #96afc4;
+      display: inline-block;
+    }
+
+    .url-bar {
+      width: 100%;
+      border: 1px solid #cfdbe6;
+      background: #fff;
+      color: #29465f;
+      border-radius: 12px;
+      padding: 11px 13px;
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #0053a0 0%, #004b93 100%);
+      color: #fff;
+      padding: 18px 16px 14px;
+      border-bottom: 5px solid var(--yellow);
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      flex: 0 0 48px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--yellow);
+      color: #16314a;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 22px;
+    }
+
+    .brand-title {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      font-weight: 800;
+      opacity: 0.9;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.05;
+      margin-top: 3px;
+      color: var(--yellow);
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      margin-top: 3px;
+      opacity: 0.95;
+    }
+
+    .content {
+      padding: 14px 12px 22px;
+    }
+
+    .panel, .final-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 14px;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff8da;
+      color: #7a5c00;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.08;
+      color: #13334a;
+    }
+
+    .lead {
+      margin: 14px 0 0;
+      font-size: 17px;
+      line-height: 1.45;
+      color: #26475f;
+    }
+
+    .info-box {
+      margin-top: 16px;
+      background: #f6f9fc;
+      border: 1px solid #d9e5ee;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px dashed #d8e1ea;
+    }
+
+    .info-row:last-child { border-bottom: 0; }
+
+    .info-label { color: #5a7286; font-weight: 700; }
+    .info-value { color: #14354c; font-weight: 800; text-align: right; }
+
+    .section-title {
+      margin: 18px 0 10px;
+      font-size: 15px;
+      font-weight: 900;
+      color: #20445e;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 8px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #244a66;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #c8d7e4;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 13px;
+      font-size: 17px;
+      color: #183951;
+      outline: none;
+    }
+
+    .small-note {
+      margin-top: 10px;
+      background: #fff8e3;
+      border-left: 4px solid var(--yellow);
+      color: #6f5800;
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .cta {
+      margin-top: 18px;
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(180deg, #0f67c8 0%, #0b57a8 100%);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      padding: 16px 14px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(9, 78, 150, 0.22);
+    }
+
+    .edu-note {
+      margin-top: 16px;
+      background: #5a4300;
+      color: #ffd965;
+      border-radius: 14px;
+      padding: 14px 12px;
+      text-align: center;
+      line-height: 1.5;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .final-card {
+      display: none;
+      border-top: 6px solid var(--danger);
+      background: linear-gradient(180deg, #fff 0%, #fffaf6 100%);
+    }
+
+    .final-card.show { display: block; }
+    .hidden { display: none !important; }
+
+    .final-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .emoji {
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .status-title {
+      color: #a62828;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .final-title {
+      font-size: 30px;
+      line-height: 1.08;
+      font-weight: 900;
+      color: #8f1818;
+      margin: 0;
+    }
+
+    .final-text {
+      margin: 12px 0 0;
+      font-size: 17px;
+      line-height: 1.55;
+      color: #2f4358;
+      text-align: center;
+    }
+
+    .box {
+      margin-top: 16px;
+      border-radius: 15px;
+      padding: 14px;
+      border: 1px solid;
+    }
+
+    .box-danger {
+      background: var(--danger-soft);
+      border-color: #efc1c1;
+    }
+
+    .box-safe {
+      background: #f5f9ff;
+      border-color: #cedef1;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: #173955;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 8px 0;
+      color: #294359;
+      line-height: 1.4;
+      font-size: 15px;
+    }
+
+    .final-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 21px;
+      font-weight: 900;
+      color: #2a3d4d;
+    }
+
+    .final-footer span {
+      color: #0b5cab;
+    }
+
+    @media (max-width: 360px) {
+      .page { max-width: 100%; }
+      h1 { font-size: 25px; }
+      .final-title { font-size: 26px; }
+      .brand-name { font-size: 22px; }
+      .cta { font-size: 18px; }
+    }
+  
+
+/* === FRAUDLAB MOBILE PREMIUM REVEAL PATCH === */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(7,24,45,.78);
+    padding:10px;
+    z-index:9999;
+}
+
+.reveal{
+    width:100%;
+    max-width:430px;
+    max-height:92dvh;
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+
+.reveal-body{
+    padding:18px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.reveal-title{
+    font-size:28px;
+    line-height:1.12;
+}
+
+.info-box{
+    padding:14px;
+    margin:10px 0;
+}
+
+.info-box li{
+    font-size:15px;
+    line-height:1.4;
+}
+
+.rule{
+    font-size:22px;
+    margin:14px 0;
+}
+
+@media(max-width:380px){
+    .reveal-title{
+        font-size:24px;
+    }
+
+    .rule{
+        font-size:20px;
+    }
+}
+
+
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="browser-bar">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">elta-parcel-support.example/re-delivery</div>
+    </section>
+
+    <section class="hero">
+      <div class="brand-row">
+        <div class="brand-badge">E</div>
+        <div>
+          <div class="brand-title">COURIER SERVICE</div>
+          <div class="brand-name">ELTA Parcel</div>
+          <div class="brand-sub">Επιβεβαίωση Παράδοσης</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div id="formCard" class="panel">
+        <div class="chip">ΑΠΑΙΤΕΙΤΑΙ ΕΝΕΡΓΕΙΑ</div>
+        <h1>Η παράδοση δεν ολοκληρώθηκε</h1>
+        <p class="lead">Για επαναπρογραμματισμό αποστολής ζητείται επιβεβαίωση στοιχείων και μικρή χρέωση διαχείρισης.</p>
+
+        <div class="info-box">
+          <div class="info-row">
+            <span class="info-label">Αριθμός αποστολής</span>
+            <span class="info-value">ELTA-847291</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Κατάσταση</span>
+            <span class="info-value">Ανεπιτυχής παράδοση</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Χρέωση</span>
+            <span class="info-value">1,49 €</span>
+          </div>
+        </div>
+
+        <div class="section-title">Επιβεβαίωση στοιχείων παραλήπτη</div>
+
+        <label for="fullname">Ονοματεπώνυμο</label>
+        <input id="fullname" type="text" placeholder="π.χ. Νίκος Παπαδόπουλος">
+
+        <label for="card">Στοιχεία πληρωμής</label>
+        <input id="card" type="text" placeholder="•••• •••• •••• ••••">
+
+        <div class="small-note">Η διαδικασία ζητά άμεση ολοκλήρωση ώστε να μην επιστραφεί το δέμα στον αποστολέα.</div>
+
+        <button id="payBtn" class="cta" type="button">ΣΥΝΕΧΕΙΑ ΣΤΗΝ ΠΛΗΡΩΜΗ</button>
+
+        <div class="edu-note">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>ΔΕΝ ΚΑΤΑΧΩΡΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ</div>
+      </div>
+
+      <div id="finalCard" class="final-card" aria-live="polite">
+        <div class="final-header">
+          <div class="emoji">☹️</div>
+          <div class="status-title">ΜΗ ΑΣΦΑΛΗΣ ΑΝΤΙΔΡΑΣΗ</div>
+          <h2 class="final-title">ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+          <p class="final-text">Αυτή ήταν μια εκπαιδευτική προσομοίωση. Η σελίδα σχεδιάστηκε ώστε να δείξει πώς μια ψεύτικη ιστοσελίδα παράδοσης μπορεί να πιέσει τον χρήστη να δώσει στοιχεία και να προχωρήσει σε πληρωμή.</p>
+        </div>
+
+        <div class="box box-danger">
+          <h3>Τι προσπάθησαν να εκμεταλλευτούν οι απατεώνες</h3>
+          <ul>
+            <li>Το άγχος ότι θα χαθεί ή θα επιστραφεί το δέμα.</li>
+            <li>Την πίεση για άμεση πληρωμή μικρού ποσού.</li>
+            <li>Μια οικεία εμφάνιση τύπου courier / επίσημης υπηρεσίας.</li>
+            <li>Τη βιασύνη του χρήστη να λύσει γρήγορα το πρόβλημα.</li>
+          </ul>
+        </div>
+
+        <div class="box box-safe">
+          <h3>Πώς να προστατευτείς</h3>
+          <ul>
+            <li>Έλεγχε πάντα τη διεύθυνση της ιστοσελίδας πριν πατήσεις οτιδήποτε.</li>
+            <li>Μην πληρώνεις ή δίνεις στοιχεία από σύνδεσμο / QR που έρχεται απρόσμενα.</li>
+            <li>Άνοιγε μόνος/η σου την επίσημη εφαρμογή ή ιστοσελίδα της courier.</li>
+            <li>Επιβεβαίωσε την αποστολή από επίσημο κανάλι πριν ενεργήσεις.</li>
+          </ul>
+        </div>
+
+        <div class="edu-note">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>ΔΕΝ ΚΑΤΑΧΩΡΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ</div>
+
+        <div class="final-footer">ΣΤΑΜΑΤΑ <span>→</span> ΕΛΕΓΞΕ <span>→</span> ΕΠΙΒΕΒΑΙΩΣΕ</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('payBtn').addEventListener('click', function () {
+      document.getElementById('formCard').classList.add('hidden');
+      var finalCard = document.getElementById('finalCard');
+      finalCard.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,609 @@
+/*
+============================================================
+ FRAUD LAB — PREMIUM EXHIBITION DESIGN SYSTEM
+ v7.11
+
+ Goals:
+ - dark throughout
+ - WCAG-friendly contrast
+ - readable from distance
+ - older-user friendly
+ - consistent Call / SMS / QR presentation
+============================================================
+*/
+
+:root {
+  color-scheme: dark;
+
+  --bg-0: #04111c;
+  --bg-1: #071a2a;
+  --bg-2: #0b2235;
+
+  --surface-1: #0e2639;
+  --surface-2: #132f45;
+  --surface-3: #183a53;
+
+  --border: rgba(208, 224, 235, .19);
+  --border-strong: rgba(208, 224, 235, .34);
+
+  --text: #f7fafc;
+  --text-soft: #d6e0e8;
+  --muted: #afc0cd;
+
+  --accent: #f3b844;
+  --safe: #58d49a;
+  --risk: #ff8585;
+
+  --radius: 20px;
+
+  --shadow:
+    0 24px 60px rgba(0, 0, 0, .28);
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html {
+  background: var(--bg-0);
+}
+
+body {
+  margin: 0;
+
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      #153b59 0%,
+      var(--bg-1) 34%,
+      var(--bg-0) 100%
+    ) !important;
+
+  color: var(--text) !important;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  font-size: 18px;
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+
+main,
+.call-app,
+.sms-app,
+.qr-app,
+.home-app {
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+
+/* =========================================================
+   CRITICAL SCREEN CONTRAST FIX
+   Fixes the near-black headings seen in screenshots.
+   ========================================================= */
+
+#screen,
+.screen,
+.call-screen,
+.sms-screen,
+.qr-screen {
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+
+#screen h1,
+#screen h2,
+#screen h3,
+#screen h4,
+.screen h1,
+.screen h2,
+.screen h3,
+.call-screen h1,
+.call-screen h2 {
+  color: var(--text) !important;
+
+  line-height: 1.08;
+
+  text-wrap: balance;
+}
+
+
+#screen h1 {
+  font-size: clamp(
+    2.15rem,
+    4vw,
+    3.65rem
+  ) !important;
+
+  max-width: 19ch;
+}
+
+
+#screen h2 {
+  font-size: clamp(
+    1.65rem,
+    2.6vw,
+    2.7rem
+  ) !important;
+}
+
+
+#screen h3 {
+  font-size: clamp(
+    1.25rem,
+    1.8vw,
+    1.7rem
+  ) !important;
+}
+
+
+#screen p,
+#screen li {
+  color: var(--text-soft) !important;
+
+  font-size: clamp(
+    1.05rem,
+    1.3vw,
+    1.28rem
+  );
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+[class*="card"],
+[class*="panel"] {
+  border-color: var(--border) !important;
+}
+
+
+.intro-card,
+.result-card,
+.fatal-card,
+.call-card,
+.scenario-card,
+.call-stage,
+.call-content,
+.call-panel,
+.left-panel {
+  background:
+    linear-gradient(
+      145deg,
+      var(--surface-2),
+      var(--surface-1)
+    ) !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid var(--border) !important;
+
+  box-shadow: var(--shadow);
+}
+
+
+/* =========================================================
+   CALL — DARK THROUGHOUT
+   ========================================================= */
+
+.phone-shell,
+.phone-panel,
+.phone-frame,
+.phone-screen,
+.incoming-call,
+.caller-panel {
+  background: #06131e !important;
+
+  color: var(--text) !important;
+
+  border-color: #294257 !important;
+}
+
+
+.caller-name {
+  color: var(--text) !important;
+
+  font-size: clamp(
+    1.55rem,
+    2.5vw,
+    2.4rem
+  ) !important;
+
+  line-height: 1.1;
+}
+
+
+.caller-number,
+.caller-role,
+.call-subtitle {
+  color: var(--muted) !important;
+}
+
+
+/*
+ Common dialogue/content class patterns.
+ This deliberately loads LAST.
+*/
+
+#screen [class*="dialog"],
+#screen [class*="message"],
+#screen [class*="script"],
+#screen [class*="transcript"],
+#screen [class*="copy"] {
+  background: var(--surface-2) !important;
+
+  color: var(--text) !important;
+
+  border-color: var(--border) !important;
+}
+
+
+#screen [class*="dialog"] p,
+#screen [class*="message"] p,
+#screen [class*="script"] p,
+#screen [class*="transcript"] p,
+#screen [class*="copy"] p {
+  color: var(--text) !important;
+}
+
+
+/* =========================================================
+   SMS
+   ========================================================= */
+
+.sms-phone,
+.phone-body,
+.message-area,
+.message-thread {
+  background: #06121c !important;
+
+  color: var(--text) !important;
+}
+
+
+.message-bubble,
+.sms-bubble {
+  background: #19374e !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid var(--border) !important;
+}
+
+
+.message-bubble p,
+.sms-bubble p {
+  color: var(--text) !important;
+}
+
+
+/* =========================================================
+   QR / WEBSITE
+   ========================================================= */
+
+.poster-card {
+  background:
+    linear-gradient(
+      145deg,
+      #15344a,
+      #0d2436
+    ) !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid var(--border) !important;
+}
+
+
+.poster-card h2 {
+  color: var(--text) !important;
+}
+
+
+.poster-card p {
+  color: var(--text-soft) !important;
+}
+
+
+.browser-card {
+  background: #081722 !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid var(--border) !important;
+
+  box-shadow: var(--shadow);
+}
+
+
+.browser-top {
+  background: #142b3d !important;
+}
+
+
+.address-bar {
+  background: #06131d !important;
+
+  color: #e5edf3 !important;
+
+  border: 1px solid #405b70 !important;
+
+  font-size: 1rem;
+}
+
+
+.fake-site {
+  background: #0f2638 !important;
+
+  color: var(--text) !important;
+}
+
+
+.fake-site h2,
+.fake-site h3,
+.site-brand {
+  color: var(--text) !important;
+}
+
+
+.fake-site p {
+  color: var(--text-soft) !important;
+}
+
+
+.fake-site label {
+  color: var(--text) !important;
+}
+
+
+.fake-input,
+input,
+textarea,
+select {
+  background: #071722 !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid #49657a !important;
+}
+
+
+/* =========================================================
+   CHOICE BUTTONS
+   ========================================================= */
+
+.choice-grid {
+  gap: 14px !important;
+}
+
+
+.choice-btn {
+  min-height: 76px !important;
+
+  padding: 18px 22px !important;
+
+  background: #122d43 !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid var(--border) !important;
+
+  border-radius: 16px !important;
+
+  font-size: clamp(
+    1.05rem,
+    1.25vw,
+    1.22rem
+  ) !important;
+
+  font-weight: 750 !important;
+
+  line-height: 1.35 !important;
+
+  cursor: pointer;
+}
+
+
+.choice-btn:hover:not(:disabled) {
+  background: #193b55 !important;
+
+  border-color: var(--border-strong) !important;
+}
+
+
+.choice-btn.safe {
+  background: rgba(88, 212, 154, .13) !important;
+
+  border-color: var(--safe) !important;
+}
+
+
+.choice-btn.risk {
+  background: rgba(255, 133, 133, .13) !important;
+
+  border-color: var(--risk) !important;
+}
+
+
+.safe-text {
+  color: var(--safe) !important;
+}
+
+
+.risk-text {
+  color: var(--risk) !important;
+}
+
+
+/* =========================================================
+   PRIMARY / SECONDARY BUTTONS
+   ========================================================= */
+
+.primary-btn {
+  min-height: 60px;
+
+  padding: 15px 24px !important;
+
+  background: var(--accent) !important;
+
+  color: #101820 !important;
+
+  border-radius: 14px !important;
+
+  font-size: 1.05rem !important;
+
+  font-weight: 850 !important;
+}
+
+
+.secondary-btn {
+  min-height: 58px;
+
+  padding: 14px 21px !important;
+
+  background: #10283a !important;
+
+  color: var(--text) !important;
+
+  border: 2px solid #708697 !important;
+
+  border-radius: 14px !important;
+
+  font-weight: 800 !important;
+}
+
+
+button:focus-visible,
+a:focus-visible {
+  outline: 4px solid var(--accent) !important;
+
+  outline-offset: 4px;
+}
+
+
+/* =========================================================
+   FEEDBACK
+   ========================================================= */
+
+.feedback,
+.safe-action {
+  background: #0b2031 !important;
+
+  color: var(--text) !important;
+
+  border: 1px solid var(--border) !important;
+
+  border-radius: 16px !important;
+}
+
+
+.feedback p,
+.feedback li,
+.safe-action p {
+  color: var(--text-soft) !important;
+}
+
+
+/* =========================================================
+   HEADER / FOOTER
+   ========================================================= */
+
+.topbar,
+.call-topbar,
+.sms-topbar,
+.qr-topbar,
+.safety-strip {
+  background: rgba(4, 16, 26, .97) !important;
+
+  color: var(--text) !important;
+
+  border-color: var(--border) !important;
+}
+
+
+.safety-strip {
+  min-height: 64px;
+}
+
+
+/* =========================================================
+   SIMULATION LABEL
+   ========================================================= */
+
+.simulation-warning {
+  background: #332a13 !important;
+
+  color: #f5d98d !important;
+
+  border: 1px solid rgba(243, 184, 68, .36) !important;
+}
+
+
+/* =========================================================
+   ASSISTED MODE
+   ========================================================= */
+
+body.assisted {
+  font-size: 125%;
+}
+
+
+body.assisted .choice-btn {
+  min-height: 88px !important;
+
+  font-size: 1.15em !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  #screen h1 {
+    font-size: clamp(
+      2rem,
+      8vw,
+      3rem
+    ) !important;
+  }
+
+  .choice-btn {
+    min-height: 72px !important;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
