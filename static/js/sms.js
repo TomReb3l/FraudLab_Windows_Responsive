@@ -109,6 +109,13 @@
   }
 
 
+  function resetMobileScroll() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+
   function scoreLabel(value) {
     if (value >= 90) {
       return 'Ισχυρή Αντίσταση στο Phishing';
@@ -160,6 +167,8 @@
 
       </article>
     `;
+
+    resetMobileScroll();
 
     document
       .getElementById('startBtn')
@@ -294,6 +303,7 @@
       </article>
     `;
 
+    resetMobileScroll();
 
     document
       .querySelectorAll('[data-choice-index]')
@@ -402,6 +412,8 @@
       </article>
     `;
 
+    resetMobileScroll();
+
     document
       .getElementById('nextBtn')
       .addEventListener('click', () => {
@@ -490,6 +502,7 @@
       </article>
     `;
 
+    resetMobileScroll();
 
     document
       .getElementById('retryBtn')
@@ -544,6 +557,8 @@
 
       </section>
     `;
+
+    resetMobileScroll();
   }
 
 
