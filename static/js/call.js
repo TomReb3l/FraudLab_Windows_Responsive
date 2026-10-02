@@ -155,6 +155,13 @@ function playAmbientForNode(nodeId) {
 
   function setCallMode(mode) {
     screen.dataset.callMode = mode;
+
+    // Mobile pages are taller than the exhibition viewport. Each newly
+    // rendered step should begin at the station header instead of inheriting
+    // the scroll position of the previous choice. Desktop remains unchanged.
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.scrollTo(0, 0);
+    }
   }
 
   function stopAudio() {
