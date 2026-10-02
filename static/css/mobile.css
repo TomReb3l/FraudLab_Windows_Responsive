@@ -6,7 +6,7 @@
  while the desktop/exhibition layout remains unchanged.
 */
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (orientation: landscape) and (max-width: 1024px) and (max-height: 600px), (min-width: 769px) and (max-width: 1024px) and (any-pointer: coarse), (orientation: landscape) and (min-width: 1025px) and (max-width: 1366px) and (max-height: 1024px) and (any-pointer: coarse) {
   html.home-page,
   body.home-page {
     width: 100%;
@@ -161,3 +161,13 @@
     font-size: .9rem;
   }
 }
+
+/* HOME DESKTOP EXHIBITION GRID SAFETY
+   The featured card must respect the grid row height on shorter desktop
+   viewports instead of forcing the original 260px minimum into row 2. */
+@media (min-width: 769px) and (max-height: 950px) {
+  body.home-page .station-card.featured {
+    min-height: 0;
+  }
+}
+
