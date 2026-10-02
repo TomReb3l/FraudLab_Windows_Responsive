@@ -86,6 +86,16 @@
   }
 
 
+  function resetMobileViewport() {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      screen.scrollTop = 0;
+    });
+  }
+
+
   function showIntro() {
     currentIndex = 0;
     score = 0;
@@ -105,6 +115,7 @@
     `;
 
     document.getElementById('startBtn').addEventListener('click', renderItem);
+    resetMobileViewport();
     resetIdleTimers();
   }
 
@@ -309,6 +320,7 @@
 
     setupFakeFormInteraction(fakeForm);
     playMailNotification();
+    resetMobileViewport();
     resetIdleTimers();
   }
 
@@ -384,6 +396,7 @@
       }
     });
 
+    resetMobileViewport();
     resetIdleTimers();
   }
 
@@ -442,6 +455,7 @@
       window.location.href = '/';
     });
 
+    resetMobileViewport();
     resetIdleTimers();
   }
 
@@ -493,6 +507,7 @@
           </button>
         </section>
       `;
+      resetMobileViewport();
     }
   }
 
