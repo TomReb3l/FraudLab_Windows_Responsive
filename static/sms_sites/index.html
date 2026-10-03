@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>FRAUD LAB — SMS Link Simulation</title>
+  <style>
+    :root{--card:#fff;--ink:#172331;--muted:#637184;--line:#d9e1ea;--accent:#1769e0;--accent2:#0d4fad;--soft:#eaf2ff;--warn:#fff4d8;--danger:#b42318;--safe:#0e7a53;--shadow:0 16px 42px rgba(20,42,74,.14)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:0;height:auto;overflow:visible;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e8edf3,#f7f9fb);color:var(--ink)}body{min-height:0}
+    .page{width:100%;max-width:440px;min-height:0;margin:0 auto;background:#f8fafc;box-shadow:0 0 0 1px rgba(0,0,0,.03)}
+    .browser{padding:10px 12px;background:#e9eef4;border-bottom:1px solid #d9e2eb}.url{padding:10px 12px;border:1px solid #cfd9e3;border-radius:12px;background:#fff;color:#34495e;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .hero{padding:20px 16px 18px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#fff}.brand{font-size:12px;font-weight:900;letter-spacing:.12em;opacity:.9}.hero h1{margin:7px 0 6px;font-size:27px;line-height:1.1}.hero p{margin:0;font-size:15px;line-height:1.45;opacity:.94}
+    .content{padding:14px 12px 24px}.card{padding:16px 14px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow)}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:var(--soft);color:var(--accent2);font-size:12px;font-weight:900}
+    .amount{margin:16px 0 4px;font-size:34px;font-weight:900;color:var(--accent2)}.sub{color:var(--muted);font-size:14px;line-height:1.45}.notice{margin:16px 0;padding:12px;border-left:4px solid #e6aa00;border-radius:12px;background:var(--warn);color:#705300;font-size:14px;line-height:1.45}.notice.traffic-pending{margin:14px 0 4px;padding:0;border:0;border-radius:0;background:transparent;color:#31465b;font-size:15px;font-weight:800;line-height:1.5;text-align:justify;text-align-last:left;hyphens:auto}
+    label{display:block;margin:14px 0 7px;font-size:14px;font-weight:800;color:#29435e}input{width:100%;min-height:52px;border:1px solid #cad6e2;border-radius:13px;padding:12px 13px;font-size:17px;color:#17324d;background:#fff;outline:none}input:focus{border-color:#76a8e8;box-shadow:0 0 0 4px rgba(23,105,224,.12)}input.invalid{border-color:#d92d20;box-shadow:0 0 0 4px rgba(217,45,32,.10)}
+    .form-message{margin-top:12px;padding:10px 12px;border:1px solid #f1b7b1;border-radius:12px;background:#fff0ee;color:#9b1c13;font-size:13px;font-weight:800;line-height:1.4}.form-message[hidden]{display:none}
+    .victim-alert{margin:0 0 14px;padding:14px;border:1px solid #f0aaa3;border-radius:14px;background:#fff0ee;color:#8f1b13;font-size:15px;font-weight:900;line-height:1.45;text-align:justify;text-align-last:left;hyphens:auto}
+    .lookup-result{margin-top:14px;padding:13px;border:1px solid #c7d8ec;border-radius:14px;background:#eef5fd;color:#173b67}.lookup-result strong{display:block;margin-bottom:6px;font-size:13px;color:#33567d;letter-spacing:.04em}.lookup-result .value{font-size:22px;font-weight:900;color:#0b3f80;line-height:1.2}
+    .btn{width:100%;min-height:56px;margin-top:15px;border:0;border-radius:14px;padding:13px 16px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#fff;font-size:17px;font-weight:900;cursor:pointer}.btn:active{transform:scale(.99)}
+    .edu{margin-top:14px;padding:11px;border:1px dashed #b8c7d5;border-radius:12px;color:#506477;text-align:center;font-size:12px;font-weight:800;line-height:1.45}.final{display:none}.final.show{display:block}.final h2{margin:0 0 12px;color:var(--danger);font-size:28px;line-height:1.15;text-align:left}.final p{margin:0 0 16px;font-size:16px;line-height:1.5;color:#31465b;text-align:justify;text-align-last:left;hyphens:auto}.box{margin-top:13px;padding:13px;border-radius:14px;background:#f5f8fb;border:1px solid #dce5ee}.box h3{margin:0 0 8px;font-size:16px}.box ul{margin:0;padding-left:20px;color:#415468;line-height:1.48}.rule{margin-top:15px;padding:12px;border-radius:12px;background:#eaf7f2;color:var(--safe);text-align:center;font-weight:900}
+    body[data-theme="bank"]{--accent:#173e76;--accent2:#0b284d;--soft:#e9f0f8}body[data-theme="traffic"]{--accent:#143f72;--accent2:#08294f;--soft:#eaf1f9}body[data-theme="market"]{--accent:#1769e0;--accent2:#0d4fad;--soft:#eaf2ff}body[data-theme="parcel"]{--accent:#745300;--accent2:#4f3900;--soft:#fff3bf}
+    @media(max-width:380px){.hero h1{font-size:24px}.amount{font-size:30px}.content{padding-left:9px;padding-right:9px}.card{padding:14px 12px}.lookup-result .value{font-size:20px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="browser"><div id="fakeUrl" class="url">simulation.example</div></div>
+    <header class="hero"><div id="brand" class="brand">FRAUD LAB DEMO</div><h1 id="title">Εκπαιδευτική προσομοίωση</h1><p id="lead"></p></header>
+    <section class="content">
+      <article id="mainCard" class="card">
+        <span id="badge" class="badge"></span>
+        <div id="amount" class="amount"></div>
+        <div id="sub" class="sub"></div>
+        <div id="notice" class="notice"></div>
+        <div id="fields"></div>
+        <div id="formMessage" class="form-message" role="alert" hidden></div>
+        <button id="confirmBtn" class="btn" type="button"></button>
+        <div class="edu">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ · ΧΡΗΣΙΜΟΠΟΙΗΣΕ ΜΟΝΟ ΔΟΚΙΜΑΣΤΙΚΑ ΣΤΟΙΧΕΙΑ · ΤΙΠΟΤΑ ΔΕΝ ΑΠΟΣΤΕΛΛΕΤΑΙ Ή ΑΠΟΘΗΚΕΥΕΤΑΙ</div>
+      </article>
+      <article id="finalCard" class="card final" aria-live="polite">
+        <h2 id="finalTitle">ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+        <div class="victim-alert">Αν αυτή ήταν πραγματική σελίδα απάτης, τα στοιχεία που μόλις πληκτρολόγησες θα μπορούσαν ήδη να έχουν σταλεί στον απατεώνα. Στην προσομοίωση του FraudLab δεν αποθηκεύτηκε και δεν στάλθηκε κανένα στοιχείο.</div>
+        <p id="finalCopy"></p>
+        <div class="box"><h3>Σημάδια κινδύνου</h3><ul id="riskList"></ul></div>
+        <div class="box"><h3>Ασφαλέστερη ενέργεια</h3><ul id="safeList"></ul></div>
+        <div class="rule">ΣΤΑΜΑΤΑ → ΕΛΕΓΞΕ → ΕΠΙΒΕΒΑΙΩΣΕ</div>
+        <div class="edu">ΔΕΝ ΕΓΙΝΕ ΚΑΜΙΑ ΣΥΝΑΛΛΑΓΗ · ΔΕΝ ΚΑΤΑΧΩΡΗΘΗΚΑΝ ΣΤΟΙΧΕΙΑ</div>
+      </article>
+    </section>
+  </main>
+  <script>
+    const SCENARIOS = {
+      courier_fee:{theme:'parcel',url:'parcel-support.example/re-delivery',brand:'PARCEL SERVICE · DEMO',title:'Η παράδοση δεν ολοκληρώθηκε',lead:'Για επαναπρογραμματισμό ζητείται επιβεβαίωση στοιχείων και μικρή χρέωση διαχείρισης.',badge:'ΑΠΑΙΤΕΙΤΑΙ ΕΝΕΡΓΕΙΑ',amount:'1,49 €',sub:'Χρέωση επαναπαράδοσης',notice:'Ολοκληρώστε άμεσα τη διαδικασία ώστε να μην επιστραφεί το δέμα.',fields:[['Ονοματεπώνυμο','π.χ. Δοκιμαστικό Όνομα','text'],['Στοιχεία πληρωμής','0000 0000 0000 0000','text']],cta:'ΣΥΝΕΧΕΙΑ ΣΤΗΝ ΠΛΗΡΩΜΗ',finalTitle:'ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ',finalCopy:'Η σελίδα προσπάθησε να χρησιμοποιήσει το άγχος για χαμένο δέμα και μια μικρή χρέωση ώστε να ζητήσει στοιχεία.',risks:['Απρόσμενος σύνδεσμος παράδοσης.','Μικρό ποσό που φαίνεται ακίνδυνο.','Πίεση χρόνου.','Αίτημα για στοιχεία πληρωμής.'],safe:['Άνοιξε μόνος/η σου την επίσημη εφαρμογή ή ιστοσελίδα της courier.','Επιβεβαίωσε την αποστολή από ανεξάρτητο κανάλι.']},
+      bank_alert:{theme:'bank',url:'secure-account.example/check',brand:'ACCOUNT SECURITY · DEMO',title:'Απαιτείται έλεγχος ασφαλείας',lead:'Εντοπίστηκε υποτιθέμενη προσπάθεια σύνδεσης από νέα συσκευή και ζητείται επιβεβαίωση λογαριασμού.',badge:'SECURITY ALERT',amount:'',sub:'Κατάσταση: απαιτείται επιβεβαίωση',notice:'Η πρόσβαση μπορεί να περιοριστεί αν δεν ολοκληρωθεί ο έλεγχος.',fields:[['Όνομα χρήστη','demo-user','text'],['Κωδικός πρόσβασης','δοκιμαστικός κωδικός','password']],cta:'ΕΠΙΒΕΒΑΙΩΣΗ ΛΟΓΑΡΙΑΣΜΟΥ',finalTitle:'ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ',finalCopy:'Η σελίδα χρησιμοποίησε φόβο απώλειας πρόσβασης για να σε οδηγήσει σε ψεύτικη φόρμα σύνδεσης.',risks:['Φόβος για παραβίαση λογαριασμού.','Link σύνδεσης μέσα σε απρόσμενο μήνυμα.','Πίεση για άμεση ενέργεια.','Αίτημα για κωδικό πρόσβασης.'],safe:['Άνοιξε μόνος/η σου την επίσημη τραπεζική εφαρμογή.','Μην δίνεις κωδικούς σε σελίδα που άνοιξες από link μηνύματος.']},
+      marketplace_payment:{theme:'market',url:'payment-confirm.example/receive',brand:'MARKETPLACE PAY · DEMO',title:'Η πληρωμή σας περιμένει',lead:'Ο αγοραστής φέρεται να ολοκλήρωσε την εντολή. Ζητείται επιβεβαίωση στοιχείων λήψης.',badge:'ΣΥΝΑΛΛΑΓΗ #MP-48217',amount:'85,00 €',sub:'Κατάσταση: αναμονή επιβεβαίωσης δικαιούχου',notice:'Η επιβεβαίωση πρέπει να ολοκληρωθεί άμεσα ώστε η συναλλαγή να μη λήξει.',fields:[['Ονοματεπώνυμο δικαιούχου','π.χ. Δοκιμαστικό Όνομα','text'],['Κάρτα για «πίστωση» χρημάτων','0000 0000 0000 0000','text']],cta:'ΛΗΨΗ ΧΡΗΜΑΤΩΝ',finalTitle:'ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ',finalCopy:'Η σελίδα προσπάθησε να αποσπάσει οικονομικά στοιχεία με το πρόσχημα ότι χρειάζονται για να «λάβεις» χρήματα.',risks:['Μεταφορά εκτός επίσημης πλατφόρμας.','Εξωτερικός σύνδεσμος που υπόσχεται εκταμίευση.','Αίτημα για στοιχεία κάρτας ώστε να λάβεις χρήματα.','Πίεση χρόνου.'],safe:['Έλεγξε την πληρωμή μόνο μέσα στην επίσημη πλατφόρμα.','Μην εισάγεις οικονομικά στοιχεία σε link που έστειλε άγνωστος.']},
+      traffic_fine_sms:{theme:'traffic',url:'traffic-check.example/fine',brand:'TRAFFIC SERVICES · DEMO',title:'Έλεγχος ειδοποίησης οχήματος',lead:'Η σελίδα ζητά πρώτα τον αριθμό κυκλοφορίας για να εμφανίσει υποτιθέμενη οφειλή.',badge:'ΨΗΦΙΑΚΗ ΥΠΗΡΕΣΙΑ ΟΧΗΜΑΤΩΝ',amount:'',sub:'Εισάγετε τον αριθμό κυκλοφορίας για έλεγχο οφειλής',notice:'Χρησιμοποίησε δοκιμαστική πινακίδα. Δεν αποστέλλεται κανένα στοιχείο.',fields:[['Αριθμός κυκλοφορίας','ΧΧΧ-1234','text']],cta:'ΕΛΕΓΧΟΣ ΟΦΕΙΛΗΣ',flow:'traffic_lookup',pendingBadge:'ΕΚΚΡΕΜΕΣ ΠΡΟΣΤΙΜΟ',pendingAmount:'30,00 €',pendingSub:'Βρέθηκε εκκρεμής οφειλή για το όχημα.',pendingNotice:'Σε περίπτωση μη καταβολής θα υπάρξουν προσαυξήσεις.',payCta:'ΠΛΗΡΩΜΗ ΠΡΟΣΤΙΜΟΥ',finalTitle:'ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ',finalCopy:'Η σελίδα μιμήθηκε επίσημη υπηρεσία, ζήτησε πρώτα πινακίδα και στη συνέχεια πίεσε για άμεση πληρωμή.',risks:['Επίκληση δημόσιας αρχής.','Απειλή πρόσθετης χρέωσης.','Σύνδεσμος πληρωμής από SMS.','Πίεση για γρήγορη πληρωμή.'],safe:['Έλεγξε την οφειλή από επίσημη υπηρεσία που ανοίγεις εσύ.','Μην πληρώνεις από απρόσμενο SMS link.']}
+    };
+    const scenarioId = new URLSearchParams(window.location.search).get('scenario') || '';
+    const scenario = SCENARIOS[scenarioId];
+    const text = (id, value) => { document.getElementById(id).textContent = value || ''; };
+    let lastReportedHeight = 0;
+    let currentStage = 'initial';
+    let trafficPlate = '';
+    const postParent = (type, extra={}) => { if (window.parent !== window) { window.parent.postMessage({type, ...extra}, '*'); } };
+    const reportHeight = () => { requestAnimationFrame(() => { const height = Math.ceil(Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.offsetHeight, document.body.offsetHeight)); if (height > 0 && height !== lastReportedHeight) { lastReportedHeight = height; postParent('fraudlab:sms-sim-height', {height}); } }); };
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const li = values => values.map(value => `<li>${escapeHtml(value)}</li>`).join('');
+
+    const fieldsEl = document.getElementById('fields');
+    const amountEl = document.getElementById('amount');
+    const formMessage = document.getElementById('formMessage');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const mainCard = document.getElementById('mainCard');
+    const finalCard = document.getElementById('finalCard');
+
+    const getDemoInputs = () => [...document.querySelectorAll('#fields input')];
+    const bindInputEvents = () => {
+      getDemoInputs().forEach(input => input.addEventListener('input', () => {
+        input.classList.remove('invalid');
+        if (getDemoInputs().every(item => item.value.trim())) formMessage.hidden = true;
+        lastReportedHeight = 0; reportHeight();
+      }));
+    };
+    const renderFields = (fields) => {
+      fieldsEl.innerHTML = fields.map((field, index) => `<label for="f${index}">${escapeHtml(field[0])}</label><input id="f${index}" type="${field[2]}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${escapeHtml(field[1])}">`).join('');
+      bindInputEvents();
+    };
+    const showFormError = (message) => {
+      formMessage.textContent = message;
+      formMessage.hidden = false;
+      lastReportedHeight = 0; reportHeight();
+    };
+    const clearErrors = () => { formMessage.hidden = true; };
+    const revealVictimCard = () => {
+      const demoInputs = getDemoInputs();
+      demoInputs.forEach(input => { input.value = ''; input.classList.remove('invalid'); });
+      clearErrors();
+      text('finalTitle', scenario.finalTitle || 'ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ');
+      mainCard.style.display = 'none';
+      finalCard.classList.add('show');
+      postParent('fraudlab:sms-sim-scroll-top');
+      lastReportedHeight = 0; reportHeight();
+    };
+    const handleTrafficLookup = () => {
+      const [plateInput] = getDemoInputs();
+      if (!plateInput || !plateInput.value.trim()) {
+        if (plateInput) plateInput.classList.add('invalid');
+        showFormError('Συμπλήρωσε μια δοκιμαστική πινακίδα για να συνεχίσεις την προσομοίωση.');
+        plateInput?.focus({preventScroll:true});
+        plateInput?.scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
+      trafficPlate = plateInput.value.trim().toUpperCase();
+      clearErrors();
+      amountEl.style.display = 'block';
+      text('badge', scenario.pendingBadge);
+      text('amount', scenario.pendingAmount);
+      text('sub', `${scenario.pendingSub} Αριθμός κυκλοφορίας: ${trafficPlate}.`);
+      text('notice', scenario.pendingNotice);
+      document.getElementById('notice').classList.add('traffic-pending');
+      fieldsEl.innerHTML = `<div class="lookup-result"><strong>ΑΡΙΘΜΟΣ ΚΥΚΛΟΦΟΡΙΑΣ</strong><div class="value">${escapeHtml(trafficPlate)}</div></div>`;
+      confirmBtn.textContent = scenario.payCta;
+      currentStage = 'traffic-payment';
+      postParent('fraudlab:sms-sim-scroll-top');
+      lastReportedHeight = 0; reportHeight();
+    };
+
+    if (!scenario) {
+      document.body.innerHTML = '<main class="page"><section class="content"><article class="card"><h1>Η προσομοίωση δεν είναι διαθέσιμη</h1><p>Επιστρέψτε στο SMS Challenge.</p></article></section></main>';
+    } else {
+      document.body.dataset.theme = scenario.theme;
+      text('fakeUrl', scenario.url); text('brand', scenario.brand); text('title', scenario.title); text('lead', scenario.lead); text('badge', scenario.badge); text('amount', scenario.amount); text('sub', scenario.sub); text('notice', scenario.notice); text('confirmBtn', scenario.cta); text('finalTitle', scenario.finalTitle); text('finalCopy', scenario.finalCopy);
+      amountEl.style.display = scenario.amount ? 'block' : 'none';
+      renderFields(scenario.fields);
+      document.getElementById('riskList').innerHTML = li(scenario.risks);
+      document.getElementById('safeList').innerHTML = li(scenario.safe);
+      confirmBtn.addEventListener('click', () => {
+        if (scenario.flow === 'traffic_lookup' && currentStage === 'initial') {
+          handleTrafficLookup();
+          return;
+        }
+        const demoInputs = getDemoInputs();
+        const firstEmpty = demoInputs.find(input => input.tagName === 'INPUT' && !input.value.trim());
+        if (firstEmpty) {
+          demoInputs.forEach(input => input.classList.toggle('invalid', !input.value.trim()));
+          showFormError('Συμπλήρωσε τα δοκιμαστικά πεδία για να συνεχίσεις την προσομοίωση.');
+          firstEmpty.focus({preventScroll:true});
+          firstEmpty.scrollIntoView({behavior:'smooth', block:'center'});
+          return;
+        }
+        revealVictimCard();
+      });
+      if ('ResizeObserver' in window) { new ResizeObserver(() => reportHeight()).observe(document.body); }
+      window.addEventListener('load', reportHeight, {once:true});
+      window.addEventListener('resize', () => { lastReportedHeight = 0; reportHeight(); });
+      reportHeight();
+    }
+  </script>
+</body>
+</html>

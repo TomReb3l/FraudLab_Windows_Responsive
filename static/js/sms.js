@@ -11,6 +11,11 @@
   const assistBtn = document.getElementById('assistBtn');
   const timeoutModal = document.getElementById('timeoutModal');
   const continueBtn = document.getElementById('continueBtn');
+  const simulationOverlay = document.getElementById('simulationOverlay');
+  const simulationViewport = document.getElementById('simulationViewport');
+  const simulationFrame = document.getElementById('simulationFrame');
+  const simulationOverlayTitle = document.getElementById('simulationOverlayTitle');
+  const closeSimulationBtn = document.getElementById('closeSimulationBtn');
 
   let data = null;
   let currentIndex = 0;
@@ -21,6 +26,10 @@
 
   let warningTimer = null;
   let resetTimer = null;
+  let simulationTimer = null;
+  let simulationReturnFocus = null;
+
+  const SIMULATION_MAX_MS = 180000;
 
   const smsSound = new Audio(
     '/static/audio/ui/incoming_sms.mp3'
@@ -105,7 +114,67 @@
 
 
   function registerActivity() {
+    if (!simulationOverlay.hidden) {
+      return;
+    }
+
     resetIdleTimers();
+  }
+
+
+  function closeSimulation({ restartIdle = true, restoreFocus = true } = {}) {
+    clearTimeout(simulationTimer);
+    simulationTimer = null;
+
+    if (simulationOverlay.hidden) {
+      return;
+    }
+
+    simulationOverlay.hidden = true;
+    document.body.classList.remove('simulation-open');
+    simulationFrame.src = 'about:blank';
+    simulationFrame.style.height = '100%';
+    simulationViewport.scrollTop = 0;
+
+    const focusTarget = simulationReturnFocus;
+    simulationReturnFocus = null;
+
+    if (restartIdle) {
+      resetIdleTimers();
+    }
+
+    if (restoreFocus && focusTarget && document.contains(focusTarget)) {
+      focusTarget.focus();
+    }
+  }
+
+
+  function openSimulation(item, triggerButton) {
+    const url = String(item.simulation_url || '');
+
+    if (!/^\/static\/sms_sites\/index\.html\?scenario=(courier_fee|bank_alert|marketplace_payment|traffic_fine_sms)$/.test(url)) {
+      console.warn('Blocked invalid simulation URL:', url);
+      return;
+    }
+
+    clearTimeout(warningTimer);
+    clearTimeout(resetTimer);
+    timeoutModal.hidden = true;
+
+    simulationReturnFocus = triggerButton;
+    simulationOverlayTitle.textContent = `ΠΡΟΣΟΜΟΙΩΣΗ · ${item.category}`;
+    simulationViewport.scrollTop = 0;
+    simulationFrame.style.height = '100%';
+    simulationFrame.src = `${url}&v=3`;
+    simulationOverlay.hidden = false;
+    document.body.classList.add('simulation-open');
+    closeSimulationBtn.focus();
+
+    clearTimeout(simulationTimer);
+    simulationTimer = window.setTimeout(() => {
+      closeSimulation({ restartIdle: false, restoreFocus: false });
+      showIntro();
+    }, SIMULATION_MAX_MS);
   }
 
 
@@ -157,8 +226,8 @@
         </p>
 
         <div class="privacy-note">
-          Δεν υπάρχουν πραγματικοί σύνδεσμοι,
-          λογαριασμοί ή προσωπικά δεδομένα.
+          Οι σύνδεσμοι που ανοίγουν είναι τοπικές εκπαιδευτικές προσομοιώσεις.
+          Δεν αποστέλλονται ή αποθηκεύονται στοιχεία.
         </div>
 
         <button id="startBtn" class="primary-btn" type="button">
@@ -205,14 +274,29 @@
       .join('');
 
 
+    const simulationButton = item.simulation_url
+      ? `
+        <button
+          id="simulationLinkBtn"
+          class="sms-sim-trigger"
+          type="button"
+        >
+          ${escapeHtml(item.simulation_label || 'ΠΑΤΑ ΕΔΩ')}
+        </button>
+      `
+      : '';
+
     const linkBlock = item.link_text
       ? `
         <div class="fake-link">
           ${escapeHtml(item.link_text)}
         </div>
 
+        ${simulationButton}
+
         <div class="simulation-note">
           ${escapeHtml(item.link_warning)}
+          ${item.simulation_url ? '<br><strong>Η προσομοίωση δεν επηρεάζει το score.</strong>' : ''}
         </div>
       `
       : '';
@@ -314,6 +398,15 @@
           );
         });
       });
+
+    const simulationLinkBtn =
+      document.getElementById('simulationLinkBtn');
+
+    if (simulationLinkBtn) {
+      simulationLinkBtn.addEventListener('click', () => {
+        openSimulation(item, simulationLinkBtn);
+      });
+    }
 
     resetIdleTimers();
   }
@@ -618,6 +711,44 @@
   );
 
 
+  closeSimulationBtn.addEventListener(
+    'click',
+    () => {
+      closeSimulation();
+    }
+  );
+
+
+  window.addEventListener('message', event => {
+    if (event.source !== simulationFrame.contentWindow) {
+      return;
+    }
+
+    const data = event.data;
+
+    if (!data || typeof data !== 'object') {
+      return;
+    }
+
+    if (data.type === 'fraudlab:sms-sim-height') {
+      const reportedHeight = Number(data.height);
+
+      if (!Number.isFinite(reportedHeight) || reportedHeight < 1) {
+        return;
+      }
+
+      const viewportHeight = Math.max(1, simulationViewport.clientHeight);
+      const safeHeight = Math.min(5000, Math.ceil(reportedHeight));
+      simulationFrame.style.height = `${Math.max(viewportHeight, safeHeight)}px`;
+      return;
+    }
+
+    if (data.type === 'fraudlab:sms-sim-scroll-top') {
+      simulationViewport.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+
   [
     'pointerdown',
     'touchstart'
@@ -635,6 +766,14 @@
   document.addEventListener(
     'keydown',
     event => {
+
+      if (!simulationOverlay.hidden) {
+        if (event.key === 'Escape') {
+          closeSimulation();
+        }
+
+        return;
+      }
 
       registerActivity();
 

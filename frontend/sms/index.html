@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/static/css/fraud-dark.css?v=7.11">
   <link rel="stylesheet" href="/static/css/fraud-premium-fixes.css?v=7.12">
   <link rel="stylesheet" href="/static/css/sms-mobile.css?v=1.0">
+  <link rel="stylesheet" href="/static/css/sms-simulation.css?v=1.1">
 </head>
 
 <body class="sms-page">
@@ -51,6 +52,44 @@
 
 
 <div
+  id="simulationOverlay"
+  class="sms-simulation-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="simulationOverlayTitle"
+  hidden
+>
+  <section class="sms-simulation-shell">
+    <header class="sms-simulation-toolbar">
+      <div class="sms-simulation-heading">
+        <div class="sms-simulation-kicker">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ</div>
+        <div id="simulationOverlayTitle" class="sms-simulation-title">Ψεύτικη ιστοσελίδα</div>
+      </div>
+      <button id="closeSimulationBtn" class="sms-simulation-close" type="button">
+        ΕΠΙΣΤΡΟΦΗ ΣΤΟ SMS
+      </button>
+    </header>
+
+    <div id="simulationViewport" class="sms-simulation-viewport">
+      <iframe
+        id="simulationFrame"
+        class="sms-simulation-frame"
+        title="Εκπαιδευτική προσομοίωση ψεύτικης ιστοσελίδας"
+        sandbox="allow-scripts"
+        referrerpolicy="no-referrer"
+        scrolling="no"
+      ></iframe>
+    </div>
+
+    <p class="sms-simulation-footnote">
+      Το περιεχόμενο είναι τοπική προσομοίωση του FRAUD LAB.
+      Δεν γίνεται σύνδεση σε πραγματική υπηρεσία και δεν αποστέλλονται δεδομένα.
+    </p>
+  </section>
+</div>
+
+
+<div
   class="timeout-modal"
   id="timeoutModal"
   role="dialog"
@@ -75,7 +114,7 @@
 </div>
 
 
-<script src="/static/js/sms.js?v=7.12" defer></script>
+<script src="/static/js/sms.js?v=7.15" defer></script>
 
 </body>
 </html>
