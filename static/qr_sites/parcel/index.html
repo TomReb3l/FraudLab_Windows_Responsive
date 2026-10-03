@@ -504,12 +504,15 @@
     </section>
   </main>
 
-  <script>
+  <script src="/static/qr_sites/common/bridge.js"></script>
+
+<script>
     document.getElementById('payBtn').addEventListener('click', function () {
       document.getElementById('formCard').classList.add('hidden');
       var finalCard = document.getElementById('finalCard');
       finalCard.classList.add('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.FraudLabQRSim?.scrollTop();
     });
   </script>
 </body>

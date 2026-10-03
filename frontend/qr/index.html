@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/static/css/fraud-dark.css?v=7.11">
   <link rel="stylesheet" href="/static/css/fraud-premium-fixes.css?v=7.12">
   <link rel="stylesheet" href="/static/css/qr-mobile.css?v=1.0">
+  <link rel="stylesheet" href="/static/css/qr-simulation.css?v=1.0">
 </head>
 
 <body class="qr-page">
@@ -40,6 +41,44 @@
 
 </main>
 
+
+<div
+  id="qrSimulationOverlay"
+  class="qr-simulation-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="qrSimulationTitle"
+  hidden
+>
+  <section class="qr-simulation-shell">
+    <header class="qr-simulation-toolbar">
+      <div class="qr-simulation-heading">
+        <div class="qr-simulation-kicker">EMAIL · QR · ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ</div>
+        <div id="qrSimulationTitle" class="qr-simulation-title">Ψεύτικη ιστοσελίδα</div>
+      </div>
+      <button id="closeQrSimulationBtn" class="qr-simulation-close" type="button">
+        ΕΠΙΣΤΡΟΦΗ ΣΤΟ QR / EMAIL
+      </button>
+    </header>
+
+    <div id="qrSimulationViewport" class="qr-simulation-viewport">
+      <iframe
+        id="qrSimulationFrame"
+        class="qr-simulation-frame"
+        title="Εκπαιδευτική προσομοίωση ψεύτικης ιστοσελίδας QR / Email"
+        sandbox="allow-scripts"
+        referrerpolicy="no-referrer"
+        scrolling="no"
+      ></iframe>
+    </div>
+
+    <p class="qr-simulation-footnote">
+      Το περιεχόμενο είναι τοπική προσομοίωση του FRAUD LAB.
+      Δεν γίνεται σύνδεση σε πραγματική υπηρεσία και δεν αποστέλλονται δεδομένα.
+    </p>
+  </section>
+</div>
+
 <div
   class="timeout-modal qr-timeout-modal"
   id="timeoutModal"
@@ -60,7 +99,7 @@
   </div>
 </div>
 
-<script src="/static/js/qr.js?v=9.1" defer></script>
+<script src="/static/js/qr.js?v=9.2" defer></script>
 
 </body>
 </html>

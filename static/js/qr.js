@@ -6,6 +6,11 @@
   const assistBtn = document.getElementById('assistBtn');
   const timeoutModal = document.getElementById('timeoutModal');
   const continueBtn = document.getElementById('continueBtn');
+  const qrSimulationOverlay = document.getElementById('qrSimulationOverlay');
+  const qrSimulationViewport = document.getElementById('qrSimulationViewport');
+  const qrSimulationFrame = document.getElementById('qrSimulationFrame');
+  const qrSimulationTitle = document.getElementById('qrSimulationTitle');
+  const closeQrSimulationBtn = document.getElementById('closeQrSimulationBtn');
 
   const IDLE_WARNING_MS = 65000;
   const IDLE_RESET_MS = 75000;
@@ -41,6 +46,10 @@
   }
   let warningTimer = null;
   let resetTimer = null;
+  let qrSimulationTimer = null;
+  let qrSimulationReturnFocus = null;
+
+  const QR_SIMULATION_MAX_MS = 180000;
 
   const escapeHtml = value =>
     String(value ?? '')
@@ -82,7 +91,67 @@
 
 
   function registerActivity() {
+    if (!qrSimulationOverlay.hidden) {
+      return;
+    }
+
     resetIdleTimers();
+  }
+
+
+  function closeQrSimulation({ restartIdle = true, restoreFocus = true } = {}) {
+    window.clearTimeout(qrSimulationTimer);
+    qrSimulationTimer = null;
+
+    if (qrSimulationOverlay.hidden) {
+      return;
+    }
+
+    qrSimulationOverlay.hidden = true;
+    document.body.classList.remove('qr-simulation-open');
+    qrSimulationFrame.src = 'about:blank';
+    qrSimulationFrame.style.height = '100%';
+    qrSimulationViewport.scrollTop = 0;
+
+    const focusTarget = qrSimulationReturnFocus;
+    qrSimulationReturnFocus = null;
+
+    if (restartIdle) {
+      resetIdleTimers();
+    }
+
+    if (restoreFocus && focusTarget && document.contains(focusTarget)) {
+      focusTarget.focus();
+    }
+  }
+
+
+  function openQrSimulation(item, triggerButton) {
+    const url = String(item.simulation_url || '');
+
+    if (!/^\/static\/qr_sites\/(traffic|parcel|account|invoice)\/index\.html$/.test(url)) {
+      console.warn('Blocked invalid QR simulation URL:', url);
+      return;
+    }
+
+    window.clearTimeout(warningTimer);
+    window.clearTimeout(resetTimer);
+    timeoutModal.hidden = true;
+
+    qrSimulationReturnFocus = triggerButton;
+    qrSimulationTitle.textContent = `ΠΡΟΣΟΜΟΙΩΣΗ · ${item.category}`;
+    qrSimulationViewport.scrollTop = 0;
+    qrSimulationFrame.style.height = '100%';
+    qrSimulationFrame.src = `${url}?v=1`;
+    qrSimulationOverlay.hidden = false;
+    document.body.classList.add('qr-simulation-open');
+    closeQrSimulationBtn.focus();
+
+    window.clearTimeout(qrSimulationTimer);
+    qrSimulationTimer = window.setTimeout(() => {
+      closeQrSimulation({ restartIdle: false, restoreFocus: false });
+      showIntro();
+    }, QR_SIMULATION_MAX_MS);
   }
 
 
@@ -103,7 +172,7 @@
     screen.innerHTML = `
       <article class="intro-card">
 
-        <div class="eyebrow">QR & ΙΣΤΟΣΕΛΙΔΑ</div>
+        <div class="eyebrow">EMAIL · QR · ΙΣΤΟΣΕΛΙΔΑ</div>
         <h1>Σκάναρες ένα QR. Πώς θα συνέχιζες;</h1>
         <p>
           Θα δεις τέσσερις περιπτώσεις. Το ζητούμενο δεν είναι να
@@ -227,18 +296,20 @@
   }
 
 
+
   function renderItem() {
     answered = false;
 
     const item = data.items[currentIndex];
 
-    const fakeForm = item.fake_form || {
-      field_1_label: 'Ονοματεπώνυμο',
-      field_1_value: '••••••••••',
-      field_2_label: 'Στοιχεία πληρωμής',
-      field_2_value: '•••• •••• •••• ••••',
-      button_text: item.cta || 'ΣΥΝΕΧΕΙΑ'
-    };
+    const simulationButton = item.simulation_url
+      ? `
+        <button id="openQrSimulationBtn" class="qr-sim-trigger" type="button">
+          ΠΑΤΗΣΤΕ ΕΔΩ
+        </button>
+        <p class="qr-sim-helper">Ή ΣΚΑΝΑΡΕΤΕ ΤΟ QR ΓΙΑ ΝΑ ΜΕΤΑΦΕΡΘΕΙΤΕ ΣΤΗ ΣΕΛΙΔΑ</p>
+      `
+      : '';
 
     const choices = item.choices.map((choice, i) => `
       <button class="choice-btn" data-choice="${i}">
@@ -247,68 +318,53 @@
       </button>
     `).join('');
 
+    const scenarioVisual = item.qr_image
+      ? `
+        <div class="mail-preview-visual" aria-label="Εκπαιδευτικό QR ή οπτικό σήμα">
+          <img class="scenario-qr-image" src="${escapeHtml(item.qr_image)}" alt="QR code σεναρίου">
+        </div>
+      `
+      : '';
+
     screen.innerHTML = `
-      <article class="challenge-layout">
-
-        <section class="left-panel">
-
+      <article class="challenge-layout challenge-layout--mail">
+        <section class="left-panel left-panel--mail">
           <div class="progress">
             <span>ΣΕΝΑΡΙΟ ${currentIndex + 1} ΑΠΟ ${data.items.length}</span>
             <span>SCORE ${score}/100</span>
           </div>
 
-          <div class="poster-card">
-            <div class="poster-kicker">${escapeHtml(item.category)}</div>
-            <h2>${escapeHtml(item.poster_title)}</h2>
-            <p>${escapeHtml(item.poster_text)}</p>
+          <div class="poster-card poster-card--mail" aria-label="Μήνυμα ή ειδοποίηση σεναρίου">
+            <div class="mail-preview-shell">
+              <div class="mail-preview-toolbar">
+                <div class="mail-preview-dots">● ● ●</div>
+                <div class="mail-preview-address">${escapeHtml(item.url)}</div>
+              </div>
 
-            <div class="qr-placeholder" aria-label="Εκπαιδευτικό QR">
-              ${item.qr_image ? `<img class="scenario-qr-image" src="${escapeHtml(item.qr_image)}" alt="QR code σεναρίου">` : `<div class="qr-grid"></div><small>DEMO QR</small>`}
+              <div class="mail-preview-body">
+                <div class="mail-preview-meta">
+                  <div class="mail-preview-badge">${escapeHtml(item.category)}</div>
+                  <div class="mail-preview-site">${escapeHtml(item.site_name)}</div>
+                </div>
+
+                <h2>${escapeHtml(item.poster_title)}</h2>
+                <p class="mail-preview-copy">${escapeHtml(item.poster_text)}</p>
+
+                <div class="mail-preview-content-row ${item.qr_image ? '' : 'no-visual'}">
+                  ${scenarioVisual}
+                  <div class="mail-preview-cta-zone">
+                    ${simulationButton}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="choice-area">
+          <div class="choice-area choice-area--mail">
             <h1>Τι θα έκανες;</h1>
             <div class="choice-grid">${choices}</div>
           </div>
-
         </section>
-
-
-        <section class="browser-card">
-
-          <div class="browser-top">
-            <div class="browser-dots">● ● ●</div>
-            <div class="address-bar">
-              ${escapeHtml(item.url)}
-            </div>
-          </div>
-
-          <div class="fake-site">
-
-            <div class="site-brand">
-              ${escapeHtml(item.site_name)}
-            </div>
-
-            <h2>
-              ${escapeHtml(item.headline)}
-            </h2>
-
-            <p>
-              ${escapeHtml(item.body)}
-            </p>
-
-            ${renderFakeForm(fakeForm)}
-
-            <div class="simulation-warning">
-              ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ ·
-              ΔΕΝ ΚΑΤΑΧΩΡΟΥΝΤΑΙ ΣΤΟΙΧΕΙΑ
-            </div>
-
-          </div>
-
-        </section>
-
       </article>
     `;
 
@@ -318,7 +374,13 @@
       });
     });
 
-    setupFakeFormInteraction(fakeForm);
+    const openQrSimulationBtn = document.getElementById('openQrSimulationBtn');
+    if (openQrSimulationBtn) {
+      openQrSimulationBtn.addEventListener('click', () => {
+        openQrSimulation(item, openQrSimulationBtn);
+      });
+    }
+
     playMailNotification();
     resetMobileViewport();
     resetIdleTimers();
@@ -356,7 +418,7 @@
 
     screen.innerHTML = `
       <article class="qr-feedback-card">
-        <div class="eyebrow">QR & ΙΣΤΟΣΕΛΙΔΑ</div>
+        <div class="eyebrow">EMAIL · QR · ΙΣΤΟΣΕΛΙΔΑ</div>
         <h1>ΑΝΑΛΥΣΗ ΑΠΑΝΤΗΣΗΣ</h1>
 
         ${victimBanner}
@@ -418,8 +480,8 @@
         <h1>${reactionStatus(score, hadUnsafeChoice)}</h1>
 
         <p class="result-lead">
-          Το QR code δεν είναι ταυτότητα.
-          Είναι απλώς ένας γρήγορος τρόπος να ανοίξει ένας προορισμός.
+          Ένα email, ένα QR code ή ένα κουμπί «ΠΑΤΗΣΤΕ ΕΔΩ» δεν είναι απόδειξη ασφάλειας.
+          Είναι τρόποι να οδηγηθείς σε έναν προορισμό που πρέπει πρώτα να ελέγξεις.
         </p>
 
         <div class="lesson-grid">
@@ -475,11 +537,51 @@
     resetIdleTimers();
   });
 
+  closeQrSimulationBtn.addEventListener('click', () => {
+    closeQrSimulation();
+  });
+
+  window.addEventListener('message', event => {
+    if (event.source !== qrSimulationFrame.contentWindow) {
+      return;
+    }
+
+    const message = event.data;
+    if (!message || typeof message !== 'object') {
+      return;
+    }
+
+    if (message.type === 'fraudlab:qr-sim-height') {
+      const reportedHeight = Number(message.height);
+      if (!Number.isFinite(reportedHeight) || reportedHeight < 1) {
+        return;
+      }
+
+      const viewportHeight = Math.max(1, qrSimulationViewport.clientHeight);
+      const safeHeight = Math.min(6000, Math.ceil(reportedHeight));
+      qrSimulationFrame.style.height = `${Math.max(viewportHeight, safeHeight)}px`;
+      return;
+    }
+
+    if (message.type === 'fraudlab:qr-sim-scroll-top') {
+      qrSimulationViewport.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
   ['pointerdown', 'touchstart'].forEach(eventName => {
     document.addEventListener(eventName, registerActivity, { passive: true });
   });
 
-  document.addEventListener('keydown', registerActivity);
+  document.addEventListener('keydown', event => {
+    if (!qrSimulationOverlay.hidden) {
+      if (event.key === 'Escape') {
+        closeQrSimulation();
+      }
+      return;
+    }
+
+    registerActivity();
+  });
 
 
   async function init() {

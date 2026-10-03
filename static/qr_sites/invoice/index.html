@@ -305,11 +305,14 @@ margin-top:15px;
 </div>
 </div>
 
+<script src="/static/qr_sites/common/bridge.js"></script>
+
 <script>
 function showFinal(){
 document.getElementById("main").style.display="none";
 document.getElementById("final").style.display="block";
 window.scrollTo({top:0,behavior:"smooth"});
+window.FraudLabQRSim?.scrollTop();
 }
 </script>
 

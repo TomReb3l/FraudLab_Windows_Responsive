@@ -569,7 +569,9 @@ line-height:1.5;
     </div>
   </div>
 
-  <script>
+  <script src="/static/qr_sites/common/bridge.js"></script>
+
+<script>
     const plateInput = document.getElementById('plate');
     const searchBtn = document.getElementById('searchBtn');
     const resultCard = document.getElementById('resultCard');
@@ -590,6 +592,7 @@ line-height:1.5;
       fraudOverlay.classList.add('show');
       fraudOverlay.setAttribute('aria-hidden', 'false');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.FraudLabQRSim?.scrollTop();
     });
 
     retryBtn.addEventListener('click', () => window.location.reload());
