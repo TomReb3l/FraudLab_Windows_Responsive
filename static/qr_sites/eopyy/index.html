@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Επιστροφή Χρημάτων Ιατρικής Ασφάλειας</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#eef3f6;color:#17344a;font-family:Arial,Helvetica,sans-serif}
+.page{max-width:430px;margin:0 auto;min-height:100vh;background:#fff}
+.browser{padding:12px;background:#f3f6f8;border-bottom:1px solid #d8e1e7}
+.dots span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aab9c4;margin-right:5px}
+.address{margin-top:9px;padding:10px 12px;background:#fff;border:1px solid #ced9e0;border-radius:12px;font-size:13px;color:#5a6e7b;overflow-wrap:anywhere}
+.header{padding:18px;background:#1d667b;color:#fff}
+.brand{font-size:13px;font-weight:900;letter-spacing:.08em}
+h1{margin:6px 0 0;font-size:28px;line-height:1.12}
+.content{padding:16px}
+.card{border:1px solid #d7e2e8;border-radius:18px;padding:16px;box-shadow:0 10px 24px rgba(20,50,70,.08)}
+.amount{margin:14px 0;padding:16px;border-radius:16px;background:#eef8f4;border:1px solid #c9e6da;text-align:center}
+.amount small{display:block;font-size:12px;font-weight:800;color:#58726a;letter-spacing:.05em}.amount strong{display:block;margin-top:5px;font-size:30px;color:#125943}
+p{font-size:16px;line-height:1.5;margin:12px 0}.notice{font-size:13px;color:#5f7380}
+label{display:block;margin-top:13px;font-size:13px;font-weight:800;color:#536b79}
+input{width:100%;padding:14px;margin-top:7px;border:1px solid #c8d5dd;border-radius:12px;font-size:16px}
+button{width:100%;border:0;border-radius:14px;padding:15px;margin-top:16px;background:#176f83;color:#fff;font-size:17px;font-weight:900;cursor:pointer}
+.edu{margin-top:14px;padding:12px;border-radius:12px;background:#fff6d7;color:#6d5500;text-align:center;font-size:12px;font-weight:900;line-height:1.45}
+.error{display:none;margin-top:10px;color:#9b1c1c;font-size:13px;font-weight:800}
+.final{display:none;margin-top:16px;padding:18px;border:1px solid #efbcbc;border-radius:18px;background:#fff5f5}
+.final h2{margin:0 0 10px;text-align:center;font-size:28px;color:#9b1c1c}.final p{font-size:15px}.box{margin-top:12px;padding:13px;border-radius:14px;background:#fff;border:1px solid #e2d7d7}.box h3{margin:0 0 8px;font-size:15px}.box ul{margin:0;padding-left:20px}.box li{margin:7px 0;line-height:1.4}.rule{margin-top:14px;text-align:center;font-weight:900;color:#7b1f1f}
+@media(max-width:380px){h1{font-size:24px}.amount strong{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="browser">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="address">eopyy-refund.example/medical-insurance/refund</div>
+  </div>
+
+  <div class="header">
+    <div class="brand">ΗΛΕΚΤΡΟΝΙΚΗ ΥΠΗΡΕΣΙΑ ΑΣΦΑΛΙΣΜΕΝΩΝ</div>
+    <h1>Επιστροφή Χρημάτων Ιατρικής Ασφάλειας</h1>
+  </div>
+
+  <div class="content">
+    <section id="formCard" class="card">
+      <p>Έχει εγκριθεί επιστροφή ποσού για δαπάνες ιατρικής ασφάλειας. Για την ολοκλήρωση απαιτείται επιβεβαίωση των στοιχείων δικαιούχου.</p>
+
+      <div class="amount">
+        <small>ΔΙΑΘΕΣΙΜΟ ΠΟΣΟ ΕΠΙΣΤΡΟΦΗΣ</small>
+        <strong>86,40 €</strong>
+      </div>
+
+      <label for="fullname">Ονοματεπώνυμο</label>
+      <input id="fullname" autocomplete="off" placeholder="π.χ. Δοκιμαστικός Χρήστης">
+
+      <label for="iban">IBAN λογαριασμού πίστωσης</label>
+      <input id="iban" autocomplete="off" placeholder="DEMO IBAN - όχι πραγματικά στοιχεία">
+
+      <div id="error" class="error">Συμπληρώστε και τα δύο δοκιμαστικά πεδία για να συνεχίσετε.</div>
+
+      <button id="submitBtn" type="button">ΟΛΟΚΛΗΡΩΣΗ ΕΠΙΣΤΡΟΦΗΣ</button>
+
+      <div class="edu">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>ΜΗΝ ΕΙΣΑΓΕΤΕ ΠΡΑΓΜΑΤΙΚΑ ΠΡΟΣΩΠΙΚΑ Ή ΤΡΑΠΕΖΙΚΑ ΣΤΟΙΧΕΙΑ</div>
+      <p class="notice">Η σελίδα αυτή είναι τοπική εκπαιδευτική προσομοίωση του FraudLab και δεν αποστέλλει ούτε αποθηκεύει δεδομένα.</p>
+    </section>
+
+    <section id="final" class="final" aria-live="polite">
+      <h2>🚨 ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+      <p>Το μήνυμα σε οδήγησε σε πλαστή σελίδα με δέλεαρ επιστροφής χρημάτων. Σε πραγματική επίθεση, τα στοιχεία που θα πληκτρολογούσες θα μπορούσαν να χρησιμοποιηθούν για κλοπή χρημάτων ή ταυτότητας.</p>
+
+      <div class="box">
+        <h3>Τι έπρεπε να προσέξεις</h3>
+        <ul>
+          <li>Υπόσχεση επιστροφής χρημάτων που δεν περίμενες.</li>
+          <li>Σύνδεσμος ή QR μέσα σε απρόσμενο email.</li>
+          <li>Διεύθυνση που δεν ανήκει στο επίσημο eopyy.gov.gr.</li>
+          <li>Αίτημα για προσωπικά ή τραπεζικά στοιχεία.</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3>Ασφαλέστερη ενέργεια</h3>
+        <p>Κλείσε το μήνυμα και πληκτρολόγησε μόνος/η σου την επίσημη διεύθυνση του ΕΟΠΥΥ ή επικοινώνησε μέσω επίσημου καναλιού.</p>
+      </div>
+
+      <div class="rule">ΕΛΕΓΧΩ ΤΟΝ ΠΡΟΟΡΙΣΜΟ ΠΡΙΝ ΠΑΤΗΣΩ</div>
+    </section>
+  </div>
+</div>
+<script>
+(function(){
+  const fullname=document.getElementById('fullname');
+  const iban=document.getElementById('iban');
+  const error=document.getElementById('error');
+  const formCard=document.getElementById('formCard');
+  const final=document.getElementById('final');
+  document.getElementById('submitBtn').addEventListener('click',function(){
+    if(!fullname.value.trim() || !iban.value.trim()){
+      error.style.display='block';
+      return;
+    }
+    fullname.value='';
+    iban.value='';
+    error.style.display='none';
+    formCard.style.display='none';
+    final.style.display='block';
+    window.scrollTo({top:0,left:0,behavior:'auto'});
+    if(window.parent && window.parent!==window){
+      window.parent.postMessage({type:'fraudlab:qr-sim-scroll-top'},'*');
+    }
+  });
+})();
+</script>
+<script src="/static/qr_sites/common/bridge.js"></script>
+</body>
+</html>

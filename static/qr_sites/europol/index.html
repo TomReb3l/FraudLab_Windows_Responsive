@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ψηφιακή Επίδοση Δικαστικής Διαταγής</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#edf1f5;color:#172536;font-family:Arial,Helvetica,sans-serif}
+.page{max-width:430px;margin:0 auto;min-height:100vh;background:#fff}
+.browser{padding:12px;background:#f3f5f7;border-bottom:1px solid #d7dde3}
+.dots span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aeb8c2;margin-right:5px}
+.address{margin-top:9px;padding:10px 12px;background:#fff;border:1px solid #ccd4dc;border-radius:12px;font-size:13px;color:#596876;overflow-wrap:anywhere}
+.header{padding:18px;background:#173a63;color:#fff}
+.brand{font-size:12px;font-weight:900;letter-spacing:.08em;opacity:.92}
+h1{margin:7px 0 0;font-size:27px;line-height:1.12}
+.content{padding:16px}
+.card{border:1px solid #d8dee6;border-radius:18px;padding:16px;box-shadow:0 10px 24px rgba(20,35,55,.08)}
+.alert{margin:0 0 14px;padding:13px 14px;border-radius:14px;background:#fff1f1;border:1px solid #efcaca;color:#8b1d1d;font-weight:900;line-height:1.4;text-align:center}
+.ref{margin:13px 0;padding:13px;border-radius:14px;background:#f4f7fa;border:1px solid #d9e0e7;text-align:center}
+.ref small{display:block;font-size:11px;color:#677786;font-weight:800;letter-spacing:.05em}
+.ref strong{display:block;margin-top:5px;font-size:18px;color:#253e58}
+p{font-size:15.5px;line-height:1.52;margin:12px 0}
+.notice{font-size:13px;color:#5f6e7b}
+label{display:block;margin-top:13px;font-size:13px;font-weight:800;color:#536474}
+input{width:100%;padding:14px;margin-top:7px;border:1px solid #c9d2da;border-radius:12px;font-size:16px}
+button{width:100%;border:0;border-radius:14px;padding:15px;margin-top:16px;background:#173a63;color:#fff;font-size:17px;font-weight:900;cursor:pointer}
+button.secondary{background:#b12020}
+.edu{margin-top:14px;padding:12px;border-radius:12px;background:#fff6d7;color:#6d5500;text-align:center;font-size:12px;font-weight:900;line-height:1.45}
+.error{display:none;margin-top:10px;color:#9b1c1c;font-size:13px;font-weight:800}
+.state{display:none}
+.state.active{display:block}
+.notice-card{border:1px solid #efcaca;background:#fff8f8}
+.fine-box{margin:14px 0;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid #dfc1c1;text-align:center}
+.fine-box small{display:block;font-size:11px;color:#7f6161;font-weight:900;letter-spacing:.05em}
+.fine-box strong{display:block;margin-top:6px;font-size:31px;color:#9b1c1c;line-height:1.1}
+.warn{margin-top:12px;padding:14px;border-radius:14px;background:#fff4da;border:1px solid #eed298;color:#6f5400;font-size:14px;font-weight:800;line-height:1.5;text-align:center}
+.final{display:none;margin-top:16px;padding:18px;border:1px solid #efbcbc;border-radius:18px;background:#fff5f5}
+.final h2{margin:0 0 10px;text-align:center;font-size:28px;color:#9b1c1c}
+.final p{font-size:15px}
+.box{margin-top:12px;padding:13px;border-radius:14px;background:#fff;border:1px solid #e2d7d7}
+.box h3{margin:0 0 8px;font-size:15px}
+.box ul{margin:0;padding-left:20px}
+.box li{margin:7px 0;line-height:1.4}
+.rule{margin-top:14px;text-align:center;font-weight:900;color:#7b1f1f}
+@media(max-width:380px){h1{font-size:24px}.fine-box strong{font-size:28px}}
+</style>
+</head>
+<body>
+<!-- FRAUDLAB EUROPOL FINE COPY PATCH v2 -->
+<!-- FRAUDLAB EUROPOL FINE FLOW PATCH v1 -->
+<div class="page">
+  <div class="browser">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="address">europol-judicial-notice.example/case/verify</div>
+  </div>
+  <div class="header">
+    <div class="brand">ΨΗΦΙΑΚΗ ΕΠΙΔΟΣΗ · ΥΠΗΡΕΣΙΑ ΕΛΕΓΧΟΥ ΥΠΟΘΕΣΗΣ</div>
+    <h1>Δικαστική Διαταγή</h1>
+  </div>
+  <div class="content">
+    <section id="formState" class="card state active">
+      <div class="alert">ΑΠΑΙΤΕΙΤΑΙ ΑΜΕΣΗ ΑΠΑΝΤΗΣΗ ΕΝΤΟΣ 24 ΩΡΩΝ</div>
+      <p>Έχει καταχωριστεί επείγουσα ειδοποίηση που εμφανίζεται να αφορά υπόθεση κυβερνοεγκλήματος. Για προβολή του δήθεν εγγράφου ζητείται επιβεβαίωση στοιχείων.</p>
+      <div class="ref"><small>ΑΡΙΘΜΟΣ ΑΝΑΦΟΡΑΣ</small><strong>EU-GR-2026-07142</strong></div>
+      <label for="fullname">Ονοματεπώνυμο</label>
+      <input id="fullname" autocomplete="off" placeholder="π.χ. Δοκιμαστικός Χρήστης">
+      <label for="reference">Αριθμός αναφοράς εγγράφου</label>
+      <input id="reference" autocomplete="off" placeholder="DEMO-2026-0000">
+      <div id="error" class="error">Συμπληρώστε και τα δύο δοκιμαστικά πεδία για να συνεχίσετε.</div>
+      <button id="submitBtn" type="button">ΠΡΟΒΟΛΗ ΥΠΟΘΕΣΗΣ</button>
+      <div class="edu">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ<br>ΜΗΝ ΕΙΣΑΓΕΤΕ ΠΡΑΓΜΑΤΙΚΑ ΠΡΟΣΩΠΙΚΑ Ή ΑΛΛΑ ΕΥΑΙΣΘΗΤΑ ΣΤΟΙΧΕΙΑ</div>
+      <p class="notice">Η σελίδα αυτή είναι εκπαιδευτική προσομοίωση του FraudLab και δεν αποστέλλει ούτε αποθηκεύει δεδομένα.</p>
+    </section>
+
+    <section id="fineState" class="card notice-card state" aria-live="polite">
+      <div class="alert">ΣΟΒΑΡΗ ΕΙΔΟΠΟΙΗΣΗ ΕΥΡΩΠΑΪΚΗΣ ΠΑΡΑΒΑΣΗΣ</div>
+      <div class="ref"><small>ΚΑΤΑΣΤΑΣΗ ΥΠΟΘΕΣΗΣ</small><strong>ΠΑΡΑΠΟΜΠΗ ΣΕ ΚΑΤΕΠΕΙΓΟΥΣΑ ΔΙΑΔΙΚΑΣΙΑ</strong></div>
+      <div class="fine-box">
+        <small>ΕΥΡΩΠΑΪΚΟ ΠΡΟΣΤΙΜΟ ΠΡΟΣ ΑΜΕΣΗ ΕΞΟΦΛΗΣΗ</small>
+        <strong>1.480,00 €</strong>
+      </div>
+      <p>Κατόπιν ελέγχου διαπιστώθηκε παράβαση της Ευρωπαϊκής Οδηγίας 2001/29/ΕΚ περί πνευματικής ιδιοκτησίας, λόγω μη εξουσιοδοτημένης λήψης και διαμοιρασμού προστατευόμενου υλικού μέσω δικτύου peer-to-peer (torrent).</p>
+      <div class="warn">ΣΕ ΠΕΡΙΠΤΩΣΗ ΜΗ ΑΜΕΣΗΣ ΚΑΤΑΒΟΛΗΣ, ΘΑ ΕΠΙΒΛΗΘΟΥΝ ΠΡΟΣΑΥΞΗΣΕΙΣ ΚΑΙ ΠΡΟΣΘΕΤΕΣ ΚΥΡΩΣΕΙΣ.</div>
+      <button id="payBtn" type="button" class="secondary">ΠΛΗΡΩΜΗ ΠΡΟΣΤΙΜΟΥ</button>
+      <p class="notice">Η οθόνη αυτή αναπαριστά την επόμενη φάση ψυχολογικής πίεσης: φόβος, οικονομική απειλή και επείγουσα πληρωμή.</p>
+    </section>
+
+    <section id="finalState" class="final" aria-live="polite">
+      <h2>🚨 ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+      <p>Το μήνυμα σε οδήγησε σε πλαστή σελίδα που χρησιμοποιεί φόβο, κύρος δημόσιων αρχών και πίεση χρόνου. Σε πραγματική επίθεση, ο επόμενος στόχος μπορεί να είναι χρήματα, προσωπικά στοιχεία ή εγκατάσταση κακόβουλου λογισμικού.</p>
+      <div class="box">
+        <h3>Τι έπρεπε να προσέξεις</h3>
+        <ul>
+          <li>Απειλή για παράνομη δραστηριότητα, πρόστιμο και απαίτηση άμεσης πληρωμής.</li>
+          <li>Η εμφάνιση ονομάτων ή λογοτύπων αρχών δεν αποδεικνύει ότι το μήνυμα είναι γνήσιο.</li>
+          <li>Ο αποστολέας και ο προορισμός δεν ανήκουν σε επίσημο domain της Ελληνικής Αστυνομίας ή ευρωπαϊκού θεσμού.</li>
+          <li>Το email ζητά να ανοίξεις κουμπί, QR ή δήθεν έγγραφο αντί να επαληθεύσεις την υπόθεση ανεξάρτητα.</li>
+          <li>Η απαίτηση για άμεση πληρωμή ώστε να αποφευχθούν προσαυξήσεις είναι κλασική τεχνική εκφοβισμού.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ασφαλέστερη ενέργεια</h3>
+        <p>Μην απαντήσεις, μην πληρώσεις και μην ανοίξεις σύνδεσμο, QR ή συνημμένο. Έλεγξε ανεξάρτητα την πληροφορία από το astynomia.gr ή το cyberalert.gr και επικοινώνησε με την ΕΛ.ΑΣ. μόνο μέσω επίσημου καναλιού.</p>
+      </div>
+      <div class="rule">Ο ΦΟΒΟΣ, ΤΟ ΚΑΤΕΠΕΙΓΟΝ ΚΑΙ Η ΠΙΕΣΗ ΓΙΑ ΑΜΕΣΗ ΠΛΗΡΩΜΗ ΕΙΝΑΙ ΚΛΑΣΙΚΑ ΕΡΓΑΛΕΙΑ PHISHING</div>
+    </section>
+  </div>
+</div>
+<script>
+(function(){
+  const fullname=document.getElementById('fullname');
+  const reference=document.getElementById('reference');
+  const error=document.getElementById('error');
+  const formState=document.getElementById('formState');
+  const fineState=document.getElementById('fineState');
+  const finalState=document.getElementById('finalState');
+  function showState(name){
+    formState.classList.remove('active');
+    fineState.classList.remove('active');
+    finalState.style.display='none';
+    if(name==='form'){
+      formState.classList.add('active');
+    }else if(name==='fine'){
+      fineState.classList.add('active');
+    }else if(name==='final'){
+      finalState.style.display='block';
+    }
+    window.scrollTo({top:0,left:0,behavior:'auto'});
+    if(window.parent && window.parent!==window){window.parent.postMessage({type:'fraudlab:qr-sim-scroll-top'},'*');}
+  }
+  document.getElementById('submitBtn').addEventListener('click',function(){
+    if(!fullname.value.trim() || !reference.value.trim()){
+      error.style.display='block';
+      return;
+    }
+    error.style.display='none';
+    showState('fine');
+  });
+  document.getElementById('payBtn').addEventListener('click',function(){
+    fullname.value='';
+    reference.value='';
+    showState('final');
+  });
+})();
+</script>
+<script src="/static/qr_sites/common/bridge.js"></script>
+</body>
+</html>

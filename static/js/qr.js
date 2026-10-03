@@ -129,7 +129,7 @@
   function openQrSimulation(item, triggerButton) {
     const url = String(item.simulation_url || '');
 
-    if (!/^\/static\/qr_sites\/(traffic|parcel|account|invoice)\/index\.html$/.test(url)) {
+    if (!/^\/static\/qr_sites\/(traffic|parcel|account|invoice|eopyy|europol|aade)\/index\.html$/.test(url)) {
       console.warn('Blocked invalid QR simulation URL:', url);
       return;
     }
@@ -166,6 +166,8 @@
 
 
   function showIntro() {
+    screen.classList.remove('feedback-screen', 'feedback-safe', 'feedback-unsafe');
+    screen.scrollTop = 0;
     currentIndex = 0;
     score = 0;
 
@@ -297,10 +299,28 @@
 
 
 
+
   function renderItem() {
+    screen.classList.remove('feedback-screen', 'feedback-safe', 'feedback-unsafe');
+    screen.scrollTop = 0;
     answered = false;
 
     const item = data.items[currentIndex];
+    const email = item.email || {};
+    const senderName = email.from_name || email.sender || item.site_name || 'Αποστολέας';
+    const senderAddress = email.from_address || email.address || '';
+    const subject = email.subject || item.subject || item.poster_title || 'Νέο μήνυμα';
+    const mailboxLabel = email.mailbox_label || 'Εισερχόμενα';
+    const badge = email.badge || 'ΝΕΟ EMAIL';
+    const receivedTime = email.received_time || '';
+    const bodyLines = Array.isArray(email.body_lines) && email.body_lines.length
+      ? email.body_lines
+      : [email.preview || item.poster_text || ''];
+    const senderInitial = String(senderName).trim().charAt(0).toUpperCase() || 'E';
+    const bodyHtml = bodyLines
+      .filter(Boolean)
+      .map(line => `<p>${escapeHtml(line)}</p>`)
+      .join('');
 
     const simulationButton = item.simulation_url
       ? `
@@ -331,24 +351,35 @@
         <section class="left-panel left-panel--mail">
           <div class="progress">
             <span>ΣΕΝΑΡΙΟ ${currentIndex + 1} ΑΠΟ ${data.items.length}</span>
-            <span>SCORE ${score}/100</span>
+            <span>SCORE ${score}/${data.max_score}</span>
           </div>
 
-          <div class="poster-card poster-card--mail" aria-label="Μήνυμα ή ειδοποίηση σεναρίου">
+          <div class="poster-card poster-card--mail" aria-label="Προσομοίωση email σεναρίου">
             <div class="mail-preview-shell">
-              <div class="mail-preview-toolbar">
-                <div class="mail-preview-dots">● ● ●</div>
-                <div class="mail-preview-address">${escapeHtml(item.url)}</div>
+              <div class="mail-preview-toolbar mail-client-toolbar">
+                <div class="mail-client-folder">${escapeHtml(mailboxLabel)}</div>
+                <div class="mail-client-badge">${escapeHtml(badge)}</div>
+                ${receivedTime ? `<time class="mail-client-time">${escapeHtml(receivedTime)}</time>` : ''}
               </div>
 
               <div class="mail-preview-body">
-                <div class="mail-preview-meta">
-                  <div class="mail-preview-badge">${escapeHtml(item.category)}</div>
-                  <div class="mail-preview-site">${escapeHtml(item.site_name)}</div>
+                <div class="mail-message-header">
+                  <div class="mail-sender-avatar" aria-hidden="true">${escapeHtml(senderInitial)}</div>
+                  <div class="mail-sender-details">
+                    <div class="mail-sender-line">
+                      <strong>${escapeHtml(senderName)}</strong>
+                      <span class="mail-sender-address">&lt;${escapeHtml(senderAddress)}&gt;</span>
+                    </div>
+                    <div class="mail-recipient-line">Προς: εμένα</div>
+                  </div>
                 </div>
 
-                <h2>${escapeHtml(item.poster_title)}</h2>
-                <p class="mail-preview-copy">${escapeHtml(item.poster_text)}</p>
+                <div class="mail-subject-label">ΘΕΜΑ</div>
+                <h2 class="mail-message-subject">${escapeHtml(subject)}</h2>
+
+                <div class="mail-message-body">
+                  ${bodyHtml}
+                </div>
 
                 <div class="mail-preview-content-row ${item.qr_image ? '' : 'no-visual'}">
                   ${scenarioVisual}
@@ -408,6 +439,11 @@
 
 
   function renderFeedback(item, choice) {
+    screen.classList.add('feedback-screen');
+    screen.classList.toggle('feedback-safe', Boolean(choice.safe));
+    screen.classList.toggle('feedback-unsafe', !choice.safe);
+    screen.scrollTop = 0;
+    // QR FEEDBACK SAFE/UNSAFE SCALE v5
     const flags = item.red_flags
       .map(flag => `<li>${escapeHtml(flag)}</li>`)
       .join('');
@@ -464,6 +500,8 @@
 
 
   function renderResult() {
+    screen.classList.remove('feedback-screen', 'feedback-safe', 'feedback-unsafe');
+    screen.scrollTop = 0;
     const lesson = data.educational_message;
 
     const victimBanner = hadUnsafeChoice
