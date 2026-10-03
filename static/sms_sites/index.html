@@ -20,6 +20,7 @@
     .edu{margin-top:14px;padding:11px;border:1px dashed #b8c7d5;border-radius:12px;color:#506477;text-align:center;font-size:12px;font-weight:800;line-height:1.45}.final{display:none}.final.show{display:block}.final h2{margin:0 0 12px;color:var(--danger);font-size:28px;line-height:1.15;text-align:left}.final p{margin:0 0 16px;font-size:16px;line-height:1.5;color:#31465b;text-align:justify;text-align-last:left;hyphens:auto}.box{margin-top:13px;padding:13px;border-radius:14px;background:#f5f8fb;border:1px solid #dce5ee}.box h3{margin:0 0 8px;font-size:16px}.box ul{margin:0;padding-left:20px;color:#415468;line-height:1.48}.rule{margin-top:15px;padding:12px;border-radius:12px;background:#eaf7f2;color:var(--safe);text-align:center;font-weight:900}
     body[data-theme="bank"]{--accent:#173e76;--accent2:#0b284d;--soft:#e9f0f8}body[data-theme="traffic"]{--accent:#143f72;--accent2:#08294f;--soft:#eaf1f9}body[data-theme="market"]{--accent:#1769e0;--accent2:#0d4fad;--soft:#eaf2ff}body[data-theme="parcel"]{--accent:#745300;--accent2:#4f3900;--soft:#fff3bf}
     @media(max-width:380px){.hero h1{font-size:24px}.amount{font-size:30px}.content{padding-left:9px;padding-right:9px}.card{padding:14px 12px}.lookup-result .value{font-size:20px}}
+      .final h2.sms-victim-heading{display:block;text-align:center!important;margin-left:auto;margin-right:auto}
   </style>
 </head>
 <body>
@@ -38,7 +39,7 @@
         <div class="edu">ΕΚΠΑΙΔΕΥΤΙΚΗ ΠΡΟΣΟΜΟΙΩΣΗ · ΧΡΗΣΙΜΟΠΟΙΗΣΕ ΜΟΝΟ ΔΟΚΙΜΑΣΤΙΚΑ ΣΤΟΙΧΕΙΑ · ΤΙΠΟΤΑ ΔΕΝ ΑΠΟΣΤΕΛΛΕΤΑΙ Ή ΑΠΟΘΗΚΕΥΕΤΑΙ</div>
       </article>
       <article id="finalCard" class="card final" aria-live="polite">
-        <h2 id="finalTitle">ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
+        <h2 id="finalTitle" class="sms-victim-heading">🚨 ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ</h2>
         <div class="victim-alert">Αν αυτή ήταν πραγματική σελίδα απάτης, τα στοιχεία που μόλις πληκτρολόγησες θα μπορούσαν ήδη να έχουν σταλεί στον απατεώνα. Στην προσομοίωση του FraudLab δεν αποθηκεύτηκε και δεν στάλθηκε κανένα στοιχείο.</div>
         <p id="finalCopy"></p>
         <div class="box"><h3>Σημάδια κινδύνου</h3><ul id="riskList"></ul></div>
@@ -95,7 +96,7 @@
       const demoInputs = getDemoInputs();
       demoInputs.forEach(input => { input.value = ''; input.classList.remove('invalid'); });
       clearErrors();
-      text('finalTitle', scenario.finalTitle || 'ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ');
+      text('finalTitle','🚨 ΕΠΕΣΕΣ ΘΥΜΑ ΑΠΑΤΗΣ');
       mainCard.style.display = 'none';
       finalCard.classList.add('show');
       postParent('fraudlab:sms-sim-scroll-top');
