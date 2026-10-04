@@ -63,6 +63,10 @@
     let currentStage = 'initial';
     let trafficPlate = '';
     const postParent = (type, extra={}) => { if (window.parent !== window) { window.parent.postMessage({type, ...extra}, '*'); } };
+    let lastActivityPost = 0;
+    const reportActivity = () => { const now = Date.now(); if (now - lastActivityPost < 500) return; lastActivityPost = now; postParent('fraudlab:simulation-activity'); };
+    ['pointerdown','touchstart','wheel','keydown','input'].forEach(eventName => document.addEventListener(eventName, reportActivity, {passive:true}));
+    document.addEventListener('click', reportActivity, {passive:true});
     const reportHeight = () => { requestAnimationFrame(() => { const height = Math.ceil(Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.offsetHeight, document.body.offsetHeight)); if (height > 0 && height !== lastReportedHeight) { lastReportedHeight = height; postParent('fraudlab:sms-sim-height', {height}); } }); };
     const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const li = values => values.map(value => `<li>${escapeHtml(value)}</li>`).join('');

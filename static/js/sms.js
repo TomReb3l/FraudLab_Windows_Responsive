@@ -26,10 +26,7 @@
 
   let warningTimer = null;
   let resetTimer = null;
-  let simulationTimer = null;
   let simulationReturnFocus = null;
-
-  const SIMULATION_MAX_MS = 180000;
 
   const smsSound = new Audio(
     '/static/audio/ui/incoming_sms.mp3'
@@ -120,36 +117,47 @@
   }
 
 
+  function resetToHomeForIdle() {
+    clearTimeout(warningTimer);
+    clearTimeout(resetTimer);
+    timeoutModal.hidden = true;
+
+    try {
+      smsSound.pause();
+      smsSound.currentTime = 0;
+    } catch (error) {}
+
+    window.location.replace('/');
+  }
+
+
   function resetIdleTimers() {
     clearTimeout(warningTimer);
     clearTimeout(resetTimer);
 
     timeoutModal.hidden = true;
+    timeoutModal.style.removeProperty('z-index');
 
     warningTimer = window.setTimeout(() => {
+      if (!simulationOverlay.hidden) {
+        timeoutModal.style.zIndex = '200';
+      }
       timeoutModal.hidden = false;
       continueBtn.focus();
     }, IDLE_WARNING_MS);
 
     resetTimer = window.setTimeout(() => {
-      showIntro();
+      resetToHomeForIdle();
     }, IDLE_RESET_MS);
   }
 
 
   function registerActivity() {
-    if (!simulationOverlay.hidden) {
-      return;
-    }
-
     resetIdleTimers();
   }
 
 
   function closeSimulation({ restartIdle = true, restoreFocus = true } = {}) {
-    clearTimeout(simulationTimer);
-    simulationTimer = null;
-
     if (simulationOverlay.hidden) {
       return;
     }
@@ -181,8 +189,6 @@
       return;
     }
 
-    clearTimeout(warningTimer);
-    clearTimeout(resetTimer);
     timeoutModal.hidden = true;
 
     simulationReturnFocus = triggerButton;
@@ -193,12 +199,7 @@
     simulationOverlay.hidden = false;
     document.body.classList.add('simulation-open');
     closeSimulationBtn.focus();
-
-    clearTimeout(simulationTimer);
-    simulationTimer = window.setTimeout(() => {
-      closeSimulation({ restartIdle: false, restoreFocus: false });
-      showIntro();
-    }, SIMULATION_MAX_MS);
+    resetIdleTimers();
   }
 
 
@@ -752,6 +753,11 @@
       return;
     }
 
+    if (data.type === 'fraudlab:simulation-activity') {
+      registerActivity();
+      return;
+    }
+
     if (data.type === 'fraudlab:sms-sim-height') {
       const reportedHeight = Number(data.height);
 
@@ -773,7 +779,8 @@
 
   [
     'pointerdown',
-    'touchstart'
+    'touchstart',
+    'wheel'
   ].forEach(eventName => {
 
     document.addEventListener(

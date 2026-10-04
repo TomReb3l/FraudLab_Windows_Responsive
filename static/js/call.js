@@ -234,6 +234,20 @@ function playAmbientForNode(nodeId) {
     `;
   }
 
+  function resetToHomeForIdle() {
+    clearTimeout(warningTimer);
+    clearTimeout(resetTimer);
+    timeoutModal.hidden = true;
+
+    stopAllCallAudio();
+
+    if (typeof fraudLabStopRing === 'function') {
+      fraudLabStopRing();
+    }
+
+    clearSession();
+    window.location.replace('/');
+  }
 
   function resetIdleTimers() {
     clearTimeout(warningTimer);
@@ -246,7 +260,7 @@ function playAmbientForNode(nodeId) {
     }, IDLE_WARNING_MS);
 
     resetTimer = window.setTimeout(() => {
-      restartExperience();
+      resetToHomeForIdle();
     }, IDLE_RESET_MS);
   }
 
@@ -613,7 +627,7 @@ function playAmbientForNode(nodeId) {
     resetIdleTimers();
   });
 
-  ['pointerdown', 'touchstart'].forEach(eventName => {
+  ['pointerdown', 'touchstart', 'wheel'].forEach(eventName => {
     document.addEventListener(eventName, registerActivity, { passive: true });
   });
 

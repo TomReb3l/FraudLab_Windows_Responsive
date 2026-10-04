@@ -46,10 +46,7 @@
   }
   let warningTimer = null;
   let resetTimer = null;
-  let qrSimulationTimer = null;
   let qrSimulationReturnFocus = null;
-
-  const QR_SIMULATION_MAX_MS = 180000;
 
   const escapeHtml = value =>
     String(value ?? '')
@@ -97,35 +94,48 @@
   }
 
 
-  function resetIdleTimers() {
+  function resetToHomeForIdle() {
     window.clearTimeout(warningTimer);
     window.clearTimeout(resetTimer);
     timeoutModal.hidden = true;
 
+    if (mailAudio) {
+      try {
+        mailAudio.pause();
+        mailAudio.currentTime = 0;
+      } catch (error) {}
+    }
+
+    window.location.replace('/');
+  }
+
+
+  function resetIdleTimers() {
+    window.clearTimeout(warningTimer);
+    window.clearTimeout(resetTimer);
+    timeoutModal.hidden = true;
+    timeoutModal.style.removeProperty('z-index');
+
     warningTimer = window.setTimeout(() => {
+      if (!qrSimulationOverlay.hidden) {
+        timeoutModal.style.zIndex = '200';
+      }
       timeoutModal.hidden = false;
       continueBtn.focus();
     }, IDLE_WARNING_MS);
 
     resetTimer = window.setTimeout(() => {
-      showIntro();
+      resetToHomeForIdle();
     }, IDLE_RESET_MS);
   }
 
 
   function registerActivity() {
-    if (!qrSimulationOverlay.hidden) {
-      return;
-    }
-
     resetIdleTimers();
   }
 
 
   function closeQrSimulation({ restartIdle = true, restoreFocus = true } = {}) {
-    window.clearTimeout(qrSimulationTimer);
-    qrSimulationTimer = null;
-
     if (qrSimulationOverlay.hidden) {
       return;
     }
@@ -157,8 +167,6 @@
       return;
     }
 
-    window.clearTimeout(warningTimer);
-    window.clearTimeout(resetTimer);
     timeoutModal.hidden = true;
 
     qrSimulationReturnFocus = triggerButton;
@@ -169,12 +177,7 @@
     qrSimulationOverlay.hidden = false;
     document.body.classList.add('qr-simulation-open');
     closeQrSimulationBtn.focus();
-
-    window.clearTimeout(qrSimulationTimer);
-    qrSimulationTimer = window.setTimeout(() => {
-      closeQrSimulation({ restartIdle: false, restoreFocus: false });
-      showIntro();
-    }, QR_SIMULATION_MAX_MS);
+    resetIdleTimers();
   }
 
 
@@ -612,6 +615,11 @@
       return;
     }
 
+    if (message.type === 'fraudlab:simulation-activity') {
+      registerActivity();
+      return;
+    }
+
     if (message.type === 'fraudlab:qr-sim-height') {
       const reportedHeight = Number(message.height);
       if (!Number.isFinite(reportedHeight) || reportedHeight < 1) {
@@ -629,7 +637,7 @@
     }
   });
 
-  ['pointerdown', 'touchstart'].forEach(eventName => {
+  ['pointerdown', 'touchstart', 'wheel'].forEach(eventName => {
     document.addEventListener(eventName, registerActivity, { passive: true });
   });
 

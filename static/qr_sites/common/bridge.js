@@ -2,11 +2,21 @@
   'use strict';
 
   let lastHeight = 0;
+  let lastActivityPost = 0;
 
   const post = (type, extra = {}) => {
     if (window.parent !== window) {
       window.parent.postMessage({ type, ...extra }, '*');
     }
+  };
+
+  const reportActivity = () => {
+    const now = Date.now();
+    if (now - lastActivityPost < 500) {
+      return;
+    }
+    lastActivityPost = now;
+    post('fraudlab:simulation-activity');
   };
 
   const reportHeight = () => {
@@ -57,11 +67,16 @@
     lastHeight = 0;
     reportHeight();
   });
+  ['pointerdown', 'touchstart', 'wheel', 'keydown', 'input'].forEach(eventName => {
+    document.addEventListener(eventName, reportActivity, { passive: true });
+  });
+
   document.addEventListener('input', () => {
     lastHeight = 0;
     reportHeight();
   }, { passive: true });
   document.addEventListener('click', () => {
+    reportActivity();
     window.setTimeout(() => {
       lastHeight = 0;
       reportHeight();
