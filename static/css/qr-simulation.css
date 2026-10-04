@@ -1456,3 +1456,65 @@ body.qr-page .challenge-layout--mail .mail-preview-content-row {
     font-size: 1.05rem !important;
   }
 }
+
+
+/* QR ANDROID TABLET TOUCH SCROLL v1 */
+/*
+   Touch tablets in landscape can report a desktop-like viewport width while
+   having much less usable vertical space because of the mobile browser chrome.
+   The desktop exhibition layout intentionally uses overflow:hidden, so on
+   Android/Chrome that can leave the lower content unreachable.
+
+   Keep the Windows desktop exhibition behaviour unchanged and enable a
+   dedicated vertical scroll container only on touch/coarse-pointer tablet
+   viewports.
+*/
+@media (max-width: 1400px) and (pointer: coarse),
+       (max-width: 1400px) and (hover: none),
+       (max-height: 950px) and (pointer: coarse),
+       (max-height: 950px) and (hover: none) {
+
+  body.qr-page .qr-screen {
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
+    align-items: flex-start !important;
+  }
+
+  body.qr-page .challenge-layout--mail {
+    height: auto !important;
+    min-height: 100% !important;
+    flex: 0 0 auto !important;
+    padding-bottom: 28px !important;
+  }
+
+  body.qr-page .left-panel--mail {
+    height: auto !important;
+    min-height: 0 !important;
+    align-content: start !important;
+  }
+
+  body.qr-page .poster-card--mail,
+  body.qr-page .choice-area--mail {
+    min-height: 0 !important;
+  }
+}
+
+/* On narrower touch tablets/phones, let the stacked layout grow naturally. */
+@media (max-width: 1100px) and (pointer: coarse),
+       (max-width: 1100px) and (hover: none) {
+
+  body.qr-page .challenge-layout--mail,
+  body.qr-page .left-panel--mail {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  body.qr-page .qr-screen {
+    scroll-behavior: smooth;
+    padding-bottom: 24px !important;
+  }
+}
