@@ -190,24 +190,48 @@ function playAmbientForNode(nodeId) {
   }
 
 
+  // CALL FINAL STATUS SHIELD v2
   function reactionStatus(node, value, victim, dangerStarted) {
     if (node?.id?.includes('unsafe_final')) {
-      return '🔴 ΚΙΝΔΥΝΟΣ';
+      return { label: 'ΚΙΝΔΥΝΟΣ', tone: 'danger' };
     }
 
     if (node?.id?.includes('safe_final')) {
-      return '🟢 ΑΣΦΑΛΗΣ';
+      return { label: 'ΑΣΦΑΛΗΣ', tone: 'safe' };
     }
 
     if (victim) {
-      return '🔴 ΚΙΝΔΥΝΟΣ';
+      return { label: 'ΚΙΝΔΥΝΟΣ', tone: 'danger' };
     }
 
     if (dangerStarted || value < 40) {
-      return '🟡 ΠΡΟΣΟΧΗ';
+      return { label: 'ΠΡΟΣΟΧΗ', tone: 'caution' };
     }
 
-    return '🟢 ΑΣΦΑΛΗΣ';
+    return { label: 'ΑΣΦΑΛΗΣ', tone: 'safe' };
+  }
+
+  function renderReactionStatus(status, compact = false) {
+    const mark = status.tone === 'safe'
+      ? '<path class="final-status-shield-mark" d="M18 37.5 27 46l19-22 5 4.5L27.5 56 13 42.5 18 37.5Z"></path>'
+      : '<path class="final-status-shield-mark" d="M28.5 18h7L34.4 43h-4.8L28.5 18Zm.2 31h6.6v6.6h-6.6V49Z"></path>';
+
+    const compactClass = compact ? ' final-status--compact' : '';
+
+    return `
+      <span class="final-status final-status--${status.tone}${compactClass}">
+        <span class="final-status-shield" aria-hidden="true">
+          <svg viewBox="0 0 64 72" focusable="false">
+            <path
+              class="final-status-shield-shape"
+              d="M32 2 56 11v20c0 17.8-10.4 31.5-24 39C18.4 62.5 8 48.8 8 31V11L32 2Z"
+            ></path>
+            ${mark}
+          </svg>
+        </span>
+        <span class="final-status-label">${status.label}</span>
+      </span>
+    `;
   }
 
 
@@ -457,6 +481,7 @@ function playAmbientForNode(nodeId) {
 
 
     const lesson = scenario.educational_message;
+    const finalStatus = reactionStatus(node, score, accidentVictim, threatStarted);
     const isUnsafeHelpReaction = unsafeHelpLayout;
 
     const victimBanner = (
@@ -486,12 +511,16 @@ function playAmbientForNode(nodeId) {
   </div>
 </div>
             </div>`
-          : `<h1>${reactionStatus(node, score, accidentVictim, threatStarted)}</h1>`}
+          : `<h1>${renderReactionStatus(finalStatus)}</h1>`}
 
         ${unsafeHelpLayout ? "" : `<p>${escapeHtml(node.text)}</p>`}
 
         <div class="score-panel" aria-label="Βαθμολογία αντίδρασης">
-          <div class="score-label">${reactionStatus(node, score, accidentVictim, threatStarted)}</div>
+          <div class="score-label">
+            ${unsafeHelpLayout
+              ? renderReactionStatus(finalStatus, true)
+              : finalStatus.label}
+          </div>
         </div>
 
         <div class="red-flags">

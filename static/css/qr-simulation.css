@@ -1518,3 +1518,143 @@ body.qr-page .challenge-layout--mail .mail-preview-content-row {
     padding-bottom: 24px !important;
   }
 }
+
+/* QR FINAL STATUS SHIELD v1 */
+/* Final Station 3 result only:
+   red danger, yellow caution, green safe.
+   The shield pulses; the result text/card remain stable.
+*/
+body.qr-page .result-card .final-status {
+  --status-color: #4ade80;
+  --status-glow: rgba(74, 222, 128, .42);
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.35vw, 20px);
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--status-color);
+  text-align: center;
+  white-space: nowrap;
+}
+
+body.qr-page .result-card .final-status--danger {
+  --status-color: #ff4d5a;
+  --status-glow: rgba(255, 77, 90, .56);
+}
+
+body.qr-page .result-card .final-status--caution {
+  --status-color: #ffd54a;
+  --status-glow: rgba(255, 213, 74, .48);
+}
+
+body.qr-page .result-card .final-status--safe {
+  --status-color: #4ade80;
+  --status-glow: rgba(74, 222, 128, .42);
+}
+
+body.qr-page .result-card .final-status-shield {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 auto;
+  width: clamp(48px, 4.6vw, 74px);
+  height: clamp(54px, 5.15vw, 83px);
+  display: inline-grid;
+  place-items: center;
+  color: var(--status-color);
+  transform-origin: 50% 54%;
+  filter: drop-shadow(0 0 9px var(--status-glow));
+  animation: qrFinalShieldPulse 1.75s ease-in-out infinite;
+}
+
+body.qr-page .result-card .final-status--danger .final-status-shield {
+  animation-duration: 1.28s;
+}
+
+body.qr-page .result-card .final-status--caution .final-status-shield {
+  animation-duration: 1.58s;
+}
+
+body.qr-page .result-card .final-status--safe .final-status-shield {
+  animation-duration: 1.95s;
+}
+
+body.qr-page .result-card .final-status-shield svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+body.qr-page .result-card .final-status-shield-shape {
+  fill: currentColor;
+}
+
+body.qr-page .result-card .final-status-shield-mark {
+  fill: #07111b;
+}
+
+body.qr-page .result-card .final-status-label {
+  display: inline-block;
+  color: inherit;
+}
+
+@keyframes qrFinalShieldPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .90;
+  }
+  50% {
+    transform: scale(1.095);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  body.qr-page .result-card .final-status {
+    gap: 10px;
+  }
+
+  body.qr-page .result-card .final-status-shield {
+    width: 44px;
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.qr-page .result-card .final-status-shield {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+/* QR FINAL STATUS SHIELD COLOR FIX v1 */
+/*
+   Existing final-card styles can override SVG/currentColor.
+   Force only the shield body to follow the result tone while keeping
+   the current card typography unchanged.
+*/
+body.qr-page .result-card .final-status--danger .final-status-shield-shape {
+  fill: #ff4d5a !important;
+}
+
+body.qr-page .result-card .final-status--caution .final-status-shield-shape {
+  fill: #ffd54a !important;
+}
+
+body.qr-page .result-card .final-status--safe .final-status-shield-shape {
+  fill: #4ade80 !important;
+}
+
+body.qr-page .result-card .final-status .final-status-shield-mark {
+  fill: #07111b !important;
+}
+/* QR SAFE SHIELD CHECKMARK ALIGNMENT v1 */
+body.qr-page .result-card .final-status--safe .final-status-shield-mark {
+  transform: translateY(-3px);
+  transform-box: fill-box;
+  transform-origin: center;
+}

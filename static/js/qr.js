@@ -61,16 +61,39 @@
 
 
 
+  // QR FINAL STATUS SHIELD v1
   function reactionStatus(value, unsafe) {
     if (unsafe && value < 40) {
-      return '🔴 ΚΙΝΔΥΝΟΣ';
+      return { label: 'ΚΙΝΔΥΝΟΣ', tone: 'danger' };
     }
 
     if (unsafe) {
-      return '🟡 ΠΡΟΣΟΧΗ';
+      return { label: 'ΠΡΟΣΟΧΗ', tone: 'caution' };
     }
 
-    return '🟢 ΑΣΦΑΛΗΣ';
+    return { label: 'ΑΣΦΑΛΗΣ', tone: 'safe' };
+  }
+
+  function renderReactionStatus(value, unsafe) {
+    const status = reactionStatus(value, unsafe);
+    const mark = status.tone === 'safe'
+      ? '<path class="final-status-shield-mark" d="M18 37.5 27 46l19-22 5 4.5L27.5 56 13 42.5 18 37.5Z"></path>'
+      : '<path class="final-status-shield-mark" d="M28.5 18h7L34.4 43h-4.8L28.5 18Zm.2 31h6.6v6.6h-6.6V49Z"></path>';
+
+    return `
+      <h1 class="final-status final-status--${status.tone}">
+        <span class="final-status-shield" aria-hidden="true">
+          <svg viewBox="0 0 64 72" focusable="false">
+            <path
+              class="final-status-shield-shape"
+              d="M32 2 56 11v20c0 17.8-10.4 31.5-24 39C18.4 62.5 8 48.8 8 31V11L32 2Z"
+            ></path>
+            ${mark}
+          </svg>
+        </span>
+        <span class="final-status-label">${status.label}</span>
+      </h1>
+    `;
   }
 
 
@@ -515,7 +538,7 @@
 
         <div class="eyebrow">ΟΛΟΚΛΗΡΩΣΗ STATION 3</div>
 
-        <h1>${reactionStatus(score, hadUnsafeChoice)}</h1>
+        ${renderReactionStatus(score, hadUnsafeChoice)}
 
         <p class="result-lead">
           Ένα email, ένα QR code ή ένα κουμπί «ΠΑΤΗΣΤΕ ΕΔΩ» δεν είναι απόδειξη ασφάλειας.
