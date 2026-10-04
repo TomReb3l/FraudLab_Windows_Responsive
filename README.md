@@ -13,6 +13,7 @@
 ![Offline First](https://img.shields.io/badge/Mode-Offline--First-5C6BC0?style=flat-square)
 ![Responsive](https://img.shields.io/badge/UI-Responsive-8E24AA?style=flat-square)
 ![Exhibition](https://img.shields.io/badge/Use-Exhibition_Mode-E53935?style=flat-square)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)
 
 </div>
 
@@ -209,6 +210,16 @@
 </div>
 
 ---
+
+---
+
+## 📄 Άδεια χρήσης
+
+Ο κώδικας του FraudLab διατίθεται με την **MIT License**.
+
+Επιτρέπεται η χρήση, τροποποίηση και αναδιανομή του λογισμικού σύμφωνα με τους όρους της άδειας. Η άδεια περιλαμβάνεται στο αρχείο [`LICENSE`](LICENSE).
+
+> Επωνυμίες, λογότυπα και εμπορικά σήματα τρίτων που εμφανίζονται αποκλειστικά στο πλαίσιο εκπαιδευτικών προσομοιώσεων παραμένουν ιδιοκτησία των αντίστοιχων δικαιούχων τους.
 
 ## ⚠️ Αποποίηση
 
