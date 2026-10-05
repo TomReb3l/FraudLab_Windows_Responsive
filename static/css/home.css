@@ -274,4 +274,45 @@ body {
   text-align: center;
 }
 
+/* FRAUDLAB CREATOR FOOTER v3 */
+.home-page .home-footer {
+  text-align: center;
+}
+
+.home-page .home-footer .creator-credit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .32rem;
+  margin: 10px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: clamp(.78rem, 1vw, .9rem);
+  line-height: 1.45;
+  letter-spacing: .01em;
+}
+
+.home-page .home-footer .creator-credit-link {
+  color: var(--text);
+  font-weight: 800;
+  text-decoration: none;
+  text-underline-offset: .18em;
+  transition: color .18s ease, text-decoration-color .18s ease;
+}
+
+.home-page .home-footer .creator-credit-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.home-page .home-footer .creator-credit-link:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
