@@ -8,6 +8,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend.scenario_engine import ScenarioEngine
+from backend.config import is_ai_enabled
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -24,7 +25,7 @@ engine = ScenarioEngine(DATA_FILE)
 
 
 app = FastAPI(
-    title="FRAUD LAB – Fraud Exhibition System",
+    title="FRAUD LAB β€” Fraud Exhibition System",
     version="0.1.0",
     docs_url=None,
     redoc_url=None,
@@ -38,11 +39,20 @@ app.mount(
 )
 
 
+# AI is optional.
+# Exhibition mode starts without loading any AI dependencies.
+if is_ai_enabled():
+    from backend.ai_session import router as ai_router
+
+    app.include_router(ai_router)
+
+
 @app.get("/api/health")
 def health() -> dict[str, str]:
     return {
         "status": "ok",
         "mode": "offline-first",
+        "ai_enabled": str(is_ai_enabled()),
     }
 
 
@@ -113,6 +123,13 @@ def sms_challenge_page() -> FileResponse:
 def qr_challenge_page() -> FileResponse:
     return FileResponse(
         FRONTEND_DIR / "qr" / "index.html"
+    )
+
+
+@app.get("/ai")
+def ai_conversation_page() -> FileResponse:
+    return FileResponse(
+        FRONTEND_DIR / "ai" / "index.html"
     )
 
 CALL_AUDIO_MANIFEST_FILE = BASE_DIR / "data" / "call_audio_manifest.json"

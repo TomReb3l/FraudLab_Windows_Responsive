@@ -1,0 +1,240 @@
+{
+  "archive_version": 1,
+  "snapshot_date": "2026-10-06",
+  "items": [
+    {
+      "kind": "integration_reference",
+      "original_path": "backend/main.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/integration_reference/backend/main.py",
+      "sha256": "6979735209af074c119916146d07205e0ecad07f26960d006f78acaa8eb1549b"
+    },
+    {
+      "kind": "integration_reference",
+      "original_path": "backend/config.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/integration_reference/backend/config.py",
+      "sha256": "b6c9a12ac8d4e5f612f3b44d34f2e1272dd0245887fc344f621e6d8dd05273c5"
+    },
+    {
+      "kind": "integration_reference",
+      "original_path": "render.yaml",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/integration_reference/render.yaml",
+      "sha256": "8b0bd5c376208167a7aebd97fe8492e8c2da82f1d746fccf03bc6f23c2dbb2a8"
+    },
+    {
+      "kind": "integration_reference",
+      "original_path": "scripts/exhibition_launcher.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/integration_reference/scripts/exhibition_launcher.py",
+      "sha256": "5e04d329fc67fc021c04dd1bcf818fda0ebdb0af606ec3da739fd06b8c04b562"
+    },
+    {
+      "kind": "integration_reference",
+      "original_path": "scripts/validate_exhibition.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/integration_reference/scripts/validate_exhibition.py",
+      "sha256": "833085ebac23f0effac2b1b0e0a81037291ef40aa3d5cc45dd22cb1225f5298f"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_scenario_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_scenario_engine.py",
+      "sha256": "0e2db3860e4dae14c693deb84a548c1c0f6a86c0ac788054b0d739b8e3bb63db"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_session.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_session.py",
+      "sha256": "e0c03f798a0fa03a89ca4e6d00941765e83e48bd605facc5fa06dacf9f99a6b8"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/approved_response_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/approved_response_engine.py",
+      "sha256": "7dfbec7faea217c535af881913463756d5e0a42cf782dd7c2212222166bc9fd2"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/llm_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/llm_engine.py",
+      "sha256": "5d2406a511861acc87a6c0392146db3709ceda4df07fe9e808a77d09b5463791"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/semantic_router.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/semantic_router.py",
+      "sha256": "1fefdad4cadde601d1e62634f14b45db2515313806ee4b405eebc42b0099f098"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/stt_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/stt_engine.py",
+      "sha256": "684dd097c2e63e86df9dad2b6262415dcb507de9741a2abe873d70291a99f753"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/tts_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/tts_engine.py",
+      "sha256": "90b7075a700bc1cf887a424eb5b0258a42456c0eeaae33e97a8af6146ee61e76"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_agent/__init__.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_agent/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_agent/fraudster_agent.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_agent/fraudster_agent.py",
+      "sha256": "50a37d635a294c9fda2417b18a6359aca50843ad72954038132444f6f3df6987"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_agent/guardrails.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_agent/guardrails.py",
+      "sha256": "a0fd49deb9670b907dac4e0a1610f95f42fb822649feed4e1b59cbb5c92ac824"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_agent/memory.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_agent/memory.py",
+      "sha256": "6ba3308ee9b9b09dde6cd3405da2c49441e30a3207ca5e214989ede70ddaf68d"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_agent/persona.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_agent/persona.py",
+      "sha256": "6992b547410a0591beebf87e3577856b4c20b3ca8d5483114aea709c856c91a5"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "backend/ai_agent/strategy.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/backend/ai_agent/strategy.py",
+      "sha256": "03602e4df0d98d5497d77fbb5f14d827ddb493f773a03b96b0409aa189c08062"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "data/ai_fallback_corpus_v044.json",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/data/ai_fallback_corpus_v044.json",
+      "sha256": "da0582c2c5feee113d29d4c7a6acb831517832f927ed963feea810c597d68d0b"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "data/ai_fallback_corpus_v046.json",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/data/ai_fallback_corpus_v046.json",
+      "sha256": "8ec0bbca9d9b58d20136ff219d096a270a4d7cd5bf85329fa60994f596066aef"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "data/ai_scenarios.json",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/data/ai_scenarios.json",
+      "sha256": "1920e5e8de7c38606f6c83573e2fd805a0b78e597708bc2921c1d136cd95d86c"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "frontend/ai/index.html",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/frontend/ai/index.html",
+      "sha256": "7f54e493dd2f5e8d5f832e2dad4aad0bb6ae30097f03327903c565d9759a4163"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "static/css/ai.css",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/static/css/ai.css",
+      "sha256": "9368553f5efd8d5ea3146d188d6bd6260994a95f12b8d283400f46271457a749"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "static/js/ai.js",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/static/js/ai.js",
+      "sha256": "897ab6b379b6e594e54d7b2829e94e716315f5bef084fb96494b22c367344194"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "docs/STATION4_V041.md",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/docs/STATION4_V041.md",
+      "sha256": "ec9c30c577c06b519076d366a9ae8487c2fce8b0edc90bec39fa96746e09e40b"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "docs/STATION4_V042.md",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/docs/STATION4_V042.md",
+      "sha256": "e2ebfd1162aa03a03614b600c83b0e11269eca72e0dcb57fab3666c1448738cc"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "docs/STATION4_V043.md",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/docs/STATION4_V043.md",
+      "sha256": "fa6258dc2c19e8c522cbf14494f27cd2204e6b07e9730f389aaf02cdbfe034b6"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "docs/STATION4_V044.md",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/docs/STATION4_V044.md",
+      "sha256": "96d9471c9bdc59c37f3d790bd3847c5e64b276e0f821087db926c6d72992ad15"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_fallback_v044.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_fallback_v044.py",
+      "sha256": "8c20281b2733a91f108b58131e40a076a7e43fd1b3b8fe42a16e381d843ee127"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_llm_api.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_llm_api.py",
+      "sha256": "5762467deb83bbf9c4860fc826ae9067475d969255f756322cbd7c4ffb440cd8"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_llm_v041.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_llm_v041.py",
+      "sha256": "d1a14f4152cc420d064f6eea632cd9fa5332bfce90ef2cd2b1027226644644c7"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_quality_v042.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_quality_v042.py",
+      "sha256": "b2f81ceed0d824438bb0545524c874c1e5cdea4f6cb1ec13923f486bb0d92bb1"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_router_v043.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_router_v043.py",
+      "sha256": "e117c2a338b7bd3529443c4f68a47c577da18170ad7de10703165e69fd495605"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_station.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_station.py",
+      "sha256": "657bebfa32d436e701535dd91026ac188faffe6cccd569d9ec48aa6969aa5fd8"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_stt_api.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_stt_api.py",
+      "sha256": "763ad246b164901a5ae70c56eeb0b438636cad0a3d671adce310c35bf2a53118"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_ai_tts_api.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_ai_tts_api.py",
+      "sha256": "d21587b8d6c4f2ce42bcb1b90fef63c7102da53e03e1eb33b44758ca77b63ef8"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_llm_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_llm_engine.py",
+      "sha256": "0fbb2251392a013e2122bb3abb86fcf4fbe0d156159db5ad845fae94728655d6"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_stt_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_stt_engine.py",
+      "sha256": "dba38a491165a11143f8f6bf5f1652153b0aa3a80b98d1294d03af4bcea3c0af"
+    },
+    {
+      "kind": "archived_exclusive",
+      "original_path": "tests/test_tts_engine.py",
+      "archive_path": "FUTURE_FEATURES/AI_STATION_ARCHIVE/original_tree/tests/test_tts_engine.py",
+      "sha256": "65c9b84b54979ea5f37c6c3e828581c13cbc5b0a0ebcb08e5832b84a3d310ca8"
+    }
+  ]
+}

@@ -158,6 +158,7 @@ def forced_environment() -> dict[str, str]:
     env.update(
         {
             "FRAUDLAB_MODE": "exhibition",
+            "ENABLE_AI": "false",
             "OFFLINE_MODE": "true",
             "DEBUG_MODE": "false",
             "PYTHONUTF8": "1",
@@ -179,8 +180,9 @@ def health_check(timeout: float = 1.5) -> tuple[bool, dict[str, Any] | None, str
     if not isinstance(payload, dict):
         return False, None, "Health response is not a JSON object"
     status_ok = str(payload.get("status", "")).lower() == "ok"
+    ai_disabled = str(payload.get("ai_enabled", "")).lower() in {"false", "0", "no", "off"}
     mode_ok = str(payload.get("mode", "")).lower() == "offline-first"
-    if not (status_ok and mode_ok):
+    if not (status_ok and ai_disabled and mode_ok):
         return False, payload, "Health response does not match exhibition safety policy"
     return True, payload, None
 
@@ -800,11 +802,13 @@ def validate() -> int:
         check_code = (
             "import os; "
             "os.environ['FRAUDLAB_MODE']='exhibition'; "
+            "os.environ['ENABLE_AI']='false'; "
             "os.environ['OFFLINE_MODE']='true'; "
             "os.environ['DEBUG_MODE']='false'; "
             "import uvicorn; from backend.main import health; "
             "h=health(); "
             "assert h.get('status')=='ok', h; "
+            "assert str(h.get('ai_enabled')).lower()=='false', h; "
             "print('BACKEND IMPORT OK')"
         )
         try:
@@ -843,7 +847,7 @@ def validate() -> int:
     print(f"- Edge: {find_edge()}")
     print(f"- Edge profile: {profile}")
     print(f"- URL: {BASE_URL}")
-    print("- Policy: exhibition / offline / debug disabled / backend watchdog enabled")
+    print("- Policy: exhibition / offline / AI disabled / debug disabled / backend watchdog enabled")
     return 0
 
 

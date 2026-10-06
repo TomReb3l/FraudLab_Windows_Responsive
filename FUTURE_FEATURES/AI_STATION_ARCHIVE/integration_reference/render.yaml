@@ -11,6 +11,8 @@ services:
     envVars:
       - key: FRAUDLAB_MODE
         value: exhibition
+      - key: ENABLE_AI
+        value: "false"
       - key: OFFLINE_MODE
         value: "true"
       - key: DEBUG_MODE

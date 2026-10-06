@@ -27,6 +27,10 @@ FRAUDLAB_MODE = os.getenv(
     "exhibition"
 )
 
+ENABLE_AI = get_bool_env(
+    "ENABLE_AI",
+    False
+)
 
 OFFLINE_MODE = get_bool_env(
     "OFFLINE_MODE",
@@ -41,3 +45,7 @@ DEBUG_MODE = get_bool_env(
 
 def is_exhibition_mode() -> bool:
     return FRAUDLAB_MODE.lower() == "exhibition"
+
+
+def is_ai_enabled() -> bool:
+    return ENABLE_AI
