@@ -1373,3 +1373,39 @@ n/* FINAL SMS BUTTON OVERRIDE */n.primary-btn.next-message-btn, button.primary-b
     opacity: 1 !important;
   }
 }
+
+/* SMS DESKTOP WINDOWED SCROLL v1
+   The kiosk shell intentionally fixes the SMS station to 100vh. On fine-
+   pointer desktop windows with <=850px usable height, the challenge can be
+   taller than #screen while overflow remains hidden. Keep the outer shell
+   fixed and make .sms-screen the single wheel/trackpad scroll container.
+   Feedback/result surfaces are allowed to grow naturally inside that scroller.
+*/
+@media (min-width: 901px) and (max-height: 850px) and (pointer: fine) {
+  body.sms-page .sms-screen {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    align-items: flex-start;
+  }
+
+  body.sms-page .sms-screen > .challenge-layout,
+  body.sms-page .sms-screen > .feedback-view,
+  body.sms-page .sms-screen > .result-card,
+  body.sms-page .sms-screen > .intro-card,
+  body.sms-page .sms-screen > .fatal-card {
+    height: auto;
+    min-height: 100%;
+    flex: 0 0 auto;
+  }
+
+  body.sms-page .feedback-shell {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
+
+  body.sms-page .result-card {
+    overflow: visible;
+  }
+}
