@@ -1,0 +1,76 @@
+/* FraudLab SMS fake-site Desktop v7. CSS only, original mobile UI remains unchanged.
+   Breakpoints are relative to the simulation iframe viewport, not the device user agent. */
+@media screen and (min-width: 760px) {
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(145deg, #e9eff6 0%, #f7f9fc 72%);
+  }
+  body .page {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    background: #f7f9fc;
+    box-shadow: none;
+  }
+  .browser { padding: 13px clamp(22px, 3.4vw, 46px); }
+  .url { padding: 11px 16px; font-size: 14px; border-radius: 11px; }
+  .hero { padding: 28px clamp(24px, 4.2vw, 58px) 30px; }
+  .hero .brand { font-size: 13px; }
+  .hero h1 { max-width: 850px; margin: 9px 0; font-size: clamp(30px, 3.9vw, 43px); line-height: 1.12; }
+  .hero p { max-width: 840px; font-size: 17px; line-height: 1.48; }
+  .content { max-width: 1150px; padding: 24px clamp(22px, 3.4vw, 46px) 34px; margin: 0 auto; }
+  .card { padding: 26px clamp(24px, 3.2vw, 36px); border-radius: 20px; }
+  #mainCard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'badge fields'
+      'amount fields'
+      'sub fields'
+      'notice fields'
+      '. error'
+      '. action'
+      'edu edu';
+    gap: 9px clamp(26px, 3.2vw, 46px);
+    align-items: start;
+  }
+  #mainCard #badge { grid-area: badge; justify-self: start; font-size: 13px; padding: 9px 13px; }
+  #mainCard #amount { grid-area: amount; margin: 9px 0 0; font-size: 40px; }
+  #mainCard #sub { grid-area: sub; font-size: 16px; line-height: 1.5; }
+  #mainCard #notice { grid-area: notice; margin: 9px 0 0; padding: 15px; font-size: 16px; line-height: 1.5; }
+  #mainCard #notice.traffic-pending { padding: 0; margin: 4px 0 0; }
+  #mainCard #fields { grid-area: fields; min-width: 0; }
+  #mainCard #fields label:first-child { margin-top: 0; }
+  #mainCard #fields label { font-size: 15px; }
+  #mainCard #fields input { min-height: 53px; font-size: 17px; }
+  #mainCard #formMessage { grid-area: error; margin-top: 0; }
+  #mainCard #confirmBtn { grid-area: action; margin-top: 2px; min-height: 56px; }
+  #mainCard .edu { grid-area: edu; margin-top: 13px; font-size: 12px; }
+  .lookup-result { padding: 15px; }
+  .lookup-result .value { font-size: 25px; }
+  #finalCard.show {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 20px;
+    align-items: start;
+  }
+  #finalCard > h2,
+  #finalCard > .victim-alert,
+  #finalCard > p,
+  #finalCard > .rule,
+  #finalCard > .edu { grid-column: 1 / -1; }
+  #finalCard h2 { margin: 0; font-size: clamp(30px, 3.8vw, 41px); line-height: 1.15; }
+  #finalCard .victim-alert { margin: 0; padding: 15px 17px; font-size: 16px; }
+  #finalCard p { margin: 0; font-size: 17px; line-height: 1.45; }
+  #finalCard .box { margin: 0; padding: 17px; height: 100%; }
+  #finalCard .box h3 { font-size: 18px; }
+  #finalCard .box ul { font-size: 15px; line-height: 1.55; }
+  #finalCard .rule { margin: 0; padding: 16px; font-size: 18px; }
+  #finalCard .edu { margin: 0; }
+}
+@media screen and (min-width: 760px) and (max-height: 740px) {
+  .hero { padding-top: 18px; padding-bottom: 19px; }
+  .content { padding-top: 14px; padding-bottom: 20px; }
+  .card { padding-top: 18px; padding-bottom: 18px; }
+}

@@ -1,0 +1,95 @@
+/* FraudLab v6 -- responsive QR simulation sites only.
+   No content, scoring, form behavior, event handlers or bridge changes.
+   The media query is evaluated against the iframe's actual content width. */
+@media screen and (min-width: 780px) {
+  html { overflow-x: hidden; }
+  body { overflow-x: hidden; }
+  .page, .phone {
+    width: 100% !important;
+    max-width: 1100px !important;
+    min-width: 0;
+    margin-inline: auto !important;
+    min-height: 100dvh;
+    box-shadow: 0 10px 45px rgba(12, 26, 43, .10);
+  }
+  .page > .browser, .page > .top, .page > .browser-bar,
+  .page > .header, .page > .hero, .phone > .gov-topbar {
+    padding-inline: clamp(24px, 4vw, 56px) !important;
+  }
+  .page > .content, .phone > .content {
+    padding: clamp(22px, 3vw, 36px) clamp(24px, 4vw, 56px) 44px !important;
+  }
+  .page h1, .phone .hero h1 { font-size: clamp(30px, 3.3vw, 42px) !important; line-height: 1.14; }
+  .page :is(.card, .panel, .final-card, .login), .phone .card {
+    max-width: none !important;
+    border-radius: 20px;
+  }
+  .page :is(.card, .panel, .final-card, .login) {
+    padding: clamp(22px, 3vw, 34px) !important;
+  }
+  .page :is(p, li), .phone :is(p, li) { line-height: 1.5; }
+  .page :is(input, button), .phone :is(input, button) { max-width: 100%; }
+  .page :is(input, button), .phone :is(input, button) { min-height: 48px; }
+  .page :is(.address, .url, .url-bar, .mailbar), .phone .gov-url { overflow-wrap: anywhere; }
+  .page .edu, .page .edu-note, .phone .note { overflow-wrap: anywhere; }
+
+  /* Government-style traffic site: genuine two-column desktop content. */
+  .phone > .content > .card {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+  .phone .card > .hero { padding: 34px !important; border-bottom: 0; border-right: 1px solid #d7e1ef; min-height: 100%; }
+  .phone .card > .section { padding: 34px !important; min-width: 0; }
+  .phone .reveal { width: min(850px, 100%) !important; max-width: 850px !important; max-height: calc(100dvh - 36px); overflow-y: auto; border-radius: 22px !important; }
+  .phone .overlay { align-items: center !important; }
+  .phone .reveal-body { padding: 28px 38px !important; }
+
+  /* Courier-style desktop delivery portal. */
+  .page .brand-name { font-size: 30px; }
+  .page .panel .info-box { max-width: 100%; }
+  .page .panel .info-row { gap: 18px; }
+  .page .final-card .box { padding: 22px; }
+
+  /* Medical refund / tax / judicial portals: forms become balanced columns. */
+  .page #formCard.card, .page #formState.state.active {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 24px;
+    align-items: start;
+  }
+  .page #formCard > p:first-child, .page #formState > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .page #formCard > .amount, .page #formState > .ref { grid-column: 2; grid-row: 1; }
+  .page #formState > .alert { grid-column: 1 / -1; }
+  .page #formCard > label[for="fullname"], .page #formState > label[for="fullname"],
+  .page #formCard > label[for="afm"] { grid-column: 1; grid-row: 2; }
+  .page #formCard > input#fullname, .page #formState > input#fullname,
+  .page #formCard > input#afm { grid-column: 1; grid-row: 3; }
+  .page #formCard > label[for="iban"], .page #formState > label[for="reference"] { grid-column: 2; grid-row: 2; }
+  .page #formCard > input#iban, .page #formState > input#reference { grid-column: 2; grid-row: 3; }
+  .page #formCard > .error, .page #formState > .error { grid-column: 1 / -1; }
+  .page #formCard > button, .page #formState > button { grid-column: 1 / -1; }
+  .page #formCard > .edu, .page #formState > .edu,
+  .page #formCard > .notice, .page #formState > .notice { grid-column: 1 / -1; }
+
+  /* Account phishing: two-column email metadata, wide call to action. */
+  .page #mail.card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 22px; }
+  .page #mail > .row { min-width: 0; overflow-wrap: anywhere; }
+  .page #mail > :is(.subject, p, .button, .edu) { grid-column: 1 / -1; }
+  .page #login { max-width: 750px !important; margin: 18px auto 0; }
+  /* Invoice: payment summary occupies desktop card width, no mobile column. */
+  .page #main.card { max-width: none !important; }
+  .page #main .invoice { padding: 22px 28px; }
+  .page #main .invoice .row { font-size: 16px; }
+
+  /* Educational reveal/result pages remain fully readable, never clipped. */
+  .page :is(.final, .final-card) { max-width: 100% !important; overflow: visible; }
+  .page :is(.final, .final-card) .box { padding: 18px 22px; }
+}
+/* Smaller iframe widths retain the pre-existing phone UI and scroll behavior. */
+@media screen and (min-width: 780px) {
+  .page #formState > .alert { grid-row: 1; }
+  .page #formState > p:first-of-type, .page #formState > .ref { grid-row: 2; }
+  .page #formState > label[for="fullname"], .page #formState > label[for="reference"] { grid-row: 3; }
+  .page #formState > input#fullname, .page #formState > input#reference { grid-row: 4; }
+}

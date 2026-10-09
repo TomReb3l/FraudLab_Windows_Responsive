@@ -1,0 +1,44 @@
+/* FraudLab Station 03: restore the dedicated Android/touch scroller.
+   Narrow touch layouts only; desktop/windowed stays on its existing CSS. */
+@media (max-width: 1366px) and (pointer: coarse),
+       (max-width: 1366px) and (hover: none) {
+  html.qr-page, html.qr-page body.qr-page {
+    width: 100%;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
+  body.qr-page .qr-app {
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+  body.qr-page .qr-topbar, body.qr-page .safety-strip { flex: 0 0 auto !important; }
+  body.qr-page #screen.qr-screen {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y !important;
+  }
+  body.qr-page #screen:has(.challenge-layout--mail),
+  body.qr-page #screen:has(.result-card),
+  body.qr-page #screen.feedback-screen { overflow-x:hidden!important;overflow-y:auto!important; }
+  body.qr-page .qr-simulation-overlay { overscroll-behavior: none; }
+  body.qr-page .qr-simulation-viewport { overflow:hidden!important;touch-action:auto!important; }
+  body.qr-page #qrSimulationFrame {
+    display: block;
+    height: 100% !important;
+    min-height: 100% !important;
+    overflow: auto !important;
+    touch-action: auto !important;
+  }
+}

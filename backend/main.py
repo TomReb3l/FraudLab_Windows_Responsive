@@ -15,6 +15,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_FILE = BASE_DIR / "data" / "call_scenarios.json"
 SMS_DATA_FILE = BASE_DIR / "data" / "sms_scenarios.json"
 QR_DATA_FILE = BASE_DIR / "data" / "qr_scenarios.json"
+VIBER_DATA_FILE = BASE_DIR / "data" / "viber_takeover_scenario.json"
 
 FRONTEND_DIR = BASE_DIR / "frontend"
 STATIC_DIR = BASE_DIR / "static"
@@ -75,6 +76,14 @@ def get_sms_challenge() -> dict:
         ) from exc
 
 
+@app.get("/api/viber-scenario")
+def get_viber_scenario() -> dict:
+    try:
+        return json.loads(VIBER_DATA_FILE.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        raise HTTPException(status_code=500, detail="Viber scenario data unavailable") from exc
+
+
 @app.get("/api/qr-challenge")
 def get_qr_challenge() -> dict:
     try:
@@ -114,6 +123,11 @@ def qr_challenge_page() -> FileResponse:
     return FileResponse(
         FRONTEND_DIR / "qr" / "index.html"
     )
+
+@app.get("/viber")
+def viber_station_page() -> FileResponse:
+    return FileResponse(FRONTEND_DIR / "viber" / "index.html")
+
 
 CALL_AUDIO_MANIFEST_FILE = BASE_DIR / "data" / "call_audio_manifest.json"
 

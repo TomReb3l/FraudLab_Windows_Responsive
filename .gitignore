@@ -58,3 +58,22 @@ archive/qr_css_backups/
 
 # Scenario development workspace
 data/scenario_dev/
+
+# FraudLab release: local, machine-specific patch state (never deploy)
+/.fraudlab_backups/
+/.fraudlab_*.json
+
+# One-time patch installers: code has been merged into live application files
+/FraudLab_Station04_Installer/
+/FraudLab_Station04_Home_Responsive_v2/
+/FraudLab_Exhibition_Fit_v3/
+/FraudLab_Exhibition_Fit_v3_Compat/
+/FraudLab_Exhibition_UI_v4/
+/FraudLab_Exhibition_Fit_v5/
+/FraudLab_FakeSites_Desktop_v6/
+/FraudLab_SMS_FakeSites_Desktop_v7/
+/FraudLab_SMS_FakeSites_Desktop_v7_Compat/
+/FraudLab_QR_Android_Scroll_v8/
+/FraudLab_Release_Audit_Collector.py
+/FraudLab_Release_Audit_*/
+/FraudLab_Release_Prep_RC3_v8/

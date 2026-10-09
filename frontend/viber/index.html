@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#081a2c">
+  <title>FRAUD LAB — Viber Fraud</title>
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/viber.css?v=station04-1">
+  <link rel="stylesheet" href="/static/css/exhibition-ui-v4.css?v=exhibition-ui-v4">
+  <link rel="stylesheet" href="/static/css/exhibition-fit-v5.css?v=exhibition-fit-v5">
+</head>
+<body class="viber-page">
+  <main class="viber-app">
+    <header class="viber-topbar">
+      <div>
+        <div class="viber-brand">FRAUD LAB</div>
+        <div class="viber-station">STATION 04 · VIBER FRAUD</div>
+      </div>
+      <div class="viber-actions">
+        <button id="assistBtn" class="viber-ghost" type="button" aria-pressed="false">ΒΟΗΘΟΥΜΕΝΗ ΛΕΙΤΟΥΡΓΙΑ</button>
+        <button id="homeBtn" class="viber-ghost" type="button">ΑΡΧΙΚΗ</button>
+      </div>
+    </header>
+
+    <section id="viberScreen" class="viber-screen" aria-live="polite" aria-atomic="false">
+      <div class="viber-loading">Φόρτωση εκπαιδευτικής προσομοίωσης…</div>
+    </section>
+
+    <footer class="viber-safety" aria-label="Κεντρικό μήνυμα ασφάλειας">
+      <span>ΣΤΑΜΑΤΑ</span><span class="viber-arrow">→</span><span>ΕΛΕΓΞΕ</span>
+      <span class="viber-arrow">→</span><span>ΕΠΙΒΕΒΑΙΩΣΕ</span>
+    </footer>
+  </main>
+
+  <div id="timeoutModal" class="viber-timeout" role="dialog" aria-modal="true" aria-labelledby="timeoutTitle" hidden>
+    <div class="viber-timeout-card">
+      <h2 id="timeoutTitle">Η εμπειρία θα επανεκκινήσει</h2>
+      <p>Δεν εντοπίστηκε αλληλεπίδραση. Αγγίξτε το κουμπί για να συνεχίσετε.</p>
+      <button id="continueBtn" class="viber-primary" type="button">ΣΥΝΕΧΙΖΩ</button>
+    </div>
+  </div>
+
+  <script src="/static/js/viber.js?v=station04-1" defer></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+/* Station 04 Home-only layout v2.
+   Scope: Home exclusively. Does not touch Call, SMS, QR, or their styles.
+   Wide displays use a true viewport-fitting 1 + 3 layout, including windowed
+   851–950px heights where legacy exhibition-tv.css forced the page to scroll.
+   Phones, portrait tablets and short windows use natural document scrolling. */
+
+/* WIDE DISPLAY / EXHIBITION: preserve the featured Call card and three cards below. */
+@media (min-width: 1100px) and (min-height: 680px) {
+  html.home-page,
+  body.home-page.station04-enabled {
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+  }
+  body.home-page.station04-enabled .home-shell {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    width: 100%;
+    padding: clamp(12px, 1.8vh, 24px) clamp(18px, 3vw, 62px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  body.home-page.station04-enabled .hero {
+    flex: 0 0 auto;
+    margin: 0 0 clamp(8px, 1.3vh, 15px);
+    max-width: 100%;
+  }
+  body.home-page.station04-enabled .brand-kicker {
+    font-size: clamp(.75rem, .9vw, .98rem);
+    margin-bottom: clamp(5px, .9vh, 12px);
+  }
+  body.home-page.station04-enabled .hero h1 {
+    font-size: clamp(2.2rem, min(4vw, 6.6vh), 4.8rem);
+    line-height: .97;
+  }
+  body.home-page.station04-enabled .hero-copy {
+    max-width: 1120px;
+    margin: clamp(6px, 1.15vh, 12px) 0;
+    font-size: clamp(.86rem, 1.05vw, 1.17rem);
+    line-height: 1.35;
+  }
+  body.home-page.station04-enabled .safety-message {
+    padding: 7px 13px;
+    font-size: clamp(.72rem, .8vw, .88rem);
+    gap: 11px;
+  }
+  body.home-page.station04-enabled .stations {
+    display: grid;
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: minmax(0, .92fr) minmax(0, 1.08fr);
+    gap: clamp(8px, 1.25vh, 17px);
+  }
+  body.home-page.station04-enabled .station-card,
+  body.home-page.station04-enabled .station-card.featured {
+    height: 100%;
+    min-height: 0;
+    width: 100%;
+    padding: clamp(12px, 1.5vh, 25px) clamp(13px, 1.35vw, 26px);
+    border-radius: clamp(14px, 1.25vw, 22px);
+    overflow: hidden;
+  }
+  body.home-page.station04-enabled .station-card.featured {
+    grid-column: 1 / -1;
+    align-items: center;
+  }
+  body.home-page.station04-enabled .station-card.featured .station-number {
+    font-size: clamp(2.4rem, min(6vw, 8vh), 5.6rem);
+    margin-right: 0;
+    margin-bottom: clamp(3px, .7vh, 8px);
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) .station-number {
+    font-size: clamp(2rem, 3.8vw, 4.7rem);
+    margin-right: clamp(8px, .9vw, 15px);
+  }
+  body.home-page.station04-enabled .station-card .station-type {
+    font-size: clamp(.67rem, .78vw, .86rem);
+    letter-spacing: .09em;
+  }
+  body.home-page.station04-enabled .station-card h2 {
+    font-size: clamp(1.2rem, 1.65vw, 2.18rem);
+    line-height: 1.15;
+    margin: clamp(5px, .75vh, 10px) 0;
+  }
+  body.home-page.station04-enabled .station-card.featured h2 {
+    font-size: clamp(1.5rem, 2.05vw, 2.65rem);
+  }
+  body.home-page.station04-enabled .station-card p {
+    font-size: clamp(.79rem, .91vw, 1.02rem);
+    line-height: 1.32;
+    margin: clamp(4px, .6vh, 8px) 0;
+    max-height: none;
+    overflow: visible;
+  }
+  body.home-page.station04-enabled .station-card.featured p {
+    max-width: 950px;
+  }
+  body.home-page.station04-enabled .station-footer,
+  body.home-page.station04-enabled .station-card.featured .station-footer {
+    display: flex;
+    margin-top: auto;
+    padding-top: clamp(5px, .8vh, 12px);
+    gap: 8px;
+    font-size: clamp(.75rem, .8vw, .93rem);
+  }
+  body.home-page.station04-enabled .home-footer {
+    flex: 0 0 auto;
+    display: block;
+    margin: clamp(7px, 1vh, 15px) 0 0;
+    padding: clamp(7px, 1vh, 13px) 0 0;
+    line-height: 1.28;
+    font-size: clamp(.71rem, .78vw, .88rem);
+  }
+  body.home-page.station04-enabled .home-footer p {margin: 0;}
+  body.home-page.station04-enabled .home-footer .creator-credit {
+    margin: 4px auto 0;
+    font-size: clamp(.69rem, .75vw, .83rem);
+    line-height: 1.22;
+  }
+}
+
+/* Tight-height wide displays: retain all four cards in one screen. */
+@media (min-width: 1100px) and (min-height: 680px) and (max-height: 850px) {
+  body.home-page.station04-enabled .hero-copy,
+  body.home-page.station04-enabled .safety-message {display: none;}
+  body.home-page.station04-enabled .stations {grid-template-rows: minmax(0, .84fr) minmax(0, 1.16fr);}
+  body.home-page.station04-enabled .station-card.featured .station-number {font-size: clamp(2rem, 5.7vh, 3.6rem);}
+}
+
+/* Normal browser windows, tablets and phones: scroll rather than crop cards.
+   This covers desktop widths below 1100px, short viewports, and touch tablets. */
+@media (max-width: 1099px), (max-height: 679px) {
+  html.home-page,
+  body.home-page.station04-enabled {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  body.home-page.station04-enabled .home-shell {
+    width: min(100% - 24px, 1400px);
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: max(19px, env(safe-area-inset-top)) 0 max(22px, env(safe-area-inset-bottom));
+    display: block;
+    overflow: visible;
+  }
+  body.home-page.station04-enabled .hero {margin-bottom: clamp(18px, 2vw, 27px);}
+  body.home-page.station04-enabled .hero h1 {
+    font-size: clamp(2.1rem, 5.7vw, 3.6rem);
+    line-height: 1;
+  }
+  body.home-page.station04-enabled .hero-copy {display: block;max-width: 980px;}
+  body.home-page.station04-enabled .safety-message {display: inline-flex;}
+  body.home-page.station04-enabled .stations {
+    display: grid;
+    flex: none;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-auto-rows: auto;
+    gap: 13px;
+  }
+  body.home-page.station04-enabled .station-card,
+  body.home-page.station04-enabled .station-card.featured {
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    padding: clamp(16px, 2vw, 25px);
+    overflow: visible;
+  }
+  body.home-page.station04-enabled .station-card.featured {grid-column: 1 / -1; min-height: 190px;}
+  body.home-page.station04-enabled .station-card .station-number {font-size: clamp(2.2rem, 5.5vw, 4.4rem);}
+  body.home-page.station04-enabled .station-card h2 {font-size: clamp(1.35rem, 2.8vw, 2rem);}
+  body.home-page.station04-enabled .station-card p {max-height: none; overflow: visible; font-size: .96rem; line-height: 1.45;}
+  body.home-page.station04-enabled .station-footer,
+  body.home-page.station04-enabled .station-card.featured .station-footer {
+    display: flex;
+    padding-top: 10px;
+    margin-top: auto;
+  }
+  body.home-page.station04-enabled .home-footer {
+    display: block;
+    margin-top: 18px;
+    padding: 16px 0 0;
+  }
+}
+
+/* Narrow phones: maintain natural vertical stack and readable touch targets. */
+@media (max-width: 699px) {
+  body.home-page.station04-enabled .home-shell {width: calc(100% - 20px);}
+  body.home-page.station04-enabled .stations {grid-template-columns: minmax(0, 1fr);}
+  body.home-page.station04-enabled .station-card.featured {grid-column: auto;}
+  body.home-page.station04-enabled .station-card,
+  body.home-page.station04-enabled .station-card.featured {min-height: 0;padding: 19px;}
+  body.home-page.station04-enabled .station-card .station-number {display: none;}
+  body.home-page.station04-enabled .hero h1 {font-size: clamp(2.1rem, 10vw, 3.25rem);}
+  body.home-page.station04-enabled .station-footer,
+  body.home-page.station04-enabled .station-card.featured .station-footer {min-height: 44px;}
+}

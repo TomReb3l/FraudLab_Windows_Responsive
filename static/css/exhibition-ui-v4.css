@@ -1,0 +1,206 @@
+/* FRAUD LAB — Exhibition readability polish v4.
+   Scope: Home cards, QR/E-mail visual layout and Viber results only.
+   This is loaded after v3. Never alter data, interactions or scoring. */
+
+/* Home: visually anchor 02–04 at the top center, then use the full card width
+   for larger, centered educational copy. Keep the footer at the bottom. */
+@media (min-width:1100px) and (min-height:680px) {
+  body.home-page.station04-enabled .station-card:not(.featured) {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    text-align:center;
+    padding:clamp(12px,1.45vh,22px) clamp(16px,1.7vw,30px);
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) .station-number {
+    display:block;
+    margin:0 0 clamp(7px,1vh,13px)!important;
+    font-size:clamp(2.6rem,3.7vw,4.25rem)!important;
+    line-height:.85;
+    flex:0 0 auto;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) .station-content {
+    width:100%;min-width:0;display:flex;flex-direction:column;
+    align-items:center;flex:1;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) .station-type {
+    font-size:clamp(.89rem,1.02vw,1.15rem)!important;
+    line-height:1.15;
+    letter-spacing:.045em;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) h2 {
+    font-size:clamp(1.7rem,2.22vw,2.6rem)!important;
+    line-height:1.08!important;
+    margin:clamp(5px,.9vh,12px) 0!important;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) p {
+    font-size:clamp(1.02rem,1.22vw,1.33rem)!important;
+    line-height:1.33!important;
+    max-width:95%;
+    margin:clamp(4px,.6vh,8px) auto!important;
+    text-wrap:pretty;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) .station-footer {
+    width:100%;margin-top:auto;align-self:stretch;
+    padding-top:clamp(7px,1.2vh,16px)!important;
+    font-size:clamp(.9rem,1vw,1.1rem)!important;
+    text-align:left;
+  }
+}
+/* 720p kiosk: preserve the one-screen layout and do not crop large text. */
+@media (min-width:1100px) and (min-height:680px) and (max-height:790px) {
+  body.home-page.station04-enabled .station-card:not(.featured) .station-number {
+    font-size:clamp(2.25rem,4.7vh,3.2rem)!important;margin-bottom:5px!important;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) h2 {
+    font-size:clamp(1.55rem,1.95vw,2.05rem)!important;margin:4px 0!important;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) p {
+    font-size:clamp(.91rem,1.06vw,1.05rem)!important;line-height:1.22!important;
+  }
+  body.home-page.station04-enabled .station-card:not(.featured) .station-type {
+    font-size:clamp(.76rem,.85vw,.96rem)!important;
+  }
+}
+
+/* QR — intentionally release v3's aggressive font reductions ONLY where the
+   view has enough height. At shorter sizes leave existing scroll fallback. */
+@media (min-width:1100px) and (min-height:840px) {
+  body.qr-page .qr-screen:has(.challenge-layout--mail) {padding:10px 0!important;}
+  body.qr-page .challenge-layout--mail .left-panel--mail {gap:11px 18px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-body {padding:15px 19px 16px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-address {padding:9px 13px!important;font-size:.97rem!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-meta {margin-bottom:9px!important;}
+  body.qr-page .challenge-layout--mail .mail-message-header {margin-bottom:10px!important;}
+  body.qr-page .challenge-layout--mail .mail-message-subject {
+    font-size:clamp(1.65rem,1.85vw,2.25rem)!important;
+    margin:6px 0 10px!important;line-height:1.13!important;
+  }
+  body.qr-page .challenge-layout--mail .mail-message-body p {
+    font-size:clamp(1.01rem,1.1vw,1.19rem)!important;
+    line-height:1.42!important;margin:0 0 10px!important;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-content-row {gap:14px!important;margin-top:10px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-visual {width:118px!important;min-width:118px!important;padding:7px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-visual .scenario-qr-image {
+    width:100px!important;height:100px!important;max-width:100px!important;max-height:100px!important;
+  }
+  body.qr-page .challenge-layout--mail .qr-sim-trigger {
+    min-height:47px!important;padding:10px 13px!important;font-size:1.05rem!important;
+  }
+  body.qr-page .challenge-layout--mail .qr-sim-helper {font-size:.87rem!important;line-height:1.35!important;}
+  body.qr-page .challenge-layout--mail .choice-area--mail {padding:19px!important;}
+  body.qr-page .challenge-layout--mail .choice-area--mail h1 {
+    font-size:clamp(2rem,2.4vw,2.7rem)!important;margin:0 0 17px!important;
+  }
+  body.qr-page .challenge-layout--mail .choice-grid {gap:11px!important;}
+  body.qr-page .challenge-layout--mail .choice-btn {
+    min-height:62px!important;padding:13px 15px!important;
+    font-size:clamp(1.06rem,1.12vw,1.18rem)!important;line-height:1.33!important;
+  }
+  body.qr-page .challenge-layout--mail .choice-btn span {
+    flex:0 0 33px!important;width:33px!important;min-width:33px!important;height:33px!important;
+  }
+
+  body.qr-page #screen .result-card {
+    width:min(1370px,100%)!important;
+    padding:clamp(19px,2vh,30px) clamp(22px,2.1vw,36px)!important;
+  }
+  body.qr-page #screen .result-card .result-badge {padding:8px 16px!important;margin:0 auto 10px!important;font-size:1.08rem!important;}
+  body.qr-page #screen .result-card .eyebrow {font-size:.88rem!important;}
+  body.qr-page #screen .result-card h1 {
+    font-size:clamp(2.35rem,3vw,3.5rem)!important;margin:8px auto 11px!important;
+  }
+  body.qr-page #screen .result-card .final-status-shield {
+    width:clamp(56px,6.2vh,76px)!important;height:clamp(66px,7vh,85px)!important;
+  }
+  body.qr-page #screen .result-card .result-lead {
+    font-size:clamp(1.06rem,1.17vw,1.24rem)!important;
+    line-height:1.43!important;margin:8px auto 14px!important;
+  }
+  body.qr-page #screen .result-card .lesson-grid {
+    gap:13px!important;margin:15px 0!important;
+  }
+  body.qr-page #screen .result-card .lesson-grid section {padding:18px 19px!important;}
+  body.qr-page #screen .result-card .lesson-grid h2 {
+    font-size:clamp(1.33rem,1.56vw,1.65rem)!important;margin-bottom:10px!important;
+  }
+  body.qr-page #screen .result-card .lesson-grid p {
+    font-size:clamp(1.01rem,1.1vw,1.18rem)!important;line-height:1.44!important;
+  }
+  body.qr-page #screen .result-card .result-actions {margin:15px 0 0!important;}
+  body.qr-page #screen .result-card .result-actions button {min-height:52px!important;padding:12px 21px!important;font-size:1.03rem!important;}
+}
+
+/* Viber — match the established fully filled FraudLab safety shields.
+   The SVG check/exclamation remains visually contrasting and unobstructed. */
+.viber-page .viber-result-shield svg {fill:none;}
+.viber-page .viber-result-shield .viber-shield-shape {
+  fill:#39c68f;stroke:#2ba776;stroke-width:2;
+}
+.viber-page .viber-result-shield--danger .viber-shield-shape {
+  fill:#f26969;stroke:#e15353;stroke-width:2;
+}
+.viber-page .viber-result-shield--best_safe .viber-shield-shape {
+  fill:#48d9a0;stroke:#25b987;stroke-width:2;
+}
+.viber-page .viber-result-shield svg > path:not(.viber-shield-shape) {
+  fill:#082033;
+}
+
+/* Viber kiosk result: one-screen exhibition card with THREE readable lessons
+   instead of a very long vertical result. Tablet/mobile stay stacked. */
+@media (min-width:1100px) and (min-height:680px) {
+  .viber-page .viber-screen:has(.viber-result) {
+    display:flex;align-items:center;justify-content:center;
+    overflow-y:auto;overflow-x:hidden;
+  }
+  .viber-page .viber-result {
+    width:min(1280px,100%);max-width:none;margin:auto;
+    padding:7px 4px 3px;
+  }
+  .viber-page .viber-result-header {padding:10px 20px 13px;}
+  .viber-page .viber-result-shield {width:60px;height:70px;margin:0 auto 2px;}
+  .viber-page .viber-result-header h1 {
+    font-size:clamp(1.85rem,2.4vw,2.55rem);line-height:1.08;margin:4px 0;
+  }
+  .viber-page .viber-result-header p {font-size:clamp(1.02rem,1.15vw,1.18rem);margin:5px 0;}
+  .viber-page .viber-result-sections {
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;padding:13px 15px;align-items:stretch;
+  }
+  .viber-page .viber-result-section {
+    min-width:0;padding:15px 16px;border:1px solid rgba(255,255,255,.11);
+    border-radius:15px;background:rgba(255,255,255,.025);
+  }
+  .viber-page .viber-result-section h2 {
+    font-size:clamp(1.07rem,1.3vw,1.37rem);line-height:1.2;
+    margin:0 0 9px;
+  }
+  .viber-page .viber-result-section p {
+    font-size:clamp(.97rem,1.08vw,1.13rem);line-height:1.4;
+  }
+  .viber-page .viber-result-motto {
+    padding:12px 16px;font-size:clamp(.94rem,1.04vw,1.12rem);
+    line-height:1.25;
+  }
+  .viber-page .viber-result-actions {margin:12px 0 9px;gap:10px;}
+  .viber-page .viber-result-actions button {min-height:46px;padding:10px 14px;font-size:.92rem;}
+  .viber-page .viber-result-footnote {font-size:.79rem;line-height:1.3;margin:0;}
+}
+/* Compact desktop kiosks: retain readability without pushing actions below. */
+@media (min-width:1100px) and (min-height:680px) and (max-height:800px) {
+  .viber-page .viber-result-header {padding:6px 14px 9px;}
+  .viber-page .viber-result-shield {width:49px;height:57px;}
+  .viber-page .viber-result-header h1 {font-size:1.75rem;}
+  .viber-page .viber-result-sections {gap:9px;padding:9px 10px;}
+  .viber-page .viber-result-section {padding:10px 11px;}
+  .viber-page .viber-result-section h2 {font-size:1.02rem;margin:0 0 6px;}
+  .viber-page .viber-result-section p {font-size:.93rem;line-height:1.27;}
+  .viber-page .viber-result-motto {padding:9px 12px;}
+  .viber-page .viber-result-actions {margin:7px 0;}
+  .viber-page .viber-result-actions button {min-height:40px;padding:8px 11px;font-size:.83rem;}
+  .viber-page .viber-result-footnote {font-size:.72rem;}
+}
+/* When height/width is constrained, keep the existing natural scroll fallback. */

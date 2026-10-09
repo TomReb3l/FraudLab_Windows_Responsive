@@ -1,0 +1,117 @@
+/* Exhibition Fit v5: kiosk full-view typography + adaptive content; layered over v4. */
+@media (min-width:1450px) and (min-height:900px) {
+  body.qr-page #screen:has(.challenge-layout--mail) {
+    width:min(1760px,96vw)!important;
+    padding:8px 0!important;
+    overflow-x:hidden!important;overflow-y:auto!important;
+  }
+  body.qr-page .challenge-layout--mail .left-panel--mail {
+    grid-template-columns:minmax(0,1.42fr) minmax(450px,.88fr)!important;
+    gap:10px 22px!important;
+  }
+  body.qr-page .challenge-layout--mail .progress {padding-bottom:10px!important;font-size:1rem!important;}
+  body.qr-page .challenge-layout--mail .poster-card--mail {margin-top:8px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-toolbar {padding:12px 15px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-address {font-size:1.04rem!important;padding:11px 13px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-body {padding:17px 21px 18px!important;}
+  body.qr-page .challenge-layout--mail .mail-message-header {margin-bottom:9px!important;}
+  body.qr-page .challenge-layout--mail .mail-message-subject {font-size:clamp(2rem,2.05vw,2.55rem)!important;line-height:1.13!important;margin:8px 0 10px!important;}
+  body.qr-page .challenge-layout--mail .mail-message-body p {font-size:clamp(1.15rem,1.18vw,1.38rem)!important;line-height:1.4!important;margin:0 0 9px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-content-row {gap:17px!important;margin-top:13px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-visual {width:132px!important;min-width:132px!important;}
+  body.qr-page .challenge-layout--mail .mail-preview-visual .scenario-qr-image {width:112px!important;height:112px!important;max-width:112px!important;max-height:112px!important;}
+  body.qr-page .challenge-layout--mail .qr-sim-trigger {min-height:57px!important;font-size:1.18rem!important;}
+  body.qr-page .challenge-layout--mail .qr-sim-helper {font-size:.98rem!important;}
+  body.qr-page .challenge-layout--mail .choice-area--mail {padding:20px 20px 24px!important;}
+  body.qr-page .challenge-layout--mail .choice-area--mail h1 {font-size:clamp(2.3rem,2.6vw,3.05rem)!important;margin:0 0 18px!important;}
+  body.qr-page .challenge-layout--mail .choice-grid {gap:14px!important;}
+  body.qr-page .challenge-layout--mail .choice-btn {font-size:clamp(1.17rem,1.23vw,1.36rem)!important;line-height:1.32!important;min-height:74px!important;padding:15px 17px!important;}
+  body.qr-page .challenge-layout--mail .choice-btn span {height:40px!important;width:40px!important;min-width:40px!important;flex:0 0 40px!important;}
+
+  body.qr-page #screen:has(.result-card) {width:min(1720px,95vw)!important;padding:9px 0!important;overflow-y:auto!important;}
+  body.qr-page #screen .result-card {width:min(1600px,100%)!important;padding:clamp(24px,2.7vh,35px) clamp(34px,3vw,58px)!important;}
+  body.qr-page #screen .result-card .result-badge {font-size:1.35rem!important;padding:12px 22px!important;margin:0 auto 14px!important;}
+  body.qr-page #screen .result-card .eyebrow {font-size:1.1rem!important;}
+  body.qr-page #screen .result-card h1 {font-size:clamp(3.1rem,3.5vw,4.2rem)!important;margin:13px auto 16px!important;line-height:1.1!important;}
+  body.qr-page #screen .result-card .final-status-shield {width:clamp(82px,8vh,104px)!important;height:clamp(92px,9vh,120px)!important;}
+  body.qr-page #screen .result-card .result-lead {font-size:clamp(1.23rem,1.29vw,1.47rem)!important;line-height:1.52!important;margin:16px auto 21px!important;max-width:1400px!important;}
+  body.qr-page #screen .result-card .lesson-grid {gap:20px!important;margin:20px 0!important;}
+  body.qr-page #screen .result-card .lesson-grid section {padding:24px 25px!important;}
+  body.qr-page #screen .result-card .lesson-grid h2 {font-size:clamp(1.62rem,1.85vw,2rem)!important;margin-bottom:12px!important;line-height:1.16!important;}
+  body.qr-page #screen .result-card .lesson-grid p {font-size:clamp(1.15rem,1.19vw,1.36rem)!important;line-height:1.5!important;}
+  body.qr-page #screen .result-card .result-actions {margin:24px 0 0!important;gap:15px!important;}
+  body.qr-page #screen .result-card .result-actions button {min-height:65px!important;font-size:1.18rem!important;padding:16px 28px!important;}
+
+  .viber-page .viber-result {width:min(1640px,100%)!important;max-width:none!important;padding:12px 5px 6px!important;}
+  .viber-page .viber-result-header {padding:29px 36px 32px!important;}
+  .viber-page .viber-result-shield {width:88px!important;height:102px!important;margin-bottom:8px!important;}
+  .viber-page .viber-result-header h1 {font-size:clamp(2.8rem,3.05vw,3.65rem)!important;line-height:1.12!important;margin:10px 0!important;}
+  .viber-page .viber-result-header p {font-size:clamp(1.21rem,1.27vw,1.5rem)!important;line-height:1.34!important;}
+  .viber-page .viber-result-sections {gap:20px!important;padding:25px 28px!important;}
+  .viber-page .viber-result-section {padding:24px 25px!important;}
+  .viber-page .viber-result-section h2 {font-size:clamp(1.42rem,1.57vw,1.85rem)!important;margin:0 0 16px!important;}
+  .viber-page .viber-result-section p {font-size:clamp(1.13rem,1.21vw,1.44rem)!important;line-height:1.5!important;}
+  .viber-page .viber-result-motto {font-size:clamp(1.17rem,1.25vw,1.49rem)!important;padding:18px 24px!important;line-height:1.38!important;}
+  .viber-page .viber-result-actions {margin:22px 0 18px!important;gap:16px!important;}
+  .viber-page .viber-result-actions button {min-height:60px!important;padding:14px 22px!important;font-size:1.1rem!important;}
+  .viber-page .viber-result-footnote {font-size:.93rem!important;line-height:1.38!important;}
+}
+/* Narrower/shorter screens: retain original native scroll; never hide lesson text. */
+@media (max-width:1449px), (max-height:899px) {
+  body.qr-page #screen:has(.challenge-layout--mail),
+  body.qr-page #screen:has(.result-card) {overflow-y:auto!important;overflow-x:hidden!important;}
+}
+@media (min-width:1450px) and (min-height:900px) {
+  /* Long-form official-look mail: bring QR/action alongside the text. All copy remains visible. */
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) {
+    display:grid!important;grid-template-columns:minmax(0,1fr) minmax(200px,245px);column-gap:22px;align-items:start;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) > .mail-message-header,
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) > .mail-subject-label,
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) > .mail-message-subject {
+    grid-column:1/-1;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) > .mail-message-body {
+    grid-column:1;grid-row:4;min-width:0;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) > .mail-preview-content-row {
+    grid-column:2;grid-row:4;grid-template-columns:minmax(0,1fr)!important;
+    gap:10px!important;margin:0!important;align-self:stretch;align-content:center;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) .mail-preview-visual {
+    margin:0 auto;max-width:100%;
+  }
+}
+@media (min-width:1450px) and (min-height:900px) {
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) {
+    padding:13px 19px 12px!important;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) .mail-message-body p {
+    line-height:1.34!important;margin-bottom:6px!important;
+  }
+  body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) .mail-message-subject {
+    margin:5px 0 8px!important;
+  }
+}
+@media (min-width:1450px) and (min-height:900px) {
+  body.qr-page #screen:has(.challenge-layout--mail) {padding:3px 0!important;}
+  body.qr-page .challenge-layout--mail .left-panel--mail {gap:6px 22px!important;}
+  body.qr-page .challenge-layout--mail .progress {padding-bottom:6px!important;}
+}
+/* Windowed laptops, tablets, and phones: document scroll rather than clipped panels. */
+@media (max-width:1449px), (max-height:899px) {
+  html.qr-page,body.qr-page,body.viber-page {height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;}
+  body.qr-page .qr-app,.viber-page .viber-app {height:auto!important;min-height:100dvh!important;overflow:visible!important;}
+  body.qr-page #screen.qr-screen {height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;flex:1 0 auto!important;}
+  body.qr-page #screen:has(.challenge-layout--mail),body.qr-page #screen:has(.result-card),body.qr-page #screen.feedback-screen {overflow:visible!important;}
+  .viber-page .viber-screen {height:auto!important;min-height:0!important;overflow:visible!important;flex:1 0 auto!important;}
+}
+@media (min-width:1450px) and (min-height:900px) {
+ body.qr-page .challenge-layout--mail .left-panel--mail {grid-template-columns:minmax(0,1.5fr) minmax(430px,.85fr)!important;}
+ body.qr-page .challenge-layout--mail .mail-preview-body:has(.mail-message-body p:nth-child(4)) {grid-template-columns:minmax(0,1fr) 210px!important;column-gap:14px!important;}
+}
+@media (min-width:1450px) and (min-height:900px) {
+ .viber-page .viber-result-header {padding:22px 36px 25px!important;}
+ .viber-page .viber-result-sections {padding:20px 28px!important;}
+ .viber-page .viber-result-actions {margin:16px 0 14px!important;}
+}
