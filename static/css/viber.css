@@ -83,3 +83,76 @@
 @media (max-width:760px){.viber-app{height:auto;min-height:100dvh;overflow:visible}.viber-screen{overflow:visible}.viber-experience{display:flex;flex-direction:column;height:auto}.viber-chat{height:min(54dvh,530px);min-height:270px}.viber-decision{overflow:visible}.viber-decision-footnote{margin:10px 0 0}.viber-safety{flex-wrap:wrap}.viber-topbar{align-items:flex-start}.viber-actions{justify-content:flex-end}.viber-ghost{padding:10px 12px;font-size:.75rem}}
 @media (max-width:420px){.viber-topbar{flex-wrap:wrap}.viber-actions{width:100%;justify-content:space-between}.viber-bubble{max-width:93%}.viber-result-actions{flex-direction:column}.viber-result-actions button{width:100%}}
 @media (prefers-reduced-motion:reduce){.viber-page *{animation:none!important;transition:none!important}}
+
+
+/* VIBER FINAL SHIELD FIX v1 */
+/* Align Station 04 final-result shields with the validated visual language
+   already used by the other exhibition stations:
+   - colored shield body
+   - pulsing glow
+   - slightly raised safe checkmark for cleaner visual centering
+*/
+.viber-result--danger{--viber-shield-glow:rgba(255,77,90,.58)}
+.viber-result--safe,.viber-result--best_safe{--viber-shield-glow:rgba(74,222,128,.44)}
+
+.viber-result-shield{
+  display:inline-grid;
+  place-items:center;
+  transform-origin:50% 54%;
+  filter:drop-shadow(0 0 10px var(--viber-shield-glow, rgba(74,222,128,.42)));
+  animation:viberFinalShieldPulse 1.82s ease-in-out infinite;
+}
+
+.viber-result--danger .viber-result-shield{
+  animation-duration:1.30s;
+}
+
+.viber-result--safe .viber-result-shield,
+.viber-result--best_safe .viber-result-shield{
+  animation-duration:1.96s;
+}
+
+.viber-result-shield svg{
+  overflow:visible;
+}
+
+.viber-result-shield .viber-shield-shape{
+  fill:#4ade80;
+  stroke:#4ade80;
+  stroke-width:2.4;
+}
+
+.viber-result--danger .viber-result-shield .viber-shield-shape{
+  fill:#ff4d5a;
+  stroke:#ff4d5a;
+}
+
+.viber-result-shield svg path:last-child{
+  fill:#07111b;
+}
+
+.viber-result--safe .viber-result-shield svg path:last-child,
+.viber-result--best_safe .viber-result-shield svg path:last-child{
+  transform:translateY(-3px);
+  transform-box:fill-box;
+  transform-origin:center;
+}
+
+@keyframes viberFinalShieldPulse{
+  0%,100%{
+    transform:scale(1);
+    opacity:.90;
+  }
+  50%{
+    transform:scale(1.095);
+    opacity:1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .viber-result-shield{
+    animation:none !important;
+    transform:none !important;
+    opacity:1 !important;
+  }
+}
